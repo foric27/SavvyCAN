@@ -27,6 +27,7 @@ SOURCES += main.cpp\
     canbridgewindow.cpp \
     connections/canlogserver.cpp \
     connections/canserver.cpp \
+    connections/carbusconnection.cpp \
     connections/lawicel_serial.cpp \
     connections/mqtt_bus.cpp \
     dbc/dbcnodeduplicateeditor.cpp \
@@ -113,6 +114,7 @@ HEADERS  += mainwindow.h \
     canframemodel.h \
     connections/canlogserver.h \
     connections/canserver.h \
+    connections/carbusconnection.h \
     connections/lawicel_serial.h \
     connections/socketcand.h \
     connections/mqtt_bus.h \

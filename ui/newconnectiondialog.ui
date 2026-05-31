@@ -64,13 +64,20 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QRadioButton" name="rbLawicel">
-        <property name="text">
-         <string>LAWICEL / SLCAN Serial</string>
-        </property>
-       </widget>
-      </item>
+       <item row="2" column="0">
+        <widget class="QRadioButton" name="rbLawicel">
+         <property name="text">
+          <string>LAWICEL / SLCAN Serial</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QRadioButton" name="rbCarBusHacker">
+         <property name="text">
+          <string>CAN-Hacker Serial</string>
+         </property>
+        </widget>
+       </item>
       <item row="6" column="0">
        <widget class="QRadioButton" name="rbCANserver">
         <property name="text">

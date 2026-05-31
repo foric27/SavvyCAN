@@ -30,6 +30,7 @@ NewConnectionDialog::NewConnectionDialog(QVector<QString>* gvretips, QVector<QSt
     connect(ui->rbLawicel, &QAbstractButton::clicked, this, &NewConnectionDialog::handleConnTypeChanged);
     connect(ui->rbCANserver, &QAbstractButton::clicked, this, &NewConnectionDialog::handleConnTypeChanged);
     connect(ui->rbCanlogserver, &QAbstractButton::clicked, this, &NewConnectionDialog::handleConnTypeChanged);
+    connect(ui->rbCarBusHacker, &QAbstractButton::clicked, this, &NewConnectionDialog::handleConnTypeChanged);
 
     connect(ui->cbDeviceType, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &NewConnectionDialog::handleDeviceTypeChanged);
     connect(ui->btnOK, &QPushButton::clicked, this, &NewConnectionDialog::handleCreateButton);
@@ -70,6 +71,7 @@ void NewConnectionDialog::handleConnTypeChanged()
     if (ui->rbMQTT->isChecked()) selectMQTT();
     if (ui->rbCANserver->isChecked()) selectCANserver();
     if (ui->rbCanlogserver->isChecked()) selectCANlogserver();
+    if (ui->rbCarBusHacker->isChecked()) selectCarBusHacker();
 }
 
 void NewConnectionDialog::handleDeviceTypeChanged()
@@ -270,6 +272,64 @@ void NewConnectionDialog::selectCANlogserver()
     ui->cbPort->clear();
 }
 
+void NewConnectionDialog::selectCarBusHacker()
+{
+    ui->lPort->setText("Serial Port:");
+
+    ui->lblDeviceType->setHidden(true);
+    ui->cbDeviceType->setHidden(true);
+
+    ui->cbCANSpeed->setHidden(false);
+    ui->cbSerialSpeed->setHidden(false);
+    ui->lblCANSpeed->setHidden(false);
+    ui->lblSerialSpeed->setHidden(false);
+    ui->cbCanFd->setHidden(false);
+    ui->cbDataRate->setHidden(false);
+    ui->lblDataRate->setHidden(false);
+
+    ui->cbPort->clear();
+    ports = QSerialPortInfo::availablePorts();
+
+    for (int i = 0; i < ports.count(); i++)
+        ui->cbPort->addItem(ports[i].portName());
+
+    if (ui->cbCANSpeed->count() == 0)
+    {
+        ui->cbCANSpeed->addItem("10000");
+        ui->cbCANSpeed->addItem("20000");
+        ui->cbCANSpeed->addItem("33300");
+        ui->cbCANSpeed->addItem("50000");
+        ui->cbCANSpeed->addItem("62500");
+        ui->cbCANSpeed->addItem("83300");
+        ui->cbCANSpeed->addItem("95200");
+        ui->cbCANSpeed->addItem("100000");
+        ui->cbCANSpeed->addItem("125000");
+        ui->cbCANSpeed->addItem("250000");
+        ui->cbCANSpeed->addItem("400000");
+        ui->cbCANSpeed->addItem("500000");
+        ui->cbCANSpeed->addItem("800000");
+        ui->cbCANSpeed->addItem("1000000");
+    }
+    if (ui->cbDataRate->count() == 0)
+    {
+        ui->cbDataRate->addItem("500000");
+        ui->cbDataRate->addItem("1000000");
+        ui->cbDataRate->addItem("2000000");
+        ui->cbDataRate->addItem("4000000");
+        ui->cbDataRate->addItem("5000000");
+    }
+    if (ui->cbSerialSpeed->count() == 0)
+    {
+        ui->cbSerialSpeed->addItem("115200");
+        ui->cbSerialSpeed->addItem("150000");
+        ui->cbSerialSpeed->addItem("250000");
+        ui->cbSerialSpeed->addItem("500000");
+        ui->cbSerialSpeed->addItem("1000000");
+        ui->cbSerialSpeed->addItem("2000000");
+        ui->cbSerialSpeed->addItem("3000000");
+    }
+}
+
 void NewConnectionDialog::setPortName(CANCon::type pType, QString pPortName, QString pDriver)
 {
 
@@ -299,6 +359,9 @@ void NewConnectionDialog::setPortName(CANCon::type pType, QString pPortName, QSt
         case CANCon::CANLOGSERVER:
           ui->rbCanlogserver->setChecked(true);
           break;
+        case CANCon::CARBUS_HACKER:
+          ui->rbCarBusHacker->setChecked(true);
+          break;
         default: {}
     }
 
@@ -309,6 +372,7 @@ void NewConnectionDialog::setPortName(CANCon::type pType, QString pPortName, QSt
     {
         case CANCon::GVRET_SERIAL:
         case CANCon::LAWICEL:
+        case CANCon::CARBUS_HACKER:
         {
             int idx = ui->cbPort->findText(pPortName);
             if( idx<0 ) idx=0;
@@ -360,6 +424,7 @@ QString NewConnectionDialog::getPortName()
     case CANCon::REMOTE:
     case CANCon::MQTT:
     case CANCon::LAWICEL:
+    case CANCon::CARBUS_HACKER:
         return ui->cbPort->currentText();
     case CANCon::KAYAK:
         return ui->cbPort->currentText();
@@ -385,7 +450,8 @@ QString NewConnectionDialog::getDriverName()
 
 int NewConnectionDialog::getSerialSpeed()
 {
-    if (getConnectionType() == CANCon::LAWICEL)
+    if (getConnectionType() == CANCon::LAWICEL ||
+        getConnectionType() == CANCon::CARBUS_HACKER)
     {
         return ui->cbSerialSpeed->currentText().toInt();
     }
@@ -394,7 +460,8 @@ int NewConnectionDialog::getSerialSpeed()
 
 int NewConnectionDialog::getBusSpeed()
 {
-    if (getConnectionType() == CANCon::LAWICEL)
+    if (getConnectionType() == CANCon::LAWICEL ||
+        getConnectionType() == CANCon::CARBUS_HACKER)
     {
         return ui->cbCANSpeed->currentText().toInt();
     }
@@ -411,6 +478,7 @@ CANCon::type NewConnectionDialog::getConnectionType()
     if (ui->rbLawicel->isChecked()) return CANCon::LAWICEL;
     if (ui->rbCANserver->isChecked()) return CANCon::CANSERVER;
     if (ui->rbCanlogserver->isChecked()) return CANCon::CANLOGSERVER;
+    if (ui->rbCarBusHacker->isChecked()) return CANCon::CARBUS_HACKER;
     qDebug() << "getConnectionType: error";
 
     return CANCon::NONE;
@@ -424,7 +492,8 @@ bool NewConnectionDialog::isSerialBusAvailable()
 
 int NewConnectionDialog::getDataRate()
 {
-    if (getConnectionType() == CANCon::LAWICEL)
+    if (getConnectionType() == CANCon::LAWICEL ||
+        getConnectionType() == CANCon::CARBUS_HACKER)
     {
         return ui->cbDataRate->currentText().toInt();
     }
@@ -433,9 +502,10 @@ int NewConnectionDialog::getDataRate()
 
 bool NewConnectionDialog::isCanFd()
  {
-     if (getConnectionType() == CANCon::LAWICEL)
+     if (getConnectionType() == CANCon::LAWICEL ||
+         getConnectionType() == CANCon::CARBUS_HACKER)
      {
-         return ui->cbCanFd;
+         return ui->cbCanFd->isChecked();
      }
-     else return 0;
+     else return false;
  }
