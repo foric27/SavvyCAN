@@ -70,6 +70,7 @@ private:
     quint8 mSeqCounter;
     bool mDeviceOpened;
     bool mChannelOpened;
+    bool mChannelConfigured;
     ConnState mConnState;
     int mStateTickCount;
 

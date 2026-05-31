@@ -70,6 +70,7 @@ CarBusConnection::CarBusConnection(QString portName, int serialSpeed, int busSpe
     mSeqCounter(0),
     mDeviceOpened(false),
     mChannelOpened(false),
+    mChannelConfigured(false),
     mHwId(0),
     mNumHwBuses(1),
     mCanFdSupported(false),
@@ -198,6 +199,12 @@ void CarBusConnection::piSetBusSettings(int pBusIdx, CANBus bus)
 
     setBusConfig(pBusIdx, bus);
 
+    // Ignore redundant open requests once the same channel is already configured.
+    if (mChannelOpened && mChannelConfigured) {
+        sendDebug("Skipping duplicate CAN channel configuration");
+        return;
+    }
+
     sendDebug("Opening CAN channel with settings");
 
     quint8 bitrateIdx;
@@ -249,14 +256,16 @@ void CarBusConnection::piSetBusSettings(int pBusIdx, CANBus bus)
 
     quint16 headerFlags = ((pBusIdx + 1) & 0x0F) * 0x20;
     sendCommand(CMD_CHANNEL_OPEN, headerFlags, payload, false);
+    mChannelConfigured = true;
 }
 
 bool CarBusConnection::piSendFrame(const CANFrame& frame)
 {
     if (serial == nullptr || !serial->isOpen()) return false;
+    if (!mChannelOpened) return false;
 
     quint32 id = frame.frameId();
-    quint32 msgFlags = FLAG_BLOCK_TX; // Don't echo back
+    quint32 msgFlags = 0;
 
     if (frame.hasExtendedFrameFormat()) {
         msgFlags |= FLAG_EXTID;
@@ -269,12 +278,8 @@ bool CarBusConnection::piSendFrame(const CANFrame& frame)
         msgFlags |= FLAG_RTR;
     }
 
-    // Note: CANFrame (Qt5 QCanBusFrame) doesn't have isCanFD() method
-    // CAN-FD is determined by payload length > 8 or bus configuration
-    if (frame.payload().length() > 8 || mCanFd) {
-        msgFlags |= FLAG_FDF;
-        // BRS flag could be set based on configuration if needed
-    }
+    // Start with classic CAN only until TX message framing is validated.
+    if (frame.payload().length() > 8) return false;
 
     quint32 timestamp = 0;
     quint32 reserved = 0;
@@ -309,7 +314,7 @@ bool CarBusConnection::piSendFrame(const CANFrame& frame)
     // DATA
     payload.append(frame.payload());
 
-    quint16 headerFlags = ((frame.bus + 1) & 0x0F) * 0x20;
+    quint16 headerFlags = (((frame.bus >= 0 ? frame.bus : 0) + 1) & 0x0F) * 0x20;
     sendCommand(CMD_MESSAGE, headerFlags, payload, true);
 
     return true;
@@ -362,6 +367,7 @@ void CarBusConnection::disconnectDevice()
 {
     mTimer.stop();
     mConnState = STATE_IDLE;
+    mChannelConfigured = false;
 
     if (mDeviceOpened) {
         sendCommand(CMD_DEVICE_CLOSE, 0, QByteArray(), false);
@@ -435,6 +441,15 @@ void CarBusConnection::readSerialData()
 void CarBusConnection::parseReceivedData()
 {
     while (mRxBuffer.size() >= 4) {
+        // Ignore empty padding blocks often emitted by the device.
+        if ((unsigned char)mRxBuffer.at(0) == 0x00 &&
+            (unsigned char)mRxBuffer.at(1) == 0x00 &&
+            (unsigned char)mRxBuffer.at(2) == 0x00 &&
+            (unsigned char)mRxBuffer.at(3) == 0x00) {
+            mRxBuffer.remove(0, 4);
+            continue;
+        }
+
         // Check for SYNC response first
         if ((unsigned char)mRxBuffer.at(0) == 0x5A &&
             (unsigned char)mRxBuffer.at(1) == 0x00 &&
