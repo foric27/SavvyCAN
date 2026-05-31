@@ -1,35 +1,35 @@
-Connection Window
+Окно подключений
 ==============================
 
-![Connection Window](./images/ConnectionWindow.png)
+![Окно подключений](./images/ConnectionWindow.png)
 
-The connection window is used to add, remove, and modify connections.
+Окно подключений используется для добавления, удаления и изменения подключений.
 
-Connecting To A Dongle
+Подключение к адаптеру
 ==============================
-Click the button "Add New Device Connection" and fill out the screen with the proper settings. Some devices may create more than one bus but will still only take up one row in the list.
+Нажмите кнопку «Добавить новое устройство» и заполните экран нужными настройками. Некоторые устройства могут создавать более одной шины, но при этом будут занимать только одну строку в списке.
 
-Removing a Device
+Удаление устройства
 ==================
-Click on the device in the list in the upper lefthand side of the window then click the "Remove Selected Device" button
+Нажмите на устройство в списке в левом верхнем углу окна, затем нажмите кнопку «Отключить выбранное устройство»
 
-Modifying Device Settings
+Изменение настроек устройства
 =========================
-Once you have selected a bus from the list you can disconnect it or modify its settings in the parameters at the buttom left. You must click "Save Bus Settings" to confirm the new settings. If the device you have selected has multiple buses then you will see tabs appear below where it says "Bus Details", one for each bus.
+После того, как вы выбрали шину из списка, вы можете отключить её или изменить её настройки в параметрах внизу слева. Вы должны нажать «Сохранить настройки шины», чтобы подтвердить новые настройки. Если у выбранного устройства есть несколько шин, вы увидите вкладки под надписью «Детали шины», по одной на каждую шину.
 
-Debugging Connection Problems
+Отладка проблем подключения
 ==============================
-GVRET devices present as serial ports and have significant configuration options. 
-However, the ability to configure so many things and the ability to compile the firmware 
-yourself both come as a double edged sword. They present many opportunities for things 
-to go wrong. Because of this there is a debugging console present on the connection window. 
-Click a bus in the table then click "Enable Console" to cause it to start logging serial 
-traffic. From this console you can see what is going on. It shows what SavvyCAN is sending 
-and what it is getting back. It has extended status messages that might help to narrow down 
-what is going wrong. Additionally, if you're feeling adventurous you can send traffic to 
-the serial device from the Send line. "Send Hex" accepts a set of hex values separated 
-by spaces. "Send Text" will send the raw text you type on the line. GVRET traffic is 
-ordinarily binary so "Send Text" won't work very well for that. But, there is also a 
-text console possible on GVRET devices. If you connect to them with a serial program you can
-configure things via a text console. Type ? and follow it up with some form of line 
-ending (Cr, Lf, CrLf, any will work).
+Устройства GVRET представляются как последовательные порты и имеют значительные параметры конфигурации.
+Однако возможность настраивать так много вещей и возможность компилировать прошивку
+самостоятельно являются двусторонним оружием. Они предоставляют множество возможностей для того,
+что-то пойдёт не так. Поэтому в окне подключений присутствует консоль отладки.
+Нажмите на шину в таблице, затем нажмите «Включить консоль», чтобы начать логирование последовательного
+трафика. Из этой консоли вы можете видеть, что происходит. Она показывает, что SavvyCAN отправляет
+и что получает в ответ. В ней есть расширенные статусные сообщения, которые могут помочь определить,
+что идёт не так. Кроме того, если вы чувствуете себя искушённым, вы можете отправлять трафик на
+последовательное устройство из строки отправки. «Отправить Hex» принимает набор шестнадцатеричных значений, разделённых
+пробелами. «Отправить текст» отправит сырой текст, который вы введёте в строке. Трафик GVRET
+обычно является бинарным, поэтому «Отправить текст» не будет работать очень хорошо для этого. Но есть также
+возможность текстовой консоли на устройствах GVRET. Если вы подключитесь к ним через последовательную программу, вы можете
+настраивать вещи через текстовую консоль. Введите ? и завершите каким-либо символом
+окончания строки (Cr, Lf, CrLf, любой будет работать).

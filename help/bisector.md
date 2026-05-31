@@ -1,23 +1,23 @@
-Bisector Window
+Окно бисектора
 =================
 
-![Bisector Window](images/Bisector.png)
+![Окно бисектора](images/Bisector.png)
 
-Using the Bisector Window
+Использование окна бисектора
 ==========================
 
-The purpose of this window is obviously to split the list of frames into two pieces. You have many options for how to do this. You can split by:
+Назначение этого окна — разделить список кадров на две части. У вас есть множество вариантов, как это сделать. Вы можете разделить по:
 
-ID Range - Grab a set of frames between two values. Note that you cannot pick and choose frame IDs here but rather just use a list. If you want to pick and choose then use the filter interface on the main form and then save the filtered list from the File menu.
+Диапазону ID — захватить набор кадров между двумя значениями. Обратите внимание, что вы не можете выбирать ID кадров произвольно, а только использовать список. Если хотите выбирать произвольно, используйте интерфейс фильтров в главной форме, а затем сохраните отфильтрованный список из меню Файл.
 
-Frame Number - You can split right at a given frame number. All frames up to that number will be on one side with all the rest on the other.
+Номеру кадра — вы можете разделить прямо по заданному номеру кадра. Все кадры до этого номера будут с одной стороны, остальные — с другой.
 
-Percentage - Pretty much just like the Frame Number option but in percentage instead in case that is more convenient.
+Проценту — практически то же самое, что и номер кадра, но в процентах, если это удобнее.
 
-Bus Number - You can also split the capture to include or exclude a given bus number. This can be helpful to allow breaking up the file into per-bus files.
+Номеру шины — вы также можете разделить захват, чтобы включить или исключить заданный номер шины. Это может быть полезно для разделения файла на файлы по шинам.
 
-In all cases, you have the option of which side of the split you want to save. Click "Calculate Split" to process the split. You will see above the buttons a reference of how many frames there were in total and how many you would be saving after the split. From here you *should* be able to do one of two things:
+Во всех случаях у вас есть выбор, какую сторону разделения вы хотите сохранить. Нажмите «Рассчитать разделение», чтобы обработать разделение. Вы увидите над кнопками справочную информацию о том, сколько всего было кадров и сколько вы сохраните после разделения. Отсюда вы *должны* быть в состоянии сделать одно из двух:
 
-"Save split frames to a new file" - Save the new list of frames (after the split) to a file. You can save to any file format that SavvyCAN supports elsewhere. 
+«Сохранить разделённые кадры в новый файл» — сохранить новый список кадров (после разделения) в файл. Вы можете сохранить в любой формат файла, который SavvyCAN поддерживает в других местах.
 
-"Replace main list with split frames" - Erases all messages on the main window and replaces them with the results of the bisection. You will lose all discarded frames if you haven't saved them elsewhere.
+«Заменить основной список разделёнными кадрами» — стирает все сообщения в главном окне и заменяет их результатами бисекции. Вы потеряете все отброшенные кадры, если не сохранили их в другом месте.

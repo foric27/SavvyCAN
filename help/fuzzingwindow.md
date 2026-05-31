@@ -1,45 +1,44 @@
-Fuzzing Window
+Окно фаззинга
 ===============
 
-![Fuzzing Window](./images/FuzzingWindow.png)
+![Окно фаззинга](./images/FuzzingWindow.png)
 
 
-The Purpose of Fuzzing
+Назначение фаззинга
 ======================
 
-Some people are big fans of fuzzing, some people have no use for it. There usually isn't much in between. So, what is fuzzing and why would you want to do it? Fuzzing is intentionally sending random information to see what happens. It's pretty much the "shotgun" solution - you fire birdshot into the air and see if it hits anything. Does that sound a bit dangerous? It kind of is. So, why do it? It might help you to find frame IDs that control things. It might help you to find a data byte that controls something. Used carefully it can be used to figure out how different values affect things.
+Некоторые люди большие поклонники фаззинга, некоторым он не нужен. Обычно нет ничего посередине. Итак, что такое фаззинг и зачем он нужен? Фаззинг — это намеренная отправка случайной информации, чтобы посмотреть, что произойдёт. Это в значительной степени решение «дробовик» — вы стреляете дробью в воздух и смотрите, попадёт ли во что-нибудь. Звучит немного опасно? В каком-то смысле так и есть. Зачем это делать? Это может помочь вам найти ID кадров, которые управляют вещами. Это может помочь вам найти байт данных, который управляет чем-то. При аккуратном использовании это может быть использовано для выяснения, как различные значения влияют на вещи.
 
 
-Fuzzing is Dangerous
+Фаззинг опасен
 ====================
-You have now been warned. Sending random garbage over the CAN bus to see what happens could mess something up. It just might put your vehicle into gear and cause you to drive over a box full of kittens. Be careful! Never fuzz a car unless you're right there and you can stop it. Even better, don't do it unless your car is up on a hoist or jacks and can't drive over anyone. Even still, there is a small chance you could cause an adverse effect to your car. If you break something you own the pieces.
+Вас предупредили. Отправка случайного мусора по шине CAN, чтобы посмотреть, что произойдёт, может что-то испортить. Это может поставить ваш автомобиль на передачу и заставить вас проехать по ящику, полному котят. Будьте осторожны! Никогда не делайте фаззинг автомобиля, если вы не рядом и не можете его остановить. Ещё лучше, не делайте этого, если ваш автомобиль не на подъёмнике или домкратах и не может проехать по кому-либо. Тем не менее, есть небольшой шанс, что вы можете вызвать негативный эффект для вашего автомобиля. Если вы что-то сломаете, вы владеете осколками.
 
-Controlling the Fuzzy Beast
+Управление пушистым зверем
 ===========================
 
-So, you want to give it a try? Let's do it! First of all, you can set the delay between frames and the burst rate. The delay is in milliseconds but can be set as low as 0. If the delay is set to 0 then the system will attempt to send frames as fast as it can. However, even then you may not get quite as many frames per second as you'd like. Even at 0 it will still be scheduled by your operating system and so might not quite get to the speed you want. The burst rate can cause the program to send more than one frame each interval. This is useful as a CAN bus could potentially support 2000 to 8000 frames per second. If you need rapid frame sending your best bet is to set the sending interval to 1-2ms and then adjust the burst
-rate until you get your desired sending rate. Then you can set the number of bytes to send. Ordinarily this would be the full 8 but you can experiment with smaller frames. You can set to send on a specific bus. That's all the simple settings. It gets a bit more complicated now.
+Итак, вы хотите попробовать? Давайте сделаем это! Прежде всего, вы можете установить задержку между кадрами и скорость пакетной отправки. Задержка указывается в миллисекундах, но может быть установлена до 0. Если задержка установлена в 0, система будет пытаться отправлять кадры так быстро, как она может. Однако даже тогда вы можете не получить столько кадров в секунду, сколько хотели бы. Даже при 0 она всё равно будет планироваться операционной системой и поэтому может не достичь той скорости, которую вы хотите. Скорость пакетной отправки может заставить программу отправлять более одного кадра за интервал. Это полезно, так как шина CAN потенциально может поддерживать от 2000 до 8000 кадров в секунду. Если вам нужна быстрая отправка кадров, ваш лучший выбор — установить интервал отправки в 1-2 мс, а затем отрегулировать скорость пакетной отправки, пока вы не получите желаемую скорость отправки. Затем вы можете установить количество байт для отправки. Обычно это полные 8, но вы можете экспериментировать с меньшими кадрами. Вы можете установить отправку на конкретную шину. Это все простые настройки. Теперь всё становится немного сложнее.
 
-The "ID Scanning" box has two radio buttons:
+В блоке «Сканирование ID» есть две радиокнопки:
 
-1. Sequential will go from "Start ID" to "End ID" then reset back to Start over and over.
-2. Random will pick IDs at random in the range between Start and End
+1. Последовательное будет переходить от «Начального ID» к «Конечному ID», а затем сбрасываться обратно к началу снова и снова.
+2. Случайное будет выбирать ID случайным образом в диапазоне между начальным и конечным
 
-But, perhaps you don't want to fuzz IDs like that? The next box is "ID Selection" and the choices are:
+Но, возможно, вы не хотите делать фаззинг ID таким образом? Следующий блок — «Выбор ID», и варианты следующие:
 
-1. Range of IDs - this uses the aforementioned Start and End IDs
-2. Filter list - This causes it to pick frame IDs from the list below either sequentially or randomly according to the radio boxes under "ID Scanning"
+1. Диапазон ID — это использует вышеупомянутые начальные и конечные ID
+2. Список фильтров — это заставляет его выбирать ID кадров из списка ниже либо последовательно, либо случайным образом в соответствии с радиокнопками под «Сканированием ID»
 
-The last box is "Bit Scanning"
+Последний блок — «Сканирование битов»
 
-1. Sequential causes it to scan bits in logically sequential order. That is, the first available fuzzing bit is set then the just the second, then the first two, etc. This causes all of the fuzzed bits to sequentially set in order.
-2. Sweep causes the system to set the first one, then unset that one and set the second bit, then unset that, etc. Thus the fuzzed bit sweeps and only one fuzzed bit is set at once.
-3. Random will randomly pick whether each fuzzed bit is set or not.
+1. Последовательное заставляет сканировать биты в логически последовательном порядке. То есть, первый доступный бит фаззинга устанавливается, затем только второй, затем первые два и т.д. Это заставляет все фаззируемые биты последовательно устанавливаться по порядку.
+2. Развёртка заставляет систему установить первый, затем сбросить его и установить второй бит, затем сбросить его и т.д. Таким образом фаззируемый бит разворачивается, и только один фаззируемый бит установлен одновременно.
+3. Случайное будет случайным образом выбирать, установлен ли каждый фаззируемый бит или нет.
 
-In order to fuzz bits you need to set which bits to fuzz and which not to. As listed at the bottom of the window, there is a color code to the 8x8 grid. Clicking cells in the grid will toggle them between their various values. White bits are never set, black bits are always set no matter what, green bits follow the fuzzing pattern you specified in "Bit Scanning" You can also set the bytes directly with the text boxes above the 8x8 grid. Setting a hexadecimal value in these
-boxes will set the relevant bits in the 8x8 grid. You must press the ENTER/RETURN key to set the values. Merely changing the value will not update it (as a safety measure).
+Для фаззинга битов вам нужно установить, какие биты фаззировать, а какие нет. Как указано внизу окна, существует цветовой код для сетки 8x8. Щелчок по ячейкам в сетке будет переключать их между различными значениями. Белые биты никогда не устанавливаются, чёрные биты всегда устанавливаются независимо от всего, зелёные биты следуют заданному вами паттерну фаззинга в «Сканировании битов» Вы также можете установить байты напрямую с помощью текстовых полей над сеткой 8x8. Установка шестнадцатеричного значения в этих
+полях установит соответствующие биты в сетке 8x8. Вы должны нажать клавишу ENTER/RETURN, чтобы установить значения. Простое изменение значения не обновит его (в качестве меры предосторожности).
 
-Pulling the Trigger
+Нажатие на курок
 ===================
 
-Once you've configured everything click "Start Fuzzing" to give it a shot. You will see the number of frames sent so far listed below the button. Approximately four times per second the current value for each byte is copied into the text boxes just above the 8x8 grid. This can be used to see what is going on and to ensure that it is working the way you want it to. You can stop the fuzzing by pushing the start button again.
+Как только вы всё настроили, нажмите «Начать фаззинг», чтобы попробовать. Вы увидите количество отправленных кадров, перечисленное ниже кнопки. Примерно четыре раза в секунду текущее значение для каждого байта копируется в текстовые поля прямо над сеткой 8x8. Это можно использовать для того, чтобы видеть, что происходит, и убедиться, что всё работает так, как вы хотите. Вы можете остановить фаззинг, нажав кнопку запуска снова.

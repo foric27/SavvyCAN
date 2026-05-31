@@ -1,31 +1,31 @@
-DBC Message Editor
+Редактор DBC-сообщений
 ===================
 
-![DBC Editor](images/DBCEditor.png)
+![Редактор DBC](images/DBCEditor.png)
 
-This new interface places all nodes, messages, and signals into a tree structure. Each node has a list of messages that are sent by that node. Each message, in turn, has a list of signals contained within. Multiplexed and multi-level multiplexed messages are supported. Double clicking a node, message, or signal will bring up the relevant editor.
+Этот новый интерфейс размещает все узлы, сообщения и сигналы в древовидной структуре. Каждый узел имеет список сообщений, отправляемых этим узлом. Каждое сообщение, в свою очередь, имеет список сигналов, содержащихся в нём. Поддерживаются мультиплексированные и многоуровневые мультиплексированные сообщения. Двойной щелчок по узлу, сообщению или сигналу откроет соответствующий редактор.
 
-Quick Cheat Sheet
+Краткая шпаргалка
 ==================
-* F3 = Go to the previous item while searching
-* F4 = Go to the next item while searching
-* F5 = Create a new node
-* F6 = Create a new message
-* F7 = Create a new signal
-* DEL = Delete the currently selected item (node, message, or signal)
-* You can right click on nodes to get some special operations
-* If you have a message selected and you create a new message it will be a clone of the selected message. Likewise for signals. 
-* If you have a message selected and create a signal then that signal will have the message as its parent.
-* All items have icons to help you quickly determine what they are. Nodes have triangle icons, messages have envelope icons, signals have a few different icons depending on whether they're normal signals, multiplexor, or multiplexed.
+* F3 = Перейти к предыдущему элементу при поиске
+* F4 = Перейти к следующему элементу при поиске
+* F5 = Создать новый узел
+* F6 = Создать новое сообщение
+* F7 = Создать новый сигнал
+* DEL = Удалить текущий выбранный элемент (узел, сообщение или сигнал)
+* Вы можете щёлкнуть правой кнопкой мыши по узлам, чтобы получить некоторые специальные операции
+* Если у вас выбрано сообщение и вы создаёте новое сообщение, оно будет клоном выбранного сообщения. То же самое для сигналов.
+* Если у вас выбрано сообщение и вы создаёте сигнал, то этот сигнал будет иметь сообщение в качестве родителя.
+* У всех элементов есть иконки, чтобы помочь вам быстро определить, что это. Узлы имеют треугольные иконки, сообщения — иконки конвертов, сигналы имеют несколько разных иконок в зависимости от того, являются ли они обычными сигналами, мультиплексором или мультиплексированными.
 
-Working with Nodes
+Работа с узлами
 ===================
 
-In DBC files a node is a device on the CAN bus. For instance, the engine control unit (ECU) would be a node as would a motor controller, a battery charger, or any other device that is connected to the CAN bus. DBC files let you define nodes that are set as either the sender or receiver of a message. This allows messages to be organized for more easy retrieval. To add a new node click on the "New Node" button at the top or press F5 and type a new name and optionally a comment. The comment is not used by SavvyCAN but can be filled out for your own reference. The arrow next to a node can be pressed to get a list of all messages contained within.
+В DBC-файлах узел — это устройство на шине CAN. Например, блок управления двигателем (ECU) будет узлом, как и контроллер двигателя, зарядное устройство аккумулятора или любое другое устройство, подключённое к шине CAN. DBC-файлы позволяют определять узлы, которые установлены либо как отправитель, либо как получатель сообщения. Это позволяет организовать сообщения для более лёгкого поиска. Чтобы добавить новый узел, нажмите кнопку «Новый узел» вверху или нажмите F5 и введите новое имя и, по желанию, комментарий. Комментарий не используется SavvyCAN, но может быть заполнен для вашей собственной справки. Стрелку рядом с узлом можно нажать, чтобы получить список всех сообщений, содержащихся в нём.
 
-Working with Messages
+Работа с сообщениями
 =====================
 
-![DBC Editor](images/DBCMessageEditor.png)
+![Редактор DBC](images/DBCMessageEditor.png)
 
-Within each node are zero or more messages. Messages are defined based on their frame ID. For normal DBC files this creates a one to one correspondence of ID to a given CAN ID. For J1939 and GMLAN messages special masking is done and so more than one actual CAN id will map to the given message ID but still only one specific J1939 PGN will come through. Once a message ID is entered in for a new message it will attempt to auto populate the Data Len column with the number of data bytes that message has. You won't be able to set signals into bits that are past the message length so care should be taken to make this value accurate. You can give the DBC message a meaningful name. You can set the text color and background color for each message. This information will be used on the main screen when you click "Interpret Frames" but can quickly back fire. If you set black on black you will have a bad time. And, making your window look like a circus might not be ideal either. However, the choice is yours!
+Внутри каждого узла находится ноль или более сообщений. Сообщения определяются на основе их ID кадра. Для обычных DBC-файлов это создаёт соответствие один к одному между ID и данным CAN ID. Для сообщений J1939 и GMLAN выполняется специальное маскирование, поэтому более одного реального CAN ID будет соответствовать данному ID сообщения, но всё равно только один конкретный J1939 PGN будет проходить. Как только ID сообщения введён для нового сообщения, он попытается автоматически заполнить столбец Data Len количеством байт данных, которые имеет это сообщение. Вы не сможете установить сигналы в биты, которые выходят за пределы длины сообщения, поэтому следует внимательно относиться к точности этого значения. Вы можете дать DBC-сообщению значимое имя. Вы можете установить цвет текста и цвет фона для каждого сообщения. Эта информация будет использоваться на главном экране, когда вы нажмёте «Интерпретировать кадры», но может быстро обернуться неудачей. Если вы установите чёрный на чёрном, у вас будут проблемы. И создание окна, похожего на цирк, тоже может быть не идеальным. Однако выбор за вами!

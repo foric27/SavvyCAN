@@ -1,15 +1,15 @@
-DBC File Manager
+Менеджер DBC-файлов
 =================
 
-![DBC File Manager](./images/DBCManager.png)
+![Менеджер DBC-файлов](./images/DBCManager.png)
 
-Working with DBC Files
+Работа с DBC-файлами
 =======================
 
-This screen allows you to load and save DBC files. SavvyCAN supports loading more than one DBC file at a time. It can even use more than one DBC file per bus. But, "Associated Bus" can be used to associate a given DBC file to only one bus. If you don't need to associate to any specific bus then set this value to -1 which means "any bus." Matching criteria is used to select J1939 or GMLAN if necessary. These two systems have special ways of interpreting the frame ID. You can create a brand new DBC file by clicking "Create new DBC" button. It will be automatically named a unique name for you. You probably don't want that name though. Any time you save a DBC file its name will automatically update in the list. The "Load", "Save", "Remove", "Edit" buttons are all straight forward. You can edit a DBC file by double clicking it in the list. 
+Этот экран позволяет загружать и сохранять DBC-файлы. SavvyCAN поддерживает загрузку более одного DBC-файла одновременно. Он может даже использовать более одного DBC-файла на шину. Но «Связанная шина» может быть использована для связи данного DBC-файла только с одной шиной. Если вам не нужно связывать с какой-либо конкретной шиной, установите это значение в -1, что означает «любая шина». Критерии соответствия используются для выбора J1939 или GMLAN, если необходимо. Эти две системы имеют специальные способы интерпретации ID кадра. Вы можете создать совершенно новый DBC-файл, нажав кнопку «Создать новый DBC». Ему будет автоматически присвоено уникальное имя. Вам, вероятно, не понравится это имя. Каждый раз, когда вы сохраняете DBC-файл, его имя автоматически обновляется в списке. Кнопки «Загрузить», «Сохранить», «Удалить», «Редактировать» вполне очевидны. Вы можете редактировать DBC-файл, дважды щёлкнув по нему в списке.
 
 
-DBC File Ordering
+Порядок DBC-файлов
 ===================
 
-The "Move Up" and "Move Down" buttons can be used to change the order of DBC files. Why would you care? DBC files are accessed in the order they are in the list. When a frame is interpreted the system goes through the DBC files in order. It selects the first DBC file that is associated to the bus the message came in on and that implements the correct message ID. So, if you have multiple DBC files it is possible that the order might matter. 
+Кнопки «Вверх» и «Вниз» могут быть использованы для изменения порядка DBC-файлов. Почему это важно? DBC-файлы обрабатываются в том порядке, в котором они находятся в списке. Когда кадр интерпретируется, система проходит через DBC-файлы по порядку. Она выбирает первый DBC-файл, который связан с шиной, на которую пришло сообщение, и который реализует правильный ID сообщения. Таким образом, если у вас есть несколько DBC-файлов, порядок может иметь значение.

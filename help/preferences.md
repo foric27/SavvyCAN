@@ -1,78 +1,78 @@
-Preference Window
+Окно настроек
 =================
 
-![Preference Window](./images/Preferences.png)
+![Окно настроек](./images/Preferences.png)
 
-There are a variety of preferences that can be set in the program and persisted for future sessions.
+В программе можно установить различные настройки и сохранить их для будущих сеансов.
 
-Main Form Settings
+Настройки основной формы
 ===================
-* Autoscroll main frame winow by default - When capturing frames should the main window track the newest incoming messages or stay where it was? This option defaults it to follow the incoming frames by default. The main window has a toggle for auto scroll. This setting just sets the default value of that toggle.
-* Maximum data bytes per line - Really must helpful for CAN-FD traffic. Setting this to 8, 16, or 32 can help to be able to see all the bytes without the window having to be extremely wide.
+* Автопрокрутка основного окна кадров по умолчанию — При захвате кадров должно ли главное окно отслеживать новейшие входящие сообщения или оставаться там, где оно было? Эта опция по умолчанию заставляет его следовать за входящими кадрами. Главное окно имеет переключатель автопрокрутки. Эта настройка просто устанавливает значение по умолчанию этого переключателя.
+* Максимальное количество байт данных на строку — Действительно полезно для CAN-FD трафика. Установка этого значения в 8, 16 или 32 может помочь увидеть все байты без необходимости делать окно чрезмерно широким.
 
-General Settings
+Общие настройки
 ====================
 
-* "Save/Restore window positions and sizes": If this is set then the size and placement of the various windows in this application will be saved when the program is closed and loaded when each window is brought back up in the future. This can be used to create your own preferred layout. If you'd rather things come up in their default state every time then you can uncheck this box.
+* «Сохранять/восстанавливать позиции и размеры окон»: Если это установлено, то размер и расположение различных окон в этом приложении будут сохраняться при закрытии программы и загружаться при повторном открытии каждого окна в будущем. Это можно использовать для создания вашего собственного предпочтительного макета. Если вы предпочитаете, чтобы всё открывалось в состоянии по умолчанию каждый раз, вы можете снять этот флажок.
 
-* "Save/Restore CAN bus connections": This will cause the program to remember the devices you were connected to last time you ran the program and attempt to reconnect to them upon start up.
+* «Сохранять/восстанавливать подключения CAN-шины»: Это заставит программу запомнить устройства, к которым вы были подключены в прошлый раз, и попытаться переподключиться к ним при запуске.
 
-* "Display values as hexadecimal": A lot of the time people who are doing CAN reverse engineering like to see values in hexadecimal (base 16) instead of the more familiar decimal (base 10) system. Checking this box will cause most of the values in the application to show up in hex. This applies to CAN ids and data bytes. Unchecking this causes values to default to decimal instead. The reason for using hex is that each hex digit is 4 bits. Integers on a computer tend to be in multiples of 8 - 8, 16, 32, 64. So, hex digits have a direct mapping to the underlying binary. Decimal does not have this correspondence AT ALL. But, the choice is yours.
+* «Отображать значения в шестнадцатеричном формате»: Часто люди, которые занимаются обратной разработкой CAN, предпочитают видеть значения в шестнадцатеричном формате (основание 16) вместо более привычной десятичной системы (основание 10). Установка этого флажка заставит большинство значений в приложении отображаться в hex. Это относится к CAN ID и байтам данных. Отключение этого заставит значения по умолчанию отображаться в десятичном формате. Причина использования hex в том, что каждая шестнадцатеричная цифра — это 4 бита. Целые числа на компьютере, как правило, кратны 8 — 8, 16, 32, 64. Таким образом, шестнадцатеричные цифры имеют прямое соответствие с базовым двоичным кодом. Десятичный формат не имеет этого соответствия ВООБЩЕ. Но выбор за вами.
 
-* "Require validation of GVRET connection": GVRET style devices run over a serial connection. Serial connections can be finicky sometimes and so the connection can be validated to prove that everything is really still operating and talking. There probably isn't any reason to turn this off except while debugging to see if it changes anything. Mostly just don't touch this.
+* «Требовать валидацию подключения GVRET»: Устройства стиля GVRET работают через последовательное подключение. Последовательные подключения могут быть привередливыми иногда, и поэтому подключение можно проверить, чтобы доказать, что всё действительно всё ещё работает и общается. Нет никакой причины отключать это, кроме как во время отладки, чтобы посмотреть, изменит ли это что-то. В основном просто не трогайте это.
 
-* "Use filtered frames in sub-windows": The main window has a filtering interface where you can uncheck IDs to hide them. Ordinarily when you bring up one of the other windows it will still use the main unfiltered list. Sometimes you really do want to deal with the filtered list of frames even in the other windows. If this is checked then the other windows will see the filtered list and not the unfiltered actual list of frames that have been captured.
+* «Использовать отфильтрованные кадры в подокнах»: Главное окно имеет интерфейс фильтрации, где вы можете отменить выбор ID, чтобы скрыть их. Обычно, когда вы открываете одно из других окон, оно всё равно будет использовать основной неотфильтрованный список. Иногда вы действительно хотите работать с отфильтрованным списком кадров даже в других окнах. Если это отмечено, то другие окна будут видеть отфильтрованный список, а не неотфильтрованный фактический список захваченных кадров.
 
-* "OpenGL Accelerated AntiAliased Graphing": Checking this will cause all of the graphs to use OpenGL 3D acceleration. Most modern machines have some form of 3D acceleration so this option should be OK to use. If you check this your graphs will look a lot better and on good hardware should also be faster. In the future other options are likely to be added to the graphing screen that will likely only be enabled if OpenGL mode is also enabled. Try enabling this and see if performance is still good. It's safe to leave it off if in doubt.
+* «Ускоренное сглаживание графиков OpenGL»: Установка этого флажка заставит все графики использовать 3D-ускорение OpenGL. Большинство современных машин имеют какую-то форму 3D-ускорения, поэтому эту опцию должно быть безопасно использовать. Если вы отметите это, ваши графики будут выглядеть гораздо лучше, и на хорошем оборудовании также должны быть быстрее. В будущем, вероятно, будут добавлены другие параметры на экран графика, которые, вероятно, будут включены только при включённом режиме OpenGL. Попробуйте включить это и посмотрите, останется ли производительность хорошей. При сомнениях лучше оставить выключенным.
 
-* "CAN Frame Pre-allocation Size" - This requires a bit of explanation and caution. When SavvyCAN starts it pre-allocates a giant buffer for incoming CAN traffic. Otherwise as traffic comes in the program would have a limited amount of space allocated to receive the traffic. If this reserved space runs out then the program would have to go ask the operating system for more and copy all existing frames to the newer, bigger buffer. This is a slow process. So, instead a giant buffer is allocated up front (by default 10 million frames worth!). You aren't likely to exceed this value and so it never has to ask for more memory and things run smoothly. 10M frames is about 1/2 of a gigabyte. This is a lot of memory but very doable for most modern PCs. But, if you are running on a Raspberry Pi it may be a good idea to turn this down to, say, 1M instead. You may be tempted to make this value really large so that, no matter what, it never has to reallocate. But, setting this 100x bigger would try to allocate 50GB of RAM. You probably don't have that much RAM to spare. So, be cautious if you raise this value. 10M should be enough for most anyone. Even if you did happen to exceed the value the program won't crash, it will just pause for a long time as it creates a larger buffer and moves everything over.
+* «Размер предварительного выделения CAN-кадров» — Это требует некоторого объяснения и осторожности. Когда SavvyCAN запускается, он предварительно выделяет гигантский буфер для входящего CAN-трафика. В противном случае, по мере поступления трафика программа имела бы ограниченное количество места, выделенного для приёма трафика. Если это зарезервированное место закончится, программе придётся обращаться к операционной системе за дополнительным местом и копировать все существующие кадры в новый, больший буфер. Это медленный процесс. Поэтому вместо этого гигантский буфер выделяется заранее (по умолчанию на 10 миллионов кадров!). Вы вряд ли превысите это значение, и поэтому ей никогда не придётся запрашивать больше памяти, и всё работает плавно. 10M кадров — это около 1/2 гигабайта. Это много памяти, но вполне выполнимо для большинства современных ПК. Но если вы работаете на Raspberry Pi, может быть неплохо уменьшить это значение, скажем, до 1M. Вас может соблазнить сделать это значение очень большим, чтобы, что бы ни случилось, никогда не пришлось перераспределять. Но установка этого значения в 100 раз больше попытается выделить 50 ГБ ОЗУ. У вас, вероятно, нет столько свободной ОЗУ. Так что будьте осторожны, если увеличиваете это значение. 10M должно хватить для большинства. Даже если вы всё же случайно превысите значение, программа не упадёт, она просто приостановится на долгое время, пока создаёт больший буфер и переносит всё.
 
-* "Time Keeping": There are a variety of ways one could timestamp CAN frames as they come into the program. Selecting "Seconds" will cause the timestamp to be expressed as seconds since the frame list was last cleared. This tends to be an easy choice to work with. "Microseconds" will express the timestamp as millionths of a second since the last time the frame list was cleared. This is exactly like "Seconds" mode but without any decimal point. You might find this to be a bit hard to conceptualize. The last option is "System Clock" this will timestamp frames with the current system time when the frame came in. This is still very precise but now you'll get an absolute time stamp with the full date and time. The display of this mode can be changed by editing the "Time Format String" value. It defaults to an output that looks like "JAN-10 12:34:53.234" But you can set it to other values. Look here to find a reference for how you can create new format strings: http://doc.qt.io/qt-4.8/qdatetime.html#toString
+* «Ведение времени»: Есть различные способы, которыми можно отмечать временные метки CAN-кадров по мере их поступления в программу. Выбор «Секунды» заставит метку времени выражаться в секундах с момента последней очистки списка кадров. Это, как правило, удобный выбор для работы. «Микросекунды» выразит метку времени в миллионных долях секунды с момента последней очистки списка кадров. Это точно так же, как режим «Секунды», но без десятичной точки. Вы можете найти это немного трудным для понимания. Последний вариант — «Системные часы» — это будет отмечать кадры текущим системным временем, когда кадр поступил. Это всё ещё очень точно, но теперь вы получите абсолютную метку времени с полной датой и временем. Отображение этого режима можно изменить, отредактировав значение «Строка формата времени». По умолчанию вывод выглядит как «JAN-10 12:34:53.234», но вы можете установить другие значения. Посмотрите здесь, чтобы найти справку о том, как вы можете создавать новые строки формата: http://doc.qt.io/qt-4.8/qdatetime.html#toString
 
-Font Settings
+Настройки шрифта
 ==============
-* "Use fixed-width font in tables" - The default is to use the normal system font for everything in the program. The problem is, most default fonts are not fixed width. Why would you want fixed width? This makes things line up better between lines. With fixed width fonts you know that the third byte of one line is directly over top of the third byte for the line one down. This can make it easier to scan through multiple lines.
+* «Использовать моноширинный шрифт в таблицах» — По умолчанию для всего в программе используется обычный системный шрифт. Проблема в том, что большинство шрифтов по умолчанию не являются моноширинными. Зачем вам моноширинный шрифт? Это позволяет вещам лучше выравниваться между строками. С моноширинными шрифтами вы знаете, что третий байт одной строки находится прямо над третьим байтом строки ниже. Это может облегчить просмотр нескольких строк.
 
-* Size - You can set the default font size used in the application. Setting this up or down a bit may help things to look better to you. Getting to absurd is likely to make the program look really bad. This setting may be required if you use a 4k monitor and your operating system doesn't want to cooperate.
+* Размер — Вы можете установить размер шрифта по умолчанию, используемый в приложении. Увеличение или уменьшение этого значения может помочь сделать вещи более приятными на вид. Переход к абсурду, вероятно, сделает программу очень неопрятной. Эта настройка может потребоваться, если вы используете 4K-монитор, и ваша операционная система не хочет сотрудничать.
 
-Flow View Settings
+Настройки окна потока
 ==================
-* "Use timestamp mode by default": This is another convenience option. With this checked the Flow view will default to using time stamps on the graphing area instead of frame numbers.
+* «Использовать режим метки времени по умолчанию»: Это ещё одна опция удобства. С этим отмеченным окно потока по умолчанию будет использовать временные метки на графической области вместо номеров кадров.
 
-* "Set Auto Reference by default": The Flow view can either use static referencing or dynamic referencing (see the Flow view documentation for more info). If you'd like to use dynamic referencing and automatically set the reference by default then check this option.
+* «Устанавливать автоопорное по умолчанию»: Окно потока может использовать либо статическое опорное, либо динамическое опорное (см. документацию окна потока для получения дополнительной информации). Если вы хотите использовать динамическое опорное и автоматически устанавливать опорное по умолчанию, отметьте эту опцию.
 
-* "Hexadecimal Graph Y Axis" - Use 00-FF instead of 0-255 for the Y axis.
+* «Шестнадцатеричная ось Y графика» — Использовать 00-FF вместо 0-255 для оси Y.
 
 
-Playback Window Settings
+Настройки окна воспроизведения
 ========================
-* "Loop by default": Set the playback window to default to looping infinitely by default.
+* «Цикл по умолчанию»: Установить окно воспроизведения по умолчанию на бесконечное циклическое воспроизведение.
 
-* "Default playback speed (ms)": Set the default timing for playback
+* «Скорость воспроизведения по умолчанию (мс)»: Установить тайминг по умолчанию для воспроизведения
 
-* "Default Sending Bus": Set a default for which bus to send frames on.
+* «Шина отправки по умолчанию»: Установить значение по умолчанию для того, на какую шину отправлять кадры.
 
 
-DBC Settings
+Настройки DBC
 =============
-* "Label DBC Messages by default" - Normally the filter section of the main screen just shows the frame IDs. If you label DBC signals you will actually see the name of the DBC message next to the ID.
+* «Подписывать DBC-сообщения по умолчанию» — Обычно раздел фильтров главного экрана просто показывает ID кадров. Если вы подписываете DBC-сигналы, вы фактически увидите имя DBC-сообщения рядом с ID.
 
-* "Ignore DBC message colors" - It's possible to make DBC messages have rainbow colors. Each message can have a different background and foreground color. Sometimes they can get set to some really silly values. To save your sanity you have the option to completely ignore all colors set in the DBC file and just use the default colors for everything.
+* «Игнорировать цвета DBC-сообщений» — Можно сделать так, чтобы DBC-сообщения имели радужные цвета. Каждое сообщение может иметь разный цвет фона и переднего плана. Иногда они могут быть установлены в действительно глупые значения. Чтобы сохранить ваше здравомыслие, у вас есть возможность полностью игнорировать все цвета, установленные в DBC-файле, и просто использовать цвета по умолчанию для всего.
 
-File Info And Comparator Window Settings
+Настройки окна информации о файле и компаратора
 ========================================
-* "Auto expand all nodes": Both of the referenced windows have tree views that potentially have a large number of nodes. It's more neat not to expand them all by default but it also then requires more clicks if you have to expand them to view the information. So, you can set whether you'd like to expand them all by default or not.
+* «Автоматически разворачивать все узлы»: Оба упомянутых окна имеют древовидные представления, которые потенциально имеют большое количество узлов. Более аккуратно не разворачивать их все по умолчанию, но это также требует больше кликов, если вам приходится разворачивать их для просмотра информации. Таким образом, вы можете установить, хотите ли вы разворачивать их все по умолчанию или нет.
 
-* "Hexadecimal Graph Y Axis" - As with the Flowview, it is possible to change the Y axis to hexadecimal instead of decimal.
+* «Шестнадцатеричная ось Y графика» — Как и в окне потока, можно изменить ось Y на шестнадцатеричную вместо десятичной.
 
 
-MQTT Settings
+Настройки MQTT
 =============
 
-* MQTT allows SavvyCAN to connect to a broker for CAN transmission over the internet. You will need to set up the host, port, username, and password. These things are determined by your broker. You can run your own on Linux with Mosquitto. Yes, api.savvycan.com really does exist but, no, you can't actually connect as Anonymous and use it. Sorry...
+* MQTT позволяет SavvyCAN подключаться к брокеру для передачи CAN через интернет. Вам нужно будет настроить хост, порт, имя пользователя и пароль. Эти вещи определяются вашим брокером. Вы можете запустить свой собственный на Linux с Mosquitto. Да, api.savvycan.com действительно существует, но нет, вы не можете фактически подключиться как Anonymous и использовать его. Простите...
 
 
-Final Word of Warning
+Последнее предупреждение
 =====================
 
-After changing preferences it is the best practice to close and reopen the application to ensure that all settings have taken effect. Some settings do take effect immediately but others do not.
+После изменения настроек лучшей практикой является закрыть и снова открыть приложение, чтобы убедиться, что все настройки вступили в силу. Некоторые настройки вступают в силу немедленно, но другие — нет.

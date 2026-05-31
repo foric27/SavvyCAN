@@ -1,54 +1,54 @@
-Graph Setup
+Настройка графика
 ============
 
-![Graph Setup](./images/GraphSetup.png)
+![Настройка графика](./images/GraphSetup.png)
 
 
-Setting up a Graph
+Настройка графика
 ==================
 
-This same screen is used whether you are creating a new graph or editing an existing graph. If you are creating a new graph then you have two options. 
+Этот же экран используется, будь вы создаёте новый график или редактируете существующий. Если вы создаёте новый график, у вас есть два варианта.
 
 
-Graphing a DBC Signal
+График сигнала DBC
 =====================
-If you want to graph a signal from a DBC file that you have loaded then pick the Message from the combo box. Picking a message will then allow you to pick a signal within that message. After selecting both the message and the signal then click the "Copy Signal Parameters" button. This will fill out the left hand side with the proper values for you automatically.
+Если вы хотите построить график сигнала из загруженного DBC-файла, выберите Сообщение из выпадающего списка. Выбор сообщения затем позволит вам выбрать сигнал внутри этого сообщения. После выбора как сообщения, так и сигнала нажмите кнопку «Копировать параметры сигнала». Это автоматически заполнит левую сторону нужными значениями для вас.
 
-Manual Signal Graphing (Or Editing)
+Ручное построение сигнала (или редактирование)
 ===================================
 
-If you want to manually create a signal or edit an existing signal then you will find the relevant fields on the left hand size of the window.
+Если вы хотите вручную создать сигнал или отредактировать существующий, вы найдёте соответствующие поля в левой части окна.
 
-"Name" is for your reference and will be shown on the Graphing Window.
+«Имя» — для вашей справки и будет показано в окне графика.
 
-"ID" is the frame ID to use for this graph. You can enter in either decimal or hex. Hex values are preceded by 0x
+«ID» — это ID кадра для использования в этом графике. Вы можете ввести либо десятичное, либо шестнадцатеричное. Шестнадцатеричные значения предваряются 0x
 
-"Data Len" is used to specify how many bits are in the signal to graph. You can graph odd bit lengths such as 9, 11, or 15 bits. These are not as uncommon as you might think.
+«Длина данных» используется для указания, сколько бит в сигнале для построения графика. Вы можете строить графики сигналов с нечётными битовыми длинами, такими как 9, 11 или 15 бит. Они не так уж редки, как вы можете подумать.
 
-"Little Endian" switches between little and big endian mode. This will change how the signal grabs bits from the frame.
+«Little Endian» переключает между режимами little и big endian. Это изменит, как сигнал захватывает биты из кадра.
 
-Once you've set both Data Len and Little Endian you can set the bits to use. The 8x8 grid above is used for this. Click on the start bit and the rest of the bits will automatically be selected for you based on Data Len and Little Endian. 
+Как только вы установили и Длину данных, и Little Endian, вы можете установить биты для использования. Сетка 8x8 выше используется для этого. Щёлкните на начальном бите, и остальные биты будут автоматически выбраны для вас на основе Длины данных и Little Endian.
 
-"Signed" can be used to select between signed and unsigned mode.
+«Signed» может быть использован для выбора между знаковым и беззнаковым режимом.
 
-"Mask" will apply a mask to the value before using it.
+«Маска» применит маску к значению перед его использованием.
 
-"Bias" allows for setting an offset to the values to bring them to a different resting point
+«Смещение» позволяет установить смещение для значений, чтобы привести их к другой точке отсчёта
 
-"Scale" is used as a multiplier to change the scaling of the values
+«Масштаб» используется как множитель для изменения масштаба значений
 
-"Stride" is not often used but will cause only every "x" values to actually be graphed. This can be used to graph a very dense set of data with less points to speed things up.
+«Шаг» используется нечасто, но заставит графикировать только каждое «x» значение. Это можно использовать для построения графика очень плотного набора данных с меньшим количеством точек для ускорения.
 
-"Associated Bus" defaults to -1 which means any bus. If you know you want to only graph messages that arrived on a particular bus you can enter the number here. It is rare for two buses to have the same frame ID but with different actual messages but not unheard of. If you find that your graphs appear to randomly jitter back and forth between two distinct sets of values this may be the cause.
+«Связанная шина» по умолчанию равна -1, что означает любую шину. Если вы знаете, что хотите графикировать только сообщения, которые пришли на конкретную шину, вы можете ввести номер здесь. Редко, чтобы две шины имели один и тот же ID кадра, но с разными фактическими сообщениями, но это не неслыханно. Если вы обнаружите, что ваши графики случайно дёргаются между двумя различными наборами значений, это может быть причиной.
 
-"Only Points" will graph using disconnected points instead of lines.
+«Только точки» будет строить график с использованием несоединённых точек вместо линий.
 
-"Point Style" has a list of every style you can use for points. The default is to not show the points and instead draw a line through where the points are at. But, there are many other options.
+«Стиль точки» имеет список всех стилей, которые вы можете использовать для точек. По умолчанию точки не показываются, а вместо этого рисуется линия через места, где находятся точки. Но есть много других вариантов.
 
-"Line Thickness" will set how many pixels the line should be wide. The default of 1 is the "fastest" but you can use other thicknesses.
+«Толщина линии» установит, сколько пикселей должна быть ширина линии. Значение по умолчанию 1 является «самым быстрым», но вы можете использовать другие толщины.
 
-"Line Color" changes the color of the graphed line. It is automatically randomly set for new graphs but if you don't like the random color you can click the color and select a better one.
+«Цвет линии» изменяет цвет линии графика. Он автоматически случайно устанавливается для новых графиков, но если вам не нравится случайный цвет, вы можете щёлкнуть по цвету и выбрать лучший.
 
-"Fill Color" If you're feeling fancy you can also specify a fill color. The default fill color has an alpha value of 0 meaning it is completely transparent / no used. If you set a fill color you will need to set the alpha channel as well. An alpha of even 40-60 is usually plenty. 
+«Цвет заливки» Если вы хотите пофантазировать, вы также можете указать цвет заливки. Цвет заливки по умолчанию имеет альфа-значение 0, что означает, что он полностью прозрачен / не используется. Если вы установите цвет заливки, вам также нужно будет установить альфа-канал. Альфа даже 40-60 обычно достаточно.
 
-DO NOTE -> all the options starting at "Point Style" will drastically affect performance. If you try to graph a million points with a special point style, large line thickness, and a fill color it WILL be slow. For maximum speed just graph colored lines with no points.
+ОБРАТИТЕ ВНИМАНИЕ -> все параметры, начиная со «Стиля точки», будут радикально влиять на производительность. Если вы попытаетесь построить график миллиона точек со специальным стилем точки, большой толщиной линии и цветом заливки, это БУДЕТ медленно. Для максимальной скорости просто стройте цветные линии без точек.

@@ -1,69 +1,69 @@
-Sniffer Window
+Окно сниффера
 =================
 
-![Sniffer Window](./images/Sniffer.png)
+![Окно сниффера](./images/Sniffer.png)
 
-Using the Sniffer Window
+Использование окна сниффера
 =========================
 
-This window is essentially a turbo charged graphical version of the linux 
-can_utils program "cansniffer". The general idea here is to display a list 
-of frames such that you only see frames that are actively updating. If a given 
-ID has not been seen in 5 seconds the ID portion will turn RED and then disappear
-from the list. In this way only frames that are updating are in the list. They are
-ordered by ID. Bytes that have decremented will be red and bytes that have incremented 
-will be green. You can use the "Filters" area to mask away some IDs so that they never 
-show up. This can help to declutter the list. 
+Это окно по сути является турбозаряженной графической версией программы linux
+can_utils «cansniffer». Общая идея здесь — отображать список
+кадров так, что вы видите только кадры, которые активно обновляются. Если данный
+ID не был виден в течение 5 секунд, часть ID станет КРАСНОЙ, а затем исчезнет
+из списка. Таким образом, в списке находятся только кадры, которые обновляются. Они
+упорядочены по ID. Байты, которые уменьшились, будут красными, а байты, которые увеличились,
+будут зелёными. Вы можете использовать область «Фильтры», чтобы скрыть некоторые ID, чтобы они никогда
+не появлялись. Это может помочь разгрузить список.
 
-This window updates with a 200ms interval.
+Это окно обновляется с интервалом 200 мс.
 
-Notching and Unnotching
+Вырезание и отмена вырезания
 ========================
 
-While the window is running it keeps a running list each 200ms cycle of all the bits that 
-changed in that timespan. Each 200ms this list is backed up and reset. If you push the 
-notch button the system will remember all the bits that were set in the last 200ms window 
-and will not color the output if those bits are toggled in the future. They will thus somewhat 
-be ignored except that you can visually still see them updating. If you click the Notch 
-button repeatedly it will add any new changed bits to the old changed bits. In this way you 
-can build up a set of bits to ignore. Un-notching causes all notched (ignored) bits to be 
-reset and thus all changes will be colored once again. Notching is used to ignore bits that are changing all of the time. Why do this? The biggest reason is that you will probably want to ignore the "steady state" when you are doing research. Here is an example: Let's say you are searching for the steering position in your car. If you aren't moving the steering wheel you could safely assume that the value is not changing either. So, you might notch several times to mask out all the changing bits. You know anything currently changing isn't steering angle because you aren't moving the steering wheel. So, after thoroughly notching you then move the steeering wheel and see if you can spot an ID where suddenly bits changed where they weren't before. This can also be used to find gear selectors, speed and tachometer values, etc. Keep in mind that the default behavior when bits are notched is to still update but no longer change color. You can change this (see below)
+Пока окно работает, оно ведёт текущий список каждый цикл 200 мс всех битов, которые
+изменились за этот промежуток времени. Каждые 200 мс этот список сохраняется и сбрасывается. Если вы нажмёте
+кнопку вырезания, система запомнит все биты, которые были установлены в последнем окне 200 мс
+и не будет окрашивать вывод, если эти биты будут переключаться в будущем. Они будут таким образом
+игнорироваться, за исключением того, что вы визуально всё ещё можете видеть, как они обновляются. Если вы нажмёте кнопку Вырезать
+неоднократно, она добавит любые новые изменённые биты к старым изменённым битам. Таким образом вы
+можете накопить набор битов для игнорирования. Отмена вырезания заставляет все вырезанные (игнорируемые) биты
+сброситься, и таким образом все изменения снова будут окрашены. Вырезание используется для игнорирования битов, которые меняются постоянно. Зачем это делать? Самая большая причина в том, что вы, вероятно, захотите игнорировать «стационарное состояние», когда вы занимаетесь исследованиями. Вот пример: Допустим, вы ищете положение рулевого колеса в вашей машине. Если вы не двигаете рулевое колесо, можно безопасно предположить, что значение тоже не меняется. Итак, вы можете несколько раз вырезать, чтобы замаскировать все изменяющиеся биты. Вы знаете, что всё, что сейчас меняется, не является углом поворота рулевого колеса, потому что вы не двигаете рулевое колесо. Итак, после тщательного вырезания вы затем двигаете рулевое колесо и смотрите, можете ли вы заметить ID, где внезапно биты изменились там, где они не менялись раньше. Это также можно использовать для поиска селекторов передач, значений скорости и тахометра и т.д. Имейте в виду, что поведение по умолчанию при вырезанных битах — всё ещё обновляться, но больше не менять цвет. Вы можете изменить это (см. ниже)
 
-Advanced Options
+Расширенные параметры
 ==================
 
-All of the above was valid if you do not check any of the four checkboxes. With the checkboxes
-unchecked this window is very close to cansniffer on the command line. But, what fun is that?
-These checkboxes modify the way the window works in a variety of ways.
+Всё вышеперечисленное было верно, если вы не отмечаете ни один из четырёх флажков. С неотмеченными
+флажками это окно очень близко к cansniffer в командной строке. Но какая в этом радость?
+Эти флажки изменяют способ работы окна различными способами.
 
-Never Expire IDs
+Никогда не истекать ID
 ==================
 
-This checkbox will do exactly what it says on the tin. Instead of frame ID's expiring after
-5 seconds of inactivity they will stick around forever. This can be useful so that the ID you
-are watching doesn't jump up and down as IDs expire and potentially come back later on or new IDs
-are seen. With no expiration you will get a more consistent view of the IDs. You are still free
-to filter away IDs you are not interested in.
+Этот флажок сделает именно то, что написано на этикетке. Вместо того, чтобы ID кадров истекали после
+5 секунд неактивности, они останутся навсегда. Это может быть полезно, чтобы ID, который
+вы наблюдаете, не прыгал вверх и вниз, по мере истечения ID и потенциального возвращения позже или появления новых ID
+. Без истечения вы получите более последовательное представление ID. Вы всё ещё можете
+отфильтровывать ID, которые вас не интересуют.
 
-Mute notched bits
+Приглушить вырезанные биты
 ===================
 
-This checkbox might sound a bit strange. With this checked any bytes that you have notched will
-ignore any notched bits and not even change the display to update if only notched bits were changed.
-This completely hides all notched data. The view of the frames will then NOT perfectly or correctly
-represent the actual most up to date data for each ID. So, use this option with caution. But, it
-is handy when you are looking for a needle in a haystack and you don't want things changing if you've
-already told the program to notch them away. This will make changes even more visible but you must be cautious since the data is now somewhat "fake" anywhere there are notched bits.
+Этот флажок может звучать немного странно. С этим отмеченным любые байты, которые вы вырезали,
+будут игнорировать любые вырезанные биты и даже не менять отображение для обновления, если были изменены только вырезанные биты.
+Это полностью скрывает все вырезанные данные. Представление кадров затем НЕ будет идеально или правильно
+представлять фактические самые актуальные данные для каждого ID. Так что используйте эту опцию с осторожностью. Но,
+это удобно, когда вы ищете иголку в стоге сена, и вы не хотите, чтобы вещи менялись, если вы
+уже сказали программе вырезать их. Это сделает изменения ещё более заметными, но вы должны быть осторожны, так как данные теперь несколько «фейковые» в любом месте, где есть вырезанные биты.
 
-Fade inactive bytes
+Затухание неактивных байтов
 ====================
 
-This can be used with mute or without but has a similar purpose. When this is checked any bytes
-that haven't updated recently will begin to fade away to white. They never quite get all the way
-to disappearing but will fade to be very light. In this way only data which is actively changing will
-be very visible. This drastically aids in helping you to ignore any bytes that are not changing.
+Это можно использовать с приглушением или без, но имеет схожее назначение. Когда это отмечено, любые байты,
+которые не обновлялись недавно, начнут затухать до белого. Они никогда не исчезнут полностью,
+но затухнут, чтобы стать очень светлыми. Таким образом, только данные, которые активно меняются,
+будут очень заметны. Это радикально помогает вам игнорировать любые байты, которые не меняются.
 
-View Bits
+Просмотр битов
 ==========
 
-This option changes the view very starkly. This is the view shown in the picture associated with this topic. When View Bits is selected the display will change to show each bit within the bytes as separate blocks that each can separately be black when set and unchanged, white when unset and unchanged, red when freshly unset, and green when freshly set. This allows for a very fine grained view. Fade inactive, and never expire still work as usual. This mode might be a bit "busy" and lowers the number of IDs you can see at once. But, the choice is yours. You give up some density in exchange for verbosity.
+Эта опция очень резко меняет представление. Это представление, показанное на картинке, связанной с этой темой. Когда выбран «Просмотр битов», отображение изменится, чтобы показывать каждый бит внутри байтов как отдельные блоки, каждый из которых может отдельно быть чёрным, когда установлен и неизменён, белым, когда сброшен и неизменён, красным, когда недавно сброшен, и зелёным, когда недавно установлен. Это позволяет получить очень детализированное представление. Затухание неактивных и никогда не истекать по-прежнему работают как обычно. Этот режим может быть немного «загруженным» и уменьшает количество ID, которые вы можете видеть одновременно. Но выбор за вами. Вы жертвуете некоторой плотностью в обмен на многословность.

@@ -1,91 +1,91 @@
-Scripting Interface
+Интерфейс скриптов
 ====================
 
-![Scripting Window](./images/ScriptingWindow.png)
+![Окно скриптов](./images/ScriptingWindow.png)
 
-Purpose of the Scripting Interface
+Назначение интерфейса скриптов
 ==================================
 
-To give you an open ended place where you can write JavaScript files that do whatever you need them to do. You can load several files at once and they'll all work at the same time. Scripts can expose parameters that can then be edited by you while the program is running. They also update 4 times per second so they can be used to give feedback of the current state of the script as well. But, it is safer to give status in the "Log Window" instead. However, for values that might need to be seen and frequently updated it might be easiest to show them as "Public Variables".
+Дать вам открытое место, где вы можете писать JavaScript-файлы, которые делают всё, что вам нужно. Вы можете загружать несколько файлов одновременно, и все они будут работать одновременно. Скрипты могут раскрывать параметры, которые затем могут быть отредактированы вами во время работы программы. Они также обновляются 4 раза в секунду, поэтому их можно использовать для получения обратной связи о текущем состоянии скрипта. Но безопаснее давать статус в «Окне логов» вместо этого. Однако для значений, которые могут нуждаться в том, чтобы быть видимыми и часто обновляемыми, может быть проще показывать их как «Публичные переменные».
 
-Managing Scripts
+Управление скриптами
 =================
 
-In the bottom left is the "Loaded Scripts" list. You can create a new script by clicking the "New" button below the list. The new script will have a random name until you save it. The "Del" button will delete the currently selected script but it will ask you first. The "Load" button will load a new script from a file. The "Save" button is above the main script view which is in the upper right of the window. "Revert" will revert the script to the last version that was compiled. Any changes you've made since compiling well be reverted. "Recompile" is used to compile the script and begin running the new version.
+В левом нижнем углу находится список «Загруженные скрипты». Вы можете создать новый скрипт, нажав кнопку «Новый» под списком. Новый скрипт будет иметь случайное имя, пока вы его не сохраните. Кнопка «Удалить» удалит текущий выбранный скрипт, но сначала спросит вас. Кнопка «Загрузить» загрузит новый скрипт из файла. Кнопка «Сохранить» находится над основным представлением скрипта, которое находится в правом верхнем углу окна. «Откат» откатит скрипт к последней версии, которая была скомпилирована. Любые изменения, которые вы сделали с момента компиляции, будут отменены. «Перекомпилировать» используется для компиляции скрипта и начала выполнения новой версии.
 
-Getting Script Status
+Получение статуса скрипта
 ======================
 
-There are two places you can look for the status of a script. The "Log Window" is directly below the script source code editor. This window is shared between all scripts and shows the status of compiling scripts as well as log messages from each script. The script name that sent the log message is prepended. The number before the script name is the amount of time the scripting window had been open for when the message was sent. This unified interface can be used to keep an eye on all of the running scripts and to debug issues when a script is compiled. Any compile errors will show up in the log window. You can set the checkbox on "Auto Scroll Log Window" to make it continue to stay at the bottom of the log. You can clear the log at any time as well.
+Есть два места, где вы можете посмотреть статус скрипта. «Окно логов» находится прямо под редактором исходного кода скрипта. Это окно общее для всех скриптов и показывает статус компиляции скриптов, а также лог-сообщения от каждого скрипта. Имя скрипта, отправившего лог-сообщение, предваряет его. Число перед именем скрипта — это количество времени, в течение которого окно скриптов было открыто, когда сообщение было отправлено. Этот унифицированный интерфейс можно использовать для наблюдения за всеми запущенными скриптами и для отладки проблем, когда скрипт компилируется. Любые ошибки компиляции появятся в окне логов. Вы можете установить флажок «Автопрокрутка окна логов», чтобы оно продолжало оставаться внизу лога. Вы также можете очистить лог в любое время.
 
-The other way to see script status is to use the "Public Variables" interface. Here you will find variables that were registered by the current script. Each script has its own list so information that needs to be updated frequently and/or specific to a script and easily accessible should be registered here. But, public variables can have their value set by you, the user, as well. So, care should be taken not to edit variables used for script feedback and scripts shouldn't try to change the value of variables used for input to the program.
+Другой способ увидеть статус скрипта — использовать интерфейс «Публичные переменные». Здесь вы найдёте переменные, которые были зарегистрированы текущим скриптом. У каждого скрипта свой список, поэтому информация, которую нужно часто обновлять и/или которая специфична для скрипта и легко доступна, должна быть зарегистрирована здесь. Но публичные переменные могут иметь своё значение, установленное вами, пользователем, также. Поэтому следует быть осторожным, не редактировать переменные, используемые для обратной связи скрипта, и скрипты не должны пытаться изменять значение переменных, используемых для ввода в программу.
 
-Writing Scripts
+Написание скриптов
 ================
 
-You are more or less free to write JavaScript scripts but, of course, you aren't in a web browser so browser specific functions are just not there. In their place are a couple of JS objects that allow the script to interface with the CAN buses connected to SavvyCAN. Also, certain functions can be created to automatically register callbacks.
+Вы более или менее свободны в написании JavaScript-скриптов, но, конечно, вы не в веб-браузере, поэтому браузер-специфичные функции просто отсутствуют. На их месте есть пара JS-объектов, которые позволяют скрипту взаимодействовать с CAN-шинами, подключёнными к SavvyCAN. Также определённые функции могут быть созданы для автоматической регистрации обратных вызовов.
 
-Callback Functions
+Функции обратного вызова
 ===================
 
-These functions can be created in your scripts to enable certain functionality:
+Эти функции могут быть созданы в ваших скриптах для включения определённой функциональности:
 
-setup () - If you create a function named setup then it will be called as soon as the script starts. Yes, you probably could just dump code into no function at all right into the file but that's bad form!
+setup () — Если вы создадите функцию с именем setup, она будет вызвана сразу, как только скрипт запустится. Да, вы, вероятно, могли бы просто выгрузить код ни в какую функцию прямо в файл, но это плохая форма!
 
-tick () - If you registered to receive a periodic tick within your setup function then the script interface will call this function for every tick. You can do whatever you need to periodically do here. But, you get only one tick handler so if you need multiple tick rates you'll have to create a fast tick here and dispatch from this function at different rates yourself.
+tick () — Если вы зарегистрировались для получения периодического тика в вашей функции setup, то интерфейс скриптов будет вызывать эту функцию для каждого тика. Вы можете делать всё, что нужно периодически делать здесь. Но у вас есть только один обработчик тика, поэтому если вам нужно несколько скоростей тика, вам придётся создать быстрый тик здесь и диспетчеризовать из этой функции с разными скоростями самостоятельно.
 
-gotCANFrame (bus, id, len, data) - A callback that will be called whenever a CAN frame comes in that you've registered for. You did register for frames in your setup function didn't you? Well, if you use one of the below callbacks you might not need this one.
+gotCANFrame (bus, id, len, data) — Обратный вызов, который будет вызываться всякий раз, когда приходит CAN-кадр, на который вы зарегистрировались. Вы зарегистрировались для кадров в вашей функции setup, не так ли? Ну, если вы используете один из приведённых ниже обратных вызовов, вам, возможно, не понадобится этот.
 
-gotISOTPMessage (bus, id, len, data) - If you are instead looking for ISO-TP messages (which could have been multiple CAN frames in length) then you can create this function and it will automatically be registered with the system. But, you still will need to set which ISO-TP message IDs you want to receive. That is covered later on.
+gotISOTPMessage (bus, id, len, data) — Если вы вместо этого ищете сообщения ISO-TP (которые могли быть длиной в несколько CAN-кадров), то вы можете создать эту функцию, и она будет автоматически зарегистрирована в системе. Но вам всё равно нужно будет установить, какие ID сообщений ISO-TP вы хотите получать. Это рассмотрено позже.
 
-gotUDSMessage (bus, id, service, subfunc, len, data) - UDS messages are transmitted over ISO-TP but with additional structure. If you're looking to interface directly at the UDS level then you can create this function to have it automatically registered. As with raw CAN and ISO-TP you still need to specify which messages IDs you are interested in.
+gotUDSMessage (bus, id, service, subfunc, len, data) — Сообщения UDS передаются через ISO-TP, но с дополнительной структурой. Если вы хотите взаимодействовать непосредственно на уровне UDS, то вы можете создать эту функцию, чтобы она была автоматически зарегистрирована. Как и с сырым CAN и ISO-TP, вам всё равно нужно указать, какие ID сообщений вас интересуют.
 
-The host Object
+Объект host
 ================
 
-The first object you can use is "host" This object handles setup of the tick timer as well as logging output and registration of public variables.
+Первый объект, который вы можете использовать, — «host». Этот объект обрабатывает настройку таймера тика, а также вывод логов и регистрацию публичных переменных.
 
-host.setTickInterval(interval) - If the interval is more than 0 then your tick callback will be called every "interval" milliseconds. If a value of 0 is passed then the tick timer will be stopped.
+host.setTickInterval(interval) — Если интервал больше 0, то ваш обратный вызов тика будет вызываться каждые «interval» миллисекунд. Если передано значение 0, то таймер тика будет остановлен.
 
-host.log(text) - Send text to the log window. It will be timestamped, marked according to which script sent it, and placed into the log window.
+host.log(text) — Отправить текст в окно логов. Он будет временно отмечен, помечен в соответствии с тем, какой скрипт его отправил, и помещён в окно логов.
    
-host.addParameter("variablename") - Add the named variable to the list of public variables. From then on any changes that you make in the GUI will immediately show up in the script and any changes the script makes to a value will reflect in the GUI within 250ms. Remember to use quotes around the variable name. You want to pass the variable name, not its value.
+host.addParameter("variablename") — Добавить именованную переменную в список публичных переменных. С этого момента любые изменения, которые вы делаете в GUI, немедленно появятся в скрипте, и любые изменения, которые скрипт делает со значением, отразятся в GUI в течение 250 мс. Помните использовать кавычки вокруг имени переменной. Вы хотите передать имя переменной, а не её значение.
 
-The can Object
+Объект can
 ===============
 
-This object is your interface to raw CAN. It has the following functions:
+Этот объект — ваш интерфейс к сырому CAN. У него есть следующие функции:
 
-can.setFilter(id, mask, bus) - register to receive messages based on an ID, Mask, and Bus. It works like this. First the bus is compared. If it doesn't match the frame is not delivered to you. Then, the incoming frame has its ID ANDed with your mask. Let's say your mask is 0x7F0 and the incoming frame has an ID of 0x235. 0x235 AND 0x7F0 is 0x230. This value is compared to the ID you passed. So, if your filter ID is 0x230 then the frame is accepted and you will get a callback with the frame. Otherwise the frame is not delivered to you. This masking setup is very common in CAN bus interfaces. Basically, the mask allows a single filter to accept a range of IDs. 0x7F0 would accept 16 different IDs (0x230 through 0x23F in this case). 0x700 accepts 256 different IDs, etc. 
+can.setFilter(id, mask, bus) — зарегистрироваться для получения сообщений на основе ID, Маски и Шины. Это работает так. Сначала сравнивается шина. Если она не совпадает, кадр не доставляется вам. Затем ID входящего кадра ANDится с вашей маской. Допустим, ваша маска 0x7F0, а входящий кадр имеет ID 0x235. 0x235 AND 0x7F0 — это 0x230. Это значение сравнивается с ID, который вы передали. Итак, если ваш ID фильтра 0x230, то кадр принимается, и вы получите обратный вызов с кадром. В противном случае кадр не доставляется вам. Эта настройка маски очень распространена в интерфейсах CAN-шины. По сути, маска позволяет одному фильтру принимать диапазон ID. 0x7F0 принял бы 16 различных ID (от 0x230 до 0x23F в этом случае). 0x700 принимает 256 различных ID и т.д.
     
-can.clearFilters() - remove all filters and revert to a clean state. You will no longer receive any CAN callbacks unless you create more filters with setFilter.
+can.clearFilters() — удалить все фильтры и вернуться в чистое состояние. Вы больше не будете получать никаких CAN-обратных вызовов, если не создадите больше фильтров с помощью setFilter.
     
-can.sendFrame(bus, id, length, data) - Send a CAN frame out the given bus. The CAN id will be what you set as will the length. The length can thus be different from the actual length of "data" which should be a valid javascript array. The length can not exceed 8. The frame will be sent as soon as possible so long as that bus is connected and not in listen only mode.
+can.sendFrame(bus, id, length, data) — Отправить CAN-кадр на данную шину. CAN ID будет тем, что вы установили, как и длина. Длина таким образом может отличаться от фактической длины «data», которая должна быть валидным javascript-массивом. Длина не может превышать 8. Кадр будет отправлен как можно скорее, пока эта шина подключена и не находится в режиме только прослушивания.
 
-The isotp Object
+Объект isotp
 ================
 
-isotp.setFilter(id, mask, bus) - Exactly like the raw CAN version in the can object. Allows you to register a filter so that you can receive ISO-TP traffic from the filtered addresses. It should be noted that you'll essentially only get traffic that seems to be able to be turned into ISO-TP traffic. Any CAN frames obviously not ISO-TP will be rejected.
+isotp.setFilter(id, mask, bus) — В точности как сырой CAN-версия в объекте can. Позволяет зарегистрировать фильтр, чтобы вы могли получать ISO-TP трафик из отфильтрованных адресов. Следует отметить, что вы по сути будете получать только трафик, который, кажется, может быть превращён в ISO-TP трафик. Любые CAN-кадры, очевидно не являющиеся ISO-TP, будут отклонены.
 
-isotp.clearFilters() - Clear all ISO-TP filters and no longer receive ISO-TP traffic.
+isotp.clearFilters() — Очистить все ISO-TP фильтры и больше не получать ISO-TP трафик.
 
-isotp.sendISOTP(bus, id, length, data) - As in the can version. The difference here is that ISO-TP messages can be longer than 8 bytes and so might get turned into a multi-frame set of messages with flow control. This is handled for you by SavvyCAN so you needn't handle of the details of the exchange.
+isotp.sendISOTP(bus, id, length, data) — Как в can-версии. Разница здесь в том, что сообщения ISO-TP могут быть длиннее 8 байт и поэтому могут быть превращены в набор многофреймовых сообщений с управлением потоком. Это обрабатывается для вас SavvyCAN, поэтому вам не нужно заниматься деталями обмена.
 
 
-The uds Object
+Объект uds
 ===============
 
-uds.setFilter(id, mask, bus) - Exactly like the other two setFilter functions. Register for a set of IDs to be interpreted as UDS (if possible) and sent through to your callback. Any obviously not UDS traffic will be discarded.
+uds.setFilter(id, mask, bus) — В точности как две другие функции setFilter. Зарегистрировать набор ID, которые будут интерпретироваться как UDS (если возможно), и отправляться в ваш обратный вызов. Любой очевидно не UDS трафик будет отброшен.
         
-uds.clearFilter() - Remove all filters and quit receiving UDS traffic.
+uds.clearFilter() — Удалить все фильтры и перестать получать UDS трафик.
     
-uds.sendUDS(bus, id, service, sublen, subfunc, length, data) - Sends a UDS message out from the script. service must be between 0 and 255, subfunc can be larger than one byte if needed. data is only needed for extended payloads as the actual UDS protocol is handled by the service and subfunc parameters. 
+uds.sendUDS(bus, id, service, sublen, subfunc, length, data) — Отправляет UDS-сообщение из скрипта. service должен быть между 0 и 255, subfunc может быть больше одного байта, если нужно. data нужен только для расширенных полезных нагрузок, так как фактический протокол UDS обрабатывается параметрами service и subfunc.
 
-A full example script
+Полный пример скрипта
 =====================
 ::
 
-    var newID = 0; //set this to the ID you want your RLEC to become
+    var newID = 0; //установите это на ID, которым вы хотите, чтобы ваш RLEC стал
 
     function setup ()
     {
@@ -129,5 +129,4 @@ A full example script
             } 
         }
     }
-
 

@@ -1,28 +1,26 @@
-File Comparison Window
+Окно сравнения файлов
 ========================
 
-![File Comparison Window](./images/FileComparator.png)
+![Окно сравнения файлов](./images/FileComparator.png)
 
-The Purpose of the File Comparator
+Назначение сравнения файлов
 ==================================
 
-This screen can be used to figure out what is different between a set of files. On one side you have a single file. This is called the "File of interest". On the other side you have any list of files. They're not listed any longer as actual files. The program can load frames from any number of files and dump them all into the same "bucket" of frames. You can thus load up a batch of files and compare them against the one "File of interest." The purpose of this is to figure out what is different. Are there IDs found only on one side? For IDs found on both sides are there bits set only on one side and not the other? This can be used to find stubborn data that you are having trouble locating. One use is to capture a large amount of traffic to use as "background noise" of sorts. Perhaps drive around for a long time or let the vehicle idle for some time but never do the thing you need to find. Then do another capture and do the thing you're missing a few times. Perhaps you're looking for a gear shift signal. You could capture a large batch of frames while idling. Then, in a second capture shift several times. Now, compare the two. Somewhere in the differences should be the gear selection you couldn't find. The list ought to be much more narrow than just "shooting in the dark" so to speak.
+Этот экран можно использовать для выяснения, чем отличаются файлы. С одной стороны у вас один файл. Это называется «Файл интереса». С другой стороны у вас список файлов. Они больше не перечислены как фактические файлы. Программа может загружать кадры из любого количества файлов и сбрасывать их все в один «котёл» кадров. Таким образом, вы можете загрузить пакет файлов и сравнить их с одним «Файлом интереса». Цель этого — выяснить, что отличается. Есть ли ID, найденные только на одной стороне? Для ID, найденных на обеих сторонах, есть ли биты, установленные только на одной стороне, а не на другой? Это можно использовать для поиска упрямых данных, которые вам трудно найти. Одно из применений — захватить большое количество трафика для использования в качестве «фонового шума» своего рода. Возможно, покататься какое-то время или дать автомобилю простоять некоторое время, но никогда не делать то, что вам нужно найти. Затем сделать ещё один захват и сделать то, что вам не хватает, несколько раз. Возможно, вы ищете сигнал переключения передач. Вы можете захватить большую партию кадров во время холостого хода. Затем, во втором захвате, переключить передачи несколько раз. Теперь сравните два. Где-то в различиях должен быть выбор передачи, который вы не могли найти. Список должен быть гораздо более узким, чем просто «стрелять вслепую».
 
-The layout of the differences list
+Макет списка различий
 ==================================
 
-In the differences list you'll find three main tree nodes:
+В списке различий вы найдёте три основных узла дерева:
 
-1. IDs found only in <file of interest>
+1. ID найдены только в <файле интереса>
 
-    * In sub nodes you'll find every ID found only in the file of interest and not in any of the reference files.
+    * В подузлах вы найдёте каждый ID, найденный только в файле интереса, и ни в одном из справочных файлов.
 
-2. IDs found only in reference frames
+2. ID найдены только в справочных кадрах
 
-    * In theory this should be a fairly small list. Here are any IDs never seen in the file of interest
+    * Теоретически это должен быть довольно небольшой список. Здесь находятся любые ID, никогда не встречавшиеся в файле интереса
 
-3. IDs found in both
+3. ID найдены в обоих
 
-    * Here is where the interesting information lies. The sub nodes here are found in both places. A list of all differences will be shown sub nodes of each ID node. Here you can see bits set only in one side or the other. You can also find values only found on one side or the other. These might be candidates for your mystery signal.
-
-
+    * Вот где лежит интересная информация. Подузлы здесь находятся в обоих местах. Список всех различий будет показан в подузлах каждого узла ID. Здесь вы можете видеть биты, установленные только на одной стороне или на другой. Вы также можете найти значения, найденные только на одной стороне или на другой. Они могут быть кандидатами на ваш сигнал-загадку.

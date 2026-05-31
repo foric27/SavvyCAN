@@ -1,37 +1,37 @@
-Playback Window
+Окно воспроизведения
 ===============
 
-![Playback Window](./images/Playback.png)
+![Окно воспроизведения](./images/Playback.png)
 
 
-Preparing Frames for Playback
+Подготовка кадров для воспроизведения
 =============================
 
-The first order of business is to load some CAN frames that you'd like to play back onto a CAN bus. In the lower left is a section titled "Playback Sequence". It is so named because this playback interface can play a chain of different CAN captures very configurably. It consists of a list of captures to playback along with how many times to play each sequence item. For instance, you could play a file twice then go to the next, then play a third one four times. A playback item can either come from a file (Load File) or from the current list of captured frames on the main window (Load Captured Data). If you load the currently captured frames it truly means "currently". That is, if more traffic comes in it will not play that new traffic back. A snapshot is taken at the time you push the button. Each sequence item has its own list of ID filters. In this way you can send only some of the frame IDs from the capture and this list can be different for each file or capture you load. The list of ID filters can be saved and loaded to make the process faster in the future.
+Первым делом нужно загрузить некоторые CAN-кадры, которые вы хотели бы воспроизвести на шине CAN. В левом нижнем углу находится раздел под названием «Последовательность воспроизведения». Он так назван, потому что этот интерфейс воспроизведения может воспроизводить цепочку различных CAN-захватов очень конфигурируемо. Он состоит из списка захватов для воспроизведения вместе с тем, сколько раз воспроизводить каждый элемент последовательности. Например, вы могли бы воспроизвести файл дважды, затем перейти к следующему, затем воспроизвести третий четыре раза. Элемент воспроизведения может либо поступать из файла (Загрузить файл), либо из текущего списка захваченных кадров в главном окне (Загрузить захваченные данные). Если вы загружаете текущие захваченные кадры, это действительно означает «текущие». То есть, если придёт новый трафик, он не будет воспроизводить этот новый трафик. Снимок делается в момент, когда вы нажимаете кнопку. Каждый элемент последовательности имеет свой собственный список ID-фильтров. Таким образом, вы можете отправлять только некоторые ID кадров из захвата, и этот список может быть разным для каждого файла или захвата, который вы загружаете. Список ID-фильтров можно сохранять и загружать, чтобы ускорить процесс в будущем.
 
-Once you've set up a sequence of frames to playback you can also decide whether you'd like to loop that sequence forever or not. Up above the Playback Sequence and ID Filtering sections is the "Loop Sequence" checkbox.
+Как только вы настроили последовательность кадров для воспроизведения, вы также можете решить, хотите ли вы циклически воспроизводить эту последовательность вечно или нет. Над разделами «Последовательность воспроизведения» и «Фильтрация ID» находится флажок «Циклическая последовательность».
 
-Playing Back Frames
+Воспроизведение кадров
 ====================
 
-The playback window can send frames on a specific bus, all buses (be careful with that!) or "From File." Some file formats store which bus each frame came in on. Also, the main window stores that info. So, captures that stored the bus properly could be used to send frames out multiple buses always to the proper bus for the frame in question. But, if you load a capture without this info it will default to bus 0 so bear that in mind. 
+Окно воспроизведения может отправлять кадры на конкретную шину, все шины (будьте осторожны с этим!) или «Из файла». Некоторые форматы файлов хранят, с какой шины пришёл каждый кадр. Также главное окно хранит эту информацию. Таким образом, захваты, которые правильно сохранили шину, могли бы использоваться для отправки кадров на несколько шин, всегда на правильную шину для данного кадра. Но, если вы загрузите захват без этой информации, он по умолчанию будет на шине 0, так что имейте это в виду.
 
-The next order of business is frame timing. There are two approaches possible here. If you click "Use original frame timing from captured frames" then frames will be sent out in approximately the same timing as they came in with. The word approximately is used because it is difficult to get 1ms timing precision on a desktop OS. Frames that come in rapidly might have a 2-3ms jitter. In practice this is almost always irrelevant. This setting is suitable for nearly all uses.
+Следующим делом является тайминг кадров. Здесь возможны два подхода. Если вы нажмёте «Использовать исходный тайминг кадров из захваченных кадров», то кадры будут отправляться с примерно таким же таймингом, как они приходили. Слово «примерно» используется, потому что трудно получить точность тайминга 1 мс на настольной ОС. Кадры, которые приходят быстро, могут иметь джиттер 2-3 мс. На практике это почти всегда не имеет значения. Эта настройка подходит для почти всех применений.
 
-Alternatively, it is also possible to send on a set schedule. With the "Use original" checkbox not checked you can set a playback speed in milliseconds and a burst rate. Burst means that it'll send that many frames every tick. So, if you have a burst of 5 and a timing of 10ms then every 10ms 5 frames will be sent. This mode can provide for a predictable number of frames per second and could be useful to test how quickly a device really requires traffic without faulting. But, it will potentially drastically alter the timing of frames compared to their timing when they were captured. You can set a burst rate as well. Burst Rate is the number of frames sent every "tick." This can speed up how fast you can send traffic.
+Кроме того, также возможно отправлять по фиксированному расписанию. С неотмеченным флажком «Использовать исходный» вы можете установить скорость воспроизведения в миллисекундах и скорость пакетной отправки. Пакетная отправка означает, что она будет отправлять указанное количество кадров каждый тик. Таким образом, если у вас пакет 5 и тайминг 10 мс, то каждые 10 мс будет отправляться 5 кадров. Этот режим может обеспечить предсказуемое количество кадров в секунду и может быть полезен для тестирования, насколько быстро устройство действительно требует трафика без сбоев. Но он потенциально может радикально изменить тайминг кадров по сравнению с их таймингом, когда они были захвачены. Вы также можете установить скорость пакетной отправки. Скорость пакетной отправки — это количество кадров, отправляемых каждый «тик». Это может ускорить, как быстро вы можете отправлять трафик.
 
-There is also now a checkbox that allows for waiting for traffic before sending CAN frames when you click play forward or backward. If this checkbox is checked you will see (WAITING) to the left of the number of frames below "Current frame." Once any CAN traffic starts to come in your frames will begin to playback automatically. Why would you want to do this? Well, the most likely reason is that you want to play back a CAN capture but you only want to do so once the vehicle has been powered on. And, you want to wait until the CAN buses are active so that you don't fault by sending traffic into nowhere. Lastly, this allows your playback to happen very rapidly after start up which might otherwise be tougher to pull off accurately.
+Также теперь есть флажок, который позволяет ждать трафика перед отправкой CAN-кадров, когда вы нажимаете воспроизведение вперёд или назад. Если этот флажок установлен, вы увидите (ОЖИДАНИЕ) слева от количества кадров под «Текущий кадр». Как только начнёт поступать любой CAN-трафик, ваши кадры начнут воспроизводиться автоматически. Зачем это делать? Ну, наиболее вероятная причина в том, что вы хотите воспроизвести CAN-захват, но хотите сделать это только после того, как автомобиль будет включён. И вы хотите подождать, пока CAN-шины станут активными, чтобы не получить сбой, отправляя трафик в никуда. Наконец, это позволяет вашему воспроизведению происходить очень быстро после запуска, что в противном случае может быть сложнее выполнить точно.
 
-The top of the window has a series of 6 icons all in a row:
+В верхней части окна находится ряд из 6 иконок, все в ряд:
 
-1. White Left Arrow - Play the last frame (just one frame)
-2. Pause sign - Pause playback
-3. Green Left Arrow - Play frames backward
-4. Blue Stop Button - Stop playback and return to the first frame in the first capture in the sequence
-5. Green Right Arrow - Play frames forward
-6. White Right Arrow - Play the next frame (just one frame)
+1. Белая стрелка влево — Воспроизвести последний кадр (только один кадр)
+2. Знак паузы — Приостановить воспроизведение
+3. Зелёная стрелка влево — Воспроизвести кадры назад
+4. Синяя кнопка стоп — Остановить воспроизведение и вернуться к первому кадру в первом захвате в последовательности
+5. Зелёная стрелка вправо — Воспроизвести кадры вперёд
+6. Белая стрелка вправо — Воспроизвести следующий кадр (только один кадр)
 
-Playback Status
+Статус воспроизведения
 ===============
 
-Below the number spinners for Playback Speed and Burst Rate is text that displays the currently playing sequence item along with the current frame within that capture.
+Ниже счётчиков чисел для скорости воспроизведения и скорости пакетной отправки находится текст, отображающий текущий воспроизводимый элемент последовательности вместе с текущим кадром внутри этого захвата.

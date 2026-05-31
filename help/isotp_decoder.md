@@ -1,17 +1,17 @@
-ISO-TP Decoder
+Декодер ISO-TP
 ===============
 
-![ISOTP Window](./images/ISOTPDecoder.png)
+![Окно ISOTP](./images/ISOTPDecoder.png)
 
-Using the ISO-TP Decoder
+Использование декодера ISO-TP
 ==========================
 
-This window scans the existing captured frames and newly captured frames to see if it can find CAN traffic that seems to conform to the ISO-TP standard. ISO-TP is used to send multi-frame messages and as an encoding standard that forms the base for other protocols such as UDS and ODBII (which is essentially itself a subset of UDS). 
+Это окно сканирует существующие захваченные кадры и вновь захваченные кадры, чтобы увидеть, может ли оно найти CAN-трафик, который, похоже, соответствует стандарту ISO-TP. ISO-TP используется для отправки многофреймовых сообщений и как стандарт кодирования, который формирует основу для других протоколов, таких как UDS и ODBII (который, по сути, является подмножеством UDS).
 
-The main list at the top shows any messages that seem to conform to ISO-TP. There will very likely be messages here which aren't really ISO-TP. You can deselect IDs that seem to generate false positives so that they quit showing up in this list. As you can see in the picture only the ids 0x7E0 through 0x7EA were selected. These IDs are standard for UDS communication. If you want to immediately recalculate the results to exclude the deselected IDs then push "Interpret Previously Captured Frames" to regenerate the whole list. Otherwise the effect of changing the ID selections will only happen for newly captured frames. 
+Основной список вверху показывает любые сообщения, которые, похоже, соответствуют ISO-TP. Здесь, скорее всего, будут сообщения, которые на самом деле не являются ISO-TP. Вы можете отменить выбор ID, которые, кажется, генерируют ложноположительные срабатывания, чтобы они перестали появляться в этом списке. Как видно на картинке, были выбраны только ID от 0x7E0 до 0x7EA. Эти ID являются стандартными для UDS-коммуникации. Если вы хотите немедленно пересчитать результаты, чтобы исключить отменённые выбором ID, нажмите «Интерпретировать ранее захваченные кадры», чтобы перегенерировать весь список. В противном случае эффект изменения выбора ID будет происходить только для вновь захваченных кадров.
 
-The "Show incomplete and/or corrupted messages" checkbox will cause a lot of false positives and should only be used as a last resort if you suspect that you might have some dropped traffic. 
+Флажок «Показывать неполные и/или повреждённые сообщения» вызовет много ложноположительных срабатываний и должен использоваться только в крайнем случае, если вы подозреваете, что у вас может быть потерянный трафик.
 
-"Use extended addressing" will cause the decoder to assume that extended addressing is being used on this CAN bus. Extended addressing adds an additional byte of addressing that is found in the data bytes of the frame. This isn't that commonly used but is used on some vehicles and ISO-TP decoding won't work properly unless this setting is correct. If you find that decoding seems to have failed you might try toggling this setting to see if it helps. Remember to click "Interpret Previously Captured Frames" to recalculate things for previously captured traffic.
+«Использовать расширенную адресацию» заставит декодер предполагать, что на этой шине CAN используется расширенная адресация. Расширенная адресация добавляет дополнительный байт адресации, который находится в байтах данных кадра. Это не так уж часто используется, но используется на некоторых автомобилях, и декодирование ISO-TP не будет работать правильно, если эта настройка неверна. Если вы обнаружите, что декодирование, кажется, не удалось, вы можете попробовать переключить эту настройку, чтобы посмотреть, поможет ли это. Не забудьте нажать «Интерпретировать ранее захваченные кадры», чтобы пересчитать вещи для ранее захваченного трафика.
 
-Once you have messages in the table at the top of the window you can click on a message to get more details about it in the text box in the lower left. In the picture you can see that 0x7F 0x10 0x12 was interpreted as a UDS error response saying that the ECU does not support the requested sub-function passed to the diagnostic session control service. This is much easier than trying to remember what all those bytes mean off the top of your head!
+Как только у вас есть сообщения в таблице вверху окна, вы можете щёлкнуть по сообщению, чтобы получить больше деталей о нём в текстовом поле внизу слева. На картинке вы можете видеть, что 0x7F 0x10 0x12 было интерпретировано как UDS-ответ об ошибке, говорящий, что ECU не поддерживает запрошенную подфункцию, переданную сервису управления диагностическим сеансом. Это намного проще, чем пытаться запомнить, что означают все эти байты наизусть!

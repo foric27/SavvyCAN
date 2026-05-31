@@ -1,47 +1,47 @@
-Adding a new connection
+Добавление нового подключения
 ========================
 
-![New Connection](./images/NewConnection.png)
+![Новое подключение](./images/NewConnection.png)
 
-At the moment it is possible to use any QT SerialBus compatible device and any GVRET compatible device in any of the supported operating systems. SerialBus supports socketcan on linux, passthrough on Linux and Windows 32 bit, and Vector, PeakCAN, and TinyCAN on supported OS's.
+В данный момент возможно использовать любое устройство, совместимое с QT SerialBus, и любое устройство, совместимое с GVRET, в любой из поддерживаемых операционных систем. SerialBus поддерживает socketcan на Linux, passthrough на Linux и Windows 32 бит, а также Vector, PeakCAN и TinyCAN на поддерживаемых ОС.
 
-At this time GVRET compatible devices are: EVTVDue, EVTV CANDue (1.3/2/2.1/2.2), 
+В настоящее время устройства, совместимые с GVRET: EVTVDue, EVTV CANDue (1.3/2/2.1/2.2),
 Teensy 3.1-3.6, Macchina M2, Macchina A0, EVTV ESP32 Due.
 
-You can also use a variety of network based connections to gain access to remote capture hardware.
+Вы также можете использовать различные сетевые подключения для получения доступа к удалённому оборудованию захвата.
 
 
-Connecting To GVRET Devices
+Подключение к устройствам GVRET
 ==============================
 
-SavvyCAN is able to connect to GVRET compatible devices to capture new traffic. These 
-devices will present as serial ports on the connected PC. To connect to a dongle select "Serial Connection." This will bring up a list of serial ports on the machine. Select the proper one and then press "Create New Connection". This will close the window and bring you back to the connection manager window. If connection succeeds the status will show "Connected" for your newly set up device.
+SavvyCAN может подключаться к устройствам, совместимым с GVRET, для захвата нового трафика. Эти
+устройства будут представляться как последовательные порты на подключённом ПК. Для подключения к донглу выберите «Последовательное подключение». Это вызовет список последовательных портов на машине. Выберите нужный, а затем нажмите «Создать новое подключение». Это закроет окно и вернёт вас в окно менеджера подключений. Если подключение успешно, статус покажет «Подключено» для вашего вновь настроенного устройства.
 
-You can also connect to some GVRET devices over the network (A0, EVTV ESP32Due). These devices broadcast their address. Once you've selected "Network Connection (GVRET)" you should see a list of IP addresses that appear to have GVRET devices on them. You can also manually enter the proper IP address but if the device did not automatically register itself it is unlikely to work with a manual entry either.
+Вы также можете подключиться к некоторым устройствам GVRET по сети (A0, EVTV ESP32Due). Эти устройства транслируют свой адрес. После того, как вы выбрали «Сетевое подключение (GVRET)», вы должны увидеть список IP-адресов, на которых, похоже, есть устройства GVRET. Вы также можете вручную ввести правильный IP-адрес, но если устройство не зарегистрировалось автоматически, маловероятно, что оно будет работать с ручным вводом.
 
 
-Connecting to QT SerialBus Compatible Devices
+Подключение к устройствам, совместимым с QT SerialBus
 =============================================
 
-SavvyCAN can also connect to a wide variety of CAN hardware through the built-in QT
-SerialBus drivers. These drivers vary by operating system but support socketcan on LINUX
-and Vector tools on both LINUX and Windows. When you select "QT SerialBus Devices" you will
-get a list of device types supported. Select a device type and for most devices you should see
-the Port list fill out with all registered and valid ports for that driver. Socketcan devices, for
-instance, are automatically detected now. Then push "Create New Connection" and you should 
-see the new connection in the table on the left of the window. Note that SocketCAN devices 
-don't support changing the baud rate within a program. You must do this when you set up 
-the connection via console commands. This is outside the scope of this documentation. 
-Consult the SocketCAN documentation for details on configuring such devices.
+SavvyCAN также может подключаться к широкому спектру CAN-оборудования через встроенные драйверы QT
+SerialBus. Эти драйверы варьируются в зависимости от операционной системы, но поддерживают socketcan на LINUX
+и инструменты Vector как на LINUX, так и на Windows. Когда вы выбираете «Устройства QT SerialBus», вы
+получите список поддерживаемых типов устройств. Выберите тип устройства, и для большинства устройств вы должны увидеть,
+как список портов заполнится всеми зарегистрированными и действительными портами для этого драйвера. Устройства Socketcan, например,
+теперь обнаруживаются автоматически. Затем нажмите «Создать новое подключение», и вы должны
+увидеть новое подключение в таблице слева от окна. Обратите внимание, что устройства SocketCAN
+не поддерживают изменение скорости передачи данных в программе. Вы должны делать это при настройке
+подключения через консольные команды. Это выходит за рамки данной документации.
+Обратитесь к документации SocketCAN для получения подробной информации о настройке таких устройств.
 
-QT also includes a "virtualcan" device type. You can use this to create a bus that will loop back anything you send to it. This is useful for testing without needing to connect any devices or load any log files.
+QT также включает тип устройства «virtualcan». Вы можете использовать его для создания шины, которая будет возвращать вам всё, что вы отправите. Это полезно для тестирования без необходимости подключать какие-либо устройства или загружать какие-либо лог-файлы.
 
-Connecting to Socketcand
+Подключение к Socketcand
 ========================
 
-This is a LINUX only solution which allows one to connect to a socketcan device that is registered on the local network. You can also set up SSH tunnels or VPN to expand the reach over the internet. It should fill out a list of any available socketcand interfaces. Setting up socketcand is outside the scope of this help file but may your GoogleFu be strong.
+Это решение только для LINUX, которое позволяет подключаться к устройству socketcan, зарегистрированному в локальной сети. Вы также можете настроить SSH-туннели или VPN для расширения охвата через интернет. Он должен заполнить список всех доступных интерфейсов socketcand. Настройка socketcand выходит за рамки этого файла справки, но пусть ваша GoogleFu будет сильна.
 
-Connecting over MQTT
+Подключение через MQTT
 ====================
 
-Lastly, it is possible to connect to an MQTT broker to send and receive CAN traffic over the internet. This is much like socketcand but more cross platform and also supports easy broadcasting. For instance, for capture the flag events, it would be possible to connect the device over MQTT and have multiple participants and/or watchers all connected at once. Connection to the MQTT broker is set up in the main SavvyCAN preferences. In this window you merely select the topic name to subscribe to. There is currently no automatic way to list these topics so you will need to know the topic to subscribe to ahead of time. It should be noted that the bidirectional nature of this interface means that everyone is on equal footing. You can create an MQTT interface that others can connect to or you can connect to a topic that is currently being sent to from elsewhere and get the traffic. Additionally, the SavvyCAN source code at GitHub has a python script which can be used to connect a socketcan interface to MQTT. You can use this script on a remote system to connect it to the internet so that you can run SavvyCAN somewhere apart from the device under test.
+Наконец, можно подключиться к MQTT-брокеру для отправки и получения CAN-трафика через интернет. Это очень похоже на socketcand, но более кроссплатформенное и также поддерживает простую широковещательную рассылку. Например, для событий capture the flag можно было бы подключить устройство через MQTT и иметь несколько участников и/или наблюдателей, все подключённых одновременно. Подключение к MQTT-брокеру настраивается в основных предпочтениях SavvyCAN. В этом окне вы просто выбираете имя темы для подписки. В настоящее время нет автоматического способа перечислить эти темы, поэтому вам нужно знать тему для подписки заранее. Следует отметить, что двунаправленный характер этого интерфейса означает, что все находятся в равных условиях. Вы можете создать MQTT-интерфейс, к которому могут подключаться другие, или вы можете подключиться к теме, которая в данный момент отправляется откуда-то ещё, и получить трафик. Кроме того, исходный код SavvyCAN на GitHub содержит Python-скрипт, который можно использовать для подключения интерфейса socketcan к MQTT. Вы можете использовать этот скрипт на удалённой системе для подключения её к интернету, чтобы вы могли запускать SavvyCAN где-то отдельно от тестируемого устройства.

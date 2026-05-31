@@ -1,57 +1,57 @@
-DBC Signal Editor
+Редактор DBC-сигналов
 =================
 
-![Signal Editor](./images/SignalEditor.png)
+![Редактор сигналов](./images/SignalEditor.png)
 
-Not So Secret Things
+Не такие уж секретные вещи
 =====================
-First of all, here are the things that might otherwise pass under the radar but are functions of this form:
+Прежде всего, вот вещи, которые могли бы иначе пройти мимо внимания, но являются функциями этой формы:
 
-* Pretty much everything on this form now has secret undo functionality. If you make a mistake you can press CTRL-Z to revert it. This will revert practically anything you've done on this form.
+* Практически всё в этой форме теперь имеет секретную функцию отмены. Если вы допустили ошибку, вы можете нажать CTRL-Z, чтобы отменить её. Это отменит практически всё, что вы сделали в этой форме.
 
-* The 8x8 data grid is not locked that way. CAN-FD signals are supported and so up to 64 bytes can be shown in the bitfield. The bitfield will automatically adjust for the number of bytes in a given message. However, you can also switch the views yourself by middle clicking in the bitfield.
+* Сетка данных 8x8 не заблокирована таким образом. Поддерживаются сигналы CAN-FD, поэтому в битовом поле может отображаться до 64 байт. Битовое поле автоматически подстроится под количество байт в данном сообщении. Однако вы также можете переключать представления самостоятельно, щёлкая средней кнопкой мыши в битовом поле.
 
-* If you right click a different signal in the bitfield you will then be editing that signal instead. This lets you quickly move between signals in the same message. However, this only works for other signals that are either not multiplexed (if you started with a non-multiplexed signal when editing) or otherwise only other signals that have the same multiplexor value.
+* Если вы щёлкните правой кнопкой мыши по другому сигналу в битовом поле, вы будете редактировать этот сигнал вместо текущего. Это позволяет быстро перемещаться между сигналами в одном сообщении. Однако это работает только для других сигналов, которые либо не мультиплексированы (если вы начали с немультиплексированного сигнала при редактировании), либо иначе только другие сигналы, которые имеют то же значение мультиплексора.
 
 
-Defining and Editing Signals
+Определение и редактирование сигналов
 ============================
 
-At the top you can rename the signal and you'll see that it is renamed in the DBC window as well.
+Вверху вы можете переименовать сигнал, и вы увидите, что он переименован и в окне DBC.
 
-The majority of the view is taken up by the bitfield grid. This view shows all the signals contained within this message (that have the same multiplexor value as this one). They're all labeled as well. Bonus fun fact - SavvyCAN technically does support CAN-FD DBC files! That's right, you can load DBC files with CAN-FD signals and they will work. The bitfield will adjust to show enough bits to show the whole message.
+Большая часть представления занята сеткой битовых полей. Это представление показывает все сигналы, содержащиеся в этом сообщении (которые имеют то же значение мультиплексора, что и этот). Все они также подписаны. Приятный бонус — SavvyCAN технически поддерживает DBC-файлы CAN-FD! Верно, вы можете загружать DBC-файлы с сигналами CAN-FD, и они будут работать. Битовое поле подстроится, чтобы показать достаточно битов для отображения всего сообщения.
 
-"Bit Length" - This sets how many bits the signal uses. Once you do this you'll see that that many bits are now highlighted in the data grid. The black bit with diagonal stripes is the "start" bit, green bits (with stripes the other way) are the other bits in the signal. Bits used by other signals are colored according to a secret list of colors. They also have the signal name. You should not overlap onto other signals. This could be possible with multiplexed signals but you will NOT see signals on this grid that are not part of the same multiplexor value as this signal so you should NOT overlap here.
+«Битовая длина» — Это устанавливает, сколько бит использует сигнал. Как только вы сделаете это, вы увидите, что столько битов теперь выделено в сетке данных. Чёрный бит с диагональными полосами — это «начальный» бит, зелёные биты (с полосами в другую сторону) — остальные биты в сигнале. Биты, используемые другими сигналами, окрашены в соответствии с секретным списком цветов. На них также есть имя сигнала. Вы не должны перекрываться с другими сигналами. Это может быть возможно с мультиплексированными сигналами, но вы НЕ увидите сигналы на этой сетке, которые не являются частью того же значения мультиплексора, что и этот сигнал, поэтому вы НЕ должны перекрываться здесь.
 
-"Byte Order" - The way that the green bits are filled out is changed by this checkbox. Checking it selects little endian mode whereas deselecting chooses big endian mode. This will have an effect on any signal that crosses byte boundaries. The simplest explanation is that little endian signals start at the start bit and then go "down" in bit numbers while big endian mode goes "up."
+«Порядок байтов» — Способ, которым заполняются зелёные биты, изменяется этим флажком. Установка его выбирает little endian режим, тогда как снятие выбирает big endian режим. Это повлияет на любой сигнал, который пересекает границы байтов. Простейшее объяснение: сигналы little endian начинаются с начального бита, а затем идут «вниз» по номерам битов, тогда как big endian режим идёт «вверх».
 
-"Type" can be:
-1. UNSIGNED INTEGER - No sign bit, only positive numbers
-2. SIGNED INTEGER - The top bit is used as a sign bit
-3. SINGLE PRECISION - Floating point number (should be a 16 bit signal)
-4. DOUBLE PRECISION - Floating point number (should be a 32 bit signal)
-5. STRING - Directly turn the CAN bytes into a string
+«Тип» может быть:
+1. БЕЗЗНАКОВОЕ ЦЕЛОЕ — Нет знакового бита, только положительные числа
+2. ЗНАКОВОЕ ЦЕЛОЕ — Старший бит используется как знаковый бит
+3. ОДИНАРНАЯ ТОЧНОСТЬ — Число с плавающей точкой (должен быть 16-битный сигнал)
+4. ДВОЙНАЯ ТОЧНОСТЬ — Число с плавающей точкой (должен быть 32-битный сигнал)
+5. СТРОКА — Напрямую превращать байты CAN в строку
 
-It should be noted that this pertains **ONLY** to the way the signal is encoded within the CAN frame itself. Signals encoded as integers can still take fractional values because of scaling.
+Следует отметить, что это относится **ТОЛЬКО** к способу кодирования сигнала внутри самого CAN-кадра. Сигналы, закодированные как целые числа, всё равно могут принимать дробные значения из-за масштабирования.
 
-"Scale" is used to multiply the signal by the value to scale it appropriately. This could turn an integer into a "real" number instead. For instance, if the signal is in 0.002V increments then the scale would be 0.002 and a value of 48 stored in the CAN frame will be multiplied by 0.002 and end up as a value of 0.096.
+«Масштаб» используется для умножения сигнала на значение, чтобы масштабировать его соответствующим образом. Это может превратить целое число в «реальное» число. Например, если сигнал в приращениях 0.002В, то масштаб будет 0.002, и значение 48, хранящееся в CAN-кадре, будет умножено на 0.002 и станет значением 0.096.
 
-"Bias" is added to each value generated by the signal to set it at a different bias point. Think of this as the value the signal will report if the encoded value from the CAN frame was 0.
+«Смещение» добавляется к каждому значению, генерируемому сигналом, чтобы установить его в другую точку смещения. Думайте об этом как о значении, которое сигнал будет сообщать, если закодированное значение из CAN-кадра было 0.
 
-"Min Value" is purely informational. It is just a reference to anyone else viewing the DBC information as to what you expect the lowest value to be.
+«Минимальное значение» является чисто информационным. Это просто справка для всех, кто просматривает информацию DBC, о том, какое самое низкое значение вы ожидаете.
 
-"Max Value" is likewise informational. However, both can be used in other applications, or this one in the future, to help with automatic generation. For instance, signals could be fuzzed with values between the min/max values specified here. As such, it is a good idea to fill these values appropriately.
+«Максимальное значение» аналогично является информационным. Однако оба могут быть использованы в других приложениях, или в этом в будущем, чтобы помочь с автоматической генерацией. Например, сигналы могут быть фаззированы со значениями между минимальным/максимальным значениями, указанными здесь. Поэтому хорошо заполнять эти значения соответствующим образом.
 
-"Units Name" is displayed after the value when you interpret a signal on the main frames list. For instance, you could set the units name to V so that a voltage value reads something like "12.34V" when it is displayed.
+«Единицы измерения» отображаются после значения, когда вы интерпретируете сигнал в основном списке кадров. Например, вы можете установить единицы измерения в V, чтобы значение напряжения отображалось как «12.34V».
 
-"Receiving Node" This is informational at the moment. You can set which node (out of all your defined nodes) is the one that receives this signal. It could potentially be used for ECU simulation in the future (or by other applications).
+«Принимающий узел» В данный момент это информационное. Вы можете установить, какой узел (из всех ваших определённых узлов) является тем, который принимает этот сигнал. Это потенциально может быть использовано для симуляции ECU в будущем (или другими приложениями).
 
-"Multiplexing" This is a somewhat involved topic. DBC signals can be multiplexed which means that a given frame might have a range of data that is not always found in every frame. There is a key of sorts that specifies which piece of data this particular frame is sending. This leads to the concept of multiplexed signals and multiplexors. Multiplexors are the key. They provide a value that specifies which multiplexed data item is being sent. A multiplexed signal is then connected to a specific value of the multiplexor. Thus, a multiplexed signal requires that a multiplexor also exists. You would normally set all of this to "Not multiplexed" and skip all this complication. But, multiplexed signals do exist. In that case the message would have one multiplexor and one or more multiplexed signals. So, you'd set up a multiplexor for the message and then create additional multiplexed signals that are marked as "Multiplexed" and have filled out the Multiplex Low and High values with something unique. However, it is also valid to have "extended" multiplexing. In extended multiplexing there are potentially multiple levels of multiplexing. There is still only one multiplexor for a message. But, now the next level down can be **BOTH** a multiplexed signal **AND** a multiplexor for a lower level. Extended multiplexing also allows for low/high thresholds for matching. So, for multi-level multiplexing you'd set one multiplexor. Then, set as "extended" all the middle signals in the hierarchy. You will also need to set the multiplex parent. For the level just under the multiplexor you'd select the multiplexor. The bottom signals can be either extended or "multiplexed" and must have their multiplex parent set to the proper signal. 
+«Мультиплексирование» Это довольно сложная тема. Сигналы DBC могут быть мультиплексированы, что означает, что данный кадр может иметь диапазон данных, который не всегда находится в каждом кадре. Есть своего рода ключ, который указывает, какой фрагмент данных отправляет этот конкретный кадр. Это приводит к концепции мультиплексированных сигналов и мультиплексоров. Мультиплексоры — это ключ. Они предоставляют значение, которое указывает, какой мультиплексированный элемент данных отправляется. Мультиплексированный сигнал затем подключается к конкретному значению мультиплексора. Таким образом, мультиплексированный сигнал требует, чтобы мультиплексор также существовал. Обычно вы бы установили всё это в «Не мультиплексировано» и пропустили всё это усложнение. Но мультиплексированные сигналы действительно существуют. В этом случае сообщение будет иметь один мультиплексор и один или несколько мультиплексированных сигналов. Итак, вы бы настроили мультиплексор для сообщения, а затем создали дополнительные мультиплексированные сигналы, которые помечены как «Мультиплексированные» и имеют заполненные значения Мультиплекс Низкий и Высокий с чем-то уникальным. Однако также допустимо иметь «расширенное» мультиплексирование. В расширенном мультиплексировании потенциально есть несколько уровней мультиплексирования. Мультиплексор для сообщения по-прежнему только один. Но теперь следующий уровень вниз может быть **И** мультиплексированным сигналом **И** мультиплексором для нижнего уровня. Расширенное мультиплексирование также позволяет устанавливать пороги низких/высоких значений для сопоставления. Итак, для многоуровневого мультиплексирования вы бы установили один мультиплексор. Затем установите как «расширенные» все средние сигналы в иерархии. Вам также нужно будет установить родителя мультиплекса. Для уровня прямо под мультиплексором вы бы выбрали мультиплексор. Нижние сигналы могут быть либо расширенными, либо «мультиплексированными» и должны иметь своего родителя мультиплекса, установленного в правильный сигнал.
 
-Extended multiplexing is complicated so here's an example:
+Расширенное мультиплексирование сложное, поэтому вот пример:
 
-OBD-II really does use extended multiplexing. The multiplexor in this case is the OBD-II service. Various services are available and the interpretation of the rest of the frame is contingent on which service this frame encodes for. Service 1 is "Show current data". So, one of the entries for the next level down is Service 1. This would be set as an extended multiplexed signal with a low and high value of 1 and a parent listed as the service specifier signal. Within service 1 there are many "PID" codes, each of which presents a different data item. PID 04 is "Fuel system status" so there might be yet another signal set as a "multiplexed" signal with a low/high value of 4 and a multiplex parent set as the extended signal setup for service 1. In this way there are three levels of signals set up.
+OBD-II действительно использует расширенное мультиплексирование. Мультиплексор в этом случае — это сервис OBD-II. Доступны различные сервисы, и интерпретация остальной части кадра зависит от того, для какого сервиса кодирует этот кадр. Сервис 1 — «Показать текущие данные». Итак, одна из записей для следующего уровня вниз — Сервис 1. Это было бы установлено как расширенный мультиплексированный сигнал с низким и высоким значением 1 и родителем, указанным как спецификатор сервиса. Внутри сервиса 1 есть много кодов «PID», каждый из которых представляет различный элемент данных. PID 04 — «Состояние топливной системы», поэтому может быть ещё один сигнал, установленный как «мультиплексированный» с низким/высоким значением 4 и родителем мультиплекса, установленным как расширенный сигнал, настроенный для сервиса 1. Таким образом, установлено три уровня сигналов.
 
-"Comment" is purely informational.
+«Комментарий» является чисто информационным.
 
-Signals that use either "UNSIGNED INTEGER" or "SIGNED INTEGER" as their type can define a Value Table. This table allows text strings to be substituted in place of integer values. For instance, if you know that a value of 0x10 means PARK then you can go to the next empty entry in the list, type 0x10 for the value and PARK for the Text. This will make the interpreted value read PARK any time the signal has a value of 0x10. This is used to make a more human friendly presentation. It should be noted that if the signal has a value not in the list then it will still be shown as its interpreted value. But, known good values can be entered in the Value Table to make them easier to work with.
+Сигналы, которые используют либо «БЕЗЗНАКОВОЕ ЦЕЛОЕ», либо «ЗНАКОВОЕ ЦЕЛОЕ» в качестве своего типа, могут определять Таблицу значений. Эта таблица позволяет подставлять текстовые строки вместо целочисленных значений. Например, если вы знаете, что значение 0x10 означает PARK, то вы можете перейти к следующей пустой записи в списке, ввести 0x10 для значения и PARK для текста. Это заставит интерпретируемое значение читаться как PARK всякий раз, когда сигнал имеет значение 0x10. Это используется для создания более дружественного к человеку представления. Следует отметить, что если сигнал имеет значение, которого нет в списке, оно всё равно будет показано как интерпретируемое значение. Но известные хорошие значения могут быть введены в Таблицу значений, чтобы с ними было легче работать.

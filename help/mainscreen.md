@@ -1,105 +1,105 @@
-Main / Start Up Screen
+Главный / стартовый экран
 ======================
 
-![Main Window](./images/MainScreen.png)
+![Главное окно](./images/MainScreen.png)
 
-This screen embodies the core of the program. Here you will find the master list of all frames. Also, here you can navigate to the other aspects
-of the program. You can have multiple sub-windows open at once - in fact, quite often this is very beneficial.
+Этот экран воплощает ядро программы. Здесь вы найдёте основной список всех кадров. Также здесь вы можете перейти к другим аспектам
+программы. Вы можете иметь открытыми несколько подокон одновременно — на самом деле, довольно часто это очень полезно.
 
 
-The Main Frame List
+Основной список кадров
 ====================
 
-The main frame list takes up the majority of the main screen. This list consists of the following sections:
+Основной список кадров занимает большую часть главного экрана. Этот список состоит из следующих разделов:
 
-- Timestamp: The timestamp is either in microseconds or seconds. This is a setting in preferences. Either way, the timestamp can have microsecond resolution. The difference is just whether there is a decimal point or not. Many of the CAN capture devices have the ability to maintain full microsecond resolution for timestamping purposes. There is a third timing mode where the timestamp can be customized and is based upon the actual "clock" time.
-- ID: The ID is specified either in hexadecimal or decimal (a preference you can set). This is the message identifier sent over the CAN bus.
-- RTR: 0 = Standard Message 1 = Remote transmit request. An RTR frame merely asks a node to send a message, it has no payload of its own.
-- Ext: 0 = Standard message (11 bit ID). 1 = Extended message (29 bit ID)
-- Dir: Either "Rx" or "Tx" to show whether SavvyCAN has received or sent this message.
-- Bus: SavvyCAN supports a variety of capture hardware. GVRET compatible devices can support more than one bus. The bus a frame came in on
-  is specified here. Many file formats do not specify bus and thus all frames will be loaded as bus 0.
-- Len: The number of data bytes that were sent with this frame. It can range from 0 to 8 for standard CAN and 0 to 64 for CAN-FD.
-- ASCII: A character based view of the CAN bytes in ASCII characters. Many systems that send serial numbers or VIN numbers will send them in ASCII and these will thus be visible here.
-- Data: All of the data bytes separated by spaces. Can be in either hexadecimal or decimal (preference). If "Interpret Frames" is checked you will
-  also see extra data at the end of any frames that have DBC data. To see the rest of this data click upon the frame in the list. It will automatically expand to show all signals attached to that frame.
-  There is also a setting to limit the number of displayed bytes per line. This is especially useful for CAN-FD traffic.
+- Метка времени: Метка времени либо в микросекундах, либо в секундах. Это настройка в предпочтениях. В любом случае, метка времени может иметь микросекундное разрешение. Разница только в том, есть ли десятичная точка или нет. Многие устройства захвата CAN имеют возможность поддерживать полное микросекундное разрешение для целей временных меток. Есть третий режим времени, при котором метка времени может быть настроена и основана на фактическом «часовом» времени.
+- ID: ID указывается либо в шестнадцатеричном, либо в десятичном формате (настройка, которую вы можете установить). Это идентификатор сообщения, отправленный по шине CAN.
+- RTR: 0 = Стандартное сообщение 1 = Запрос удалённой передачи. RTR-кадр просто просит узел отправить сообщение, у него нет собственной полезной нагрузки.
+- Ext: 0 = Стандартное сообщение (11-битный ID). 1 = Расширенное сообщение (29-битный ID)
+- Dir: Либо «Rx», либо «Tx», чтобы показать, получил ли SavvyCAN это сообщение или отправил его.
+- Шина: SavvyCAN поддерживает различные аппаратные средства захвата. Устройства, совместимые с GVRET, могут поддерживать более одной шины. Шина, на которую пришёл кадр,
+  указывается здесь. Многие форматы файлов не указывают шину, поэтому все кадры будут загружены как шина 0.
+- Len: Количество байт данных, которые были отправлены с этим кадром. Оно может варьироваться от 0 до 8 для стандартного CAN и от 0 до 64 для CAN-FD.
+- ASCII: Символьное представление байт CAN в символах ASCII. Многие системы, которые отправляют серийные номера или VIN-номера, отправляют их в ASCII, и они будут видны здесь.
+- Данные: Все байты данных, разделённые пробелами. Могут быть либо в шестнадцатеричном, либо в десятичном формате (предпочтение). Если включено «Интерпретировать кадры», вы
+  также увидите дополнительные данные в конце любых кадров, которые имеют DBC-данные. Чтобы увидеть остальные данные, щёлкните по кадру в списке. Он автоматически расширится, чтобы показать все сигналы, привязанные к этому кадру.
+  Есть также настройка для ограничения количества отображаемых байт на строку. Это особенно полезно для CAN-FD трафика.
 
 
-The Bottom Statusbar
+Нижняя строка состояния
 ====================
 
-At the very bottom of the main screen is a status bar with three sections. 
+В самом низу главного экрана находится строка состояния с тремя разделами.
 
-* The first section shows the connection status. You will see the number of currently connected buses here.
-* The second section shows which file is currently loaded. This is updated by loading or saving.
-* The third section reminds you that F1 will bring up help. Most all screens have their own help.
+* Первый раздел показывает статус подключения. Здесь вы увидите количество текущих подключённых шин.
+* Второй раздел показывает, какой файл в данный момент загружен. Это обновляется при загрузке или сохранении.
+* Третий раздел напоминает вам, что F1 вызовет справку. У большинства экранов есть своя справка.
 
 
-The Rest of the Main Window
+Остальная часть главного окна
 ===========================
 
-*To the right of the main frames list is an area that shows the total number of captured frames and the frames per second. Total frames might not match the number of shown frames. If you've deselected any IDs in the filter list then fewer frames will be shown. Frames per second is calculated as an average and so will wind up or down when there is a sudden change.
+*Справа от основного списка кадров находится область, показывающая общее количество захваченных кадров и кадров в секунду. Общее количество кадров может не совпадать с количеством показанных кадров. Если вы отменили выбор каких-либо ID в списке фильтров, будет показано меньше кадров. Кадры в секунду рассчитываются как среднее значение и поэтому будут увеличиваться или уменьшаться при внезапном изменении.
 
-*Suspend Capturing / Resume Capturing is a button that will temporarily disable frame capture or re-enable it. This can be used to keep everything connected without capturing traffic for a short time. This can help to not capture traffic in between tests.
+*Приостановить захват / Возобновить захват — это кнопка, которая временно отключит захват кадров или снова включит его. Это можно использовать, чтобы всё оставалось подключённым без захвата трафика на короткое время. Это может помочь не захватывать трафик между тестами.
 
-*The "Normalize Frame Timing" button is used to reset the lowest timestamp to "0" and offset all other timestamps accordingly. This is useful to remove the starting offset when you start up a device long before actual traffic starts. SavvyCAN is designed such that this doesn't really matter most of the time but normalizing the timing might be useful to help correlate the timing between two different captures.
+*Кнопка «Нормализовать тайминг кадров» используется для сброса самой низкой метки времени на «0» и смещения всех остальных меток времени соответственно. Это полезно для удаления начального смещения, когда вы запускаете устройство задолго до того, как начинается фактический трафик. SavvyCAN разработан так, что в большинстве случаев это не имеет значения, но нормализация тайминга может быть полезна, чтобы помочь коррелировать тайминг между двумя различными захватами.
 
-*The "Clear Frames" button will erase all captured messages. They will be irreversibly erased and all memory will be freed.
+*Кнопка «Очистить кадры» сотрёт все захваченные сообщения. Они будут безвозвратно стёрты, и вся память будет освобождена.
 
-*"Keep Filters While Clearing" will keep all the filters intact if you push the "Clear Frames" button. Otherwise all filters will also be cleared.
+*«Сохранить фильтры при очистке» сохранит все фильтры нетронутыми, если вы нажмёте кнопку «Очистить кадры». В противном случае все фильтры также будут очищены.
 
-*The "Auto Scroll Window" checkbox will cause the main frame list to hunt toward the bottom of the list as frames come in. It will normally not be quite
-at the very bottom as, for performance reasons, the program runs at quarter second updates to things like the auto scroll. Thus, the main list will be
-scrolled to the bottom four times per second.
+*Флажок «Автопрокрутка окна» заставит основной список кадров прокручиваться к низу списка по мере поступления кадров. Обычно он не будет совсем
+  в самом низу, так как по причинам производительности программа обновляется с интервалом в четверть секунды для таких вещей, как автопрокрутка. Таким образом, основной список будет
+  прокручиваться к низу четыре раза в секунду.
 
-*The "Interpret Frames" checkbox is used to specify whether the loaded DBC file should be used to interpret all available messages and signals. One might want
-this off for performance reasons (interpreting takes some extra processor power and RAM) or to declutter the main frame list.
+*Флажок «Интерпретировать кадры» используется для указания, должен ли загруженный DBC-файл использоваться для интерпретации всех доступных сообщений и сигналов. Может потребоваться
+  отключить это по причинам производительности (интерпретация требует дополнительной вычислительной мощности и ОЗУ) или для упрощения основного списка кадров.
 
-*The "Overwrite Mode" checkbox is used to ensure that only the newest frame for each message ID is shown. That is, if 100 messages with ID 0x105 come in you
-will see only the newest one. This is generally used alongside "Interpret Frames" to interpret frames and always see the up-to-date information.
+*Флажок «Режим перезаписи» используется для обеспечения того, чтобы отображался только самый новый кадр для каждого ID сообщения. То есть, если придёт 100 сообщений с ID 0x105, вы
+  увидите только самое новое. Обычно это используется вместе с «Интерпретировать кадры», чтобы интерпретировать кадры и всегда видеть актуальную информацию.
 
-*"Expand All Rows" will expand all the rows to show every signal in every message. This will take a **VERY** long time if there are many messages loaded. Because of this, you may receive a warning if the program determines that this will take an excessive amount of time to complete. You can make it work faster by filtering away any unneeded messages.
+*«Развернуть все строки» развернёт все строки, чтобы показать каждый сигнал в каждом сообщении. Это займёт **ОЧЕНЬ** много времени, если загружено много сообщений. Поэтому вы можете получить предупреждение, если программа определит, что это займёт чрезмерное количество времени. Вы можете ускорить работу, отфильтровав ненужные сообщения.
 
-*"Collapse All Rows" will drop all rows back to taking up only one line. This can also take a while to run and will also warn if the operation seems like it will take a very long time to complete.
+*«Свернуть все строки» вернёт все строки к занятию только одной строки. Это также может занять некоторое время, и также будет предупреждение, если операция, кажется, займёт очень много времени.
 
-*"Bus Filtering" allows for messages to be shown or hidden based on which bus they came in on.
+*«Фильтрация по шине» позволяет показывать или скрывать сообщения в зависимости от того, на какую шину они пришли.
 
-*"Frame Filtering" provides a list of all the frame IDs seen so far. Any ID which is checked will be shown in the main list. Any ID which is unchecked will not.
-This can be used to hone in on frames of importance while hiding frames that are currently of no interest. The filtered list can be saved as well.
+*«Фильтрация по кадрам» предоставляет список всех ID кадров, видимых до сих пор. Любой ID, который отмечен, будет показан в основном списке. Любой ID, который не отмечен, не будет.
+Это можно использовать, чтобы сосредоточиться на важных кадрах, скрывая кадры, которые в данный момент не представляют интереса. Отфильтрованный список также можно сохранить.
 
 
-Loading And Saving Frames
+Загрузка и сохранение кадров
 =========================
 
-What CANBus analysis tool would be complete without an easy way to load and save frames? 
+Какой инструмент анализа CANBus был бы полным без простого способа загрузки и сохранения кадров?
 
-SavvyCAN can load and save in several formats (a few of which are listed below):
-	- CRTD: This format was made by Mark Webb-Johnson for OVMS (open vehicle monitoring system) and other related tools. It is a reasonably readable and compact format.
-	- GVRET: This is the native format for GVRET and SavvyCAN. The GVRET format saves more information such as the bus a frame originated on. This format is in CSV 
-	  (comma delimited) format and as such can easily be loaded into your favorite spreadsheet program as well.
-	- Generic ID/DATA - Another CSV format. This is a very cut down format with limited information.
-	- BusMaster - This is the format output by the BusMaster CANBus program. BusMaster is an open source Windows-only somewhat clone of CANAlyzer (the 800lb gorilla in the analysis space). The ability to load and save in this format makes SavvyCAN fully capable of swapping data with BusMaster should you need to do so.
-	- Microchip - Format output by Microchip CANBus tools. Perhaps you have logs that were captured with a $100 Microchip dongle? You can load them in SavvyCAN.
+SavvyCAN может загружать и сохранять в нескольких форматах (некоторые из которых перечислены ниже):
+	- CRTD: Этот формат был создан Марком Уэббом-Джонсоном для OVMS (системы мониторинга открытых транспортных средств) и других связанных инструментов. Это довольно читаемый и компактный формат.
+	- GVRET: Это родной формат для GVRET и SavvyCAN. Формат GVRET сохраняет больше информации, такой как шина, с которой originated кадр. Этот формат в CSV
+	  (разделённый запятыми) формате и, как таковой, может быть легко загружен в вашу любимую программу для работы с электронными таблицами.
+	- Общий ID/DATA — Ещё один CSV-формат. Это очень урезанный формат с ограниченной информацией.
+	- BusMaster — Это формат, выводимый программой BusMaster CANBus. BusMaster — это открытый исходный код, только для Windows, несколько клон CANAlyzer (800-фунтовая горилла в пространстве анализа). Возможность загрузки и сохранения в этом формате делает SavvyCAN полностью способным обмениваться данными с BusMaster, если вам нужно это сделать.
+	- Microchip — Формат, выводимый инструментами Microchip CANBus. Возможно, у вас есть логи, которые были захвачены с помощью донгла Microchip за $100? Вы можете загрузить их в SavvyCAN.
 
-There are many other formats supported. Some are only supported for writing, some only for reading. The list of supported formats is expanded every so often.
+Поддерживается много других форматов. Некоторые поддерживаются только для записи, некоторые только для чтения. Список поддерживаемых форматов расширяется время от времени.
 
 
-Filters
+Фильтры
 ========
 
-You might notice that there are three entries in the file menu that mention filters. SavvyCAN can filter messages so that you only see some of the messages coming in on the bus. It still saves all incoming messages but you are able to filter which you will view at any given time. 
-SavvyCAN allows for loading and saving the list of frames you'd like to view so that you can easily switch "sets" of frames to view. Also, when saving you can optionally save just the frames that you have filtered instead of every captured frame. Filters are set in the lower right-hand of the this screen. All IDs are selected by default. To deselect an ID click on the checkbox next to it. You can also deselect all IDs or select all IDs. These are useful if you only want to view a couple of IDs (click None then the few you need) or you just want to remove a couple (click All and then deselect the ones you don't care about).
+Вы можете заметить, что в меню Файл есть три пункта, упоминающие фильтры. SavvyCAN может фильтровать сообщения, так что вы видите только некоторые из сообщений, поступающих на шину. Он всё ещё сохраняет все входящие сообщения, но вы можете фильтровать, какие из них будете просматривать в любой момент времени.
+SavvyCAN позволяет загружать и сохранять список кадров, которые вы хотели бы просматривать, чтобы вы могли легко переключать «наборы» кадров для просмотра. Также, при сохранении, вы можете по желанию сохранить только отфильтрованные кадры вместо каждого захваченного кадра. Фильтры устанавливаются в правом нижнем углу этого экрана. Все ID выбраны по умолчанию. Чтобы отменить выбор ID, щёлкните по галочке рядом с ним. Вы также можете отменить выбор всех ID или выбрать все ID. Это полезно, если вы хотите просматривать только пару ID (нажмите Нет, затем нужные вам) или вы просто хотите удалить пару (нажмите Все, а затем отмените выбор тех, которые вас не интересуют).
 
 
 
-What is DBC and why would I care?!
+Что такое DBC и почему мне это должно быть интересно?!
 ==================================
 	
-I'm glad you asked. DBC is a file format used to specify how "signals" are stored in "messages." A message is essentially a unique packet of data sent on the CAN bus. Ordinarily this message is differentiated by frame ID. Each ID is a different message (usually). A signal is a piece of data stored in a message. For instance, ID 0x105 might be a message from the vehicle control unit to the motor inverter. Within that message bytes 0 and 1 might encode the desired torque. That would be a signal. A DBC file allows these relationships to be specified and named. It also allows for scaling of values stored in a signal. Additionally, a signal can have values associated with textual output. For instance, if a signal encodes the current gear then a DBC file can define that a value of 0 means "Park" and a value of 1 means "Drive". This makes analysis a lot easier since you do not need to remember the mapping yourself. In this way data can be better understood by users of the program. Also, other windows can use the DBC file for such things as being able to graph a signal without having to figure out the actual details of that signal.
+Рад, что вы спросили. DBC — это формат файла, используемый для указания, как «сигналы» хранятся в «сообщениях». Сообщение — это, по сути, уникальный пакет данных, отправленный по шине CAN. Обычно это сообщение дифференцируется по ID кадра. Каждый ID — это другое сообщение (обычно). Сигнал — это часть данных, хранящаяся в сообщении. Например, ID 0x105 может быть сообщением от блока управления транспортным средством к инвертору двигателя. Внутри этого сообщения байты 0 и 1 могут кодировать желаемый крутящий момент. Это был бы сигнал. DBC-файл позволяет указать и назвать эти отношения. Он также позволяет масштабировать значения, хранящиеся в сигнале. Кроме того, сигнал может иметь значения, связанные с текстовым выводом. Например, если сигнал кодирует текущую передачу, то DBC-файл может определить, что значение 0 означает «Паркинг», а значение 1 означает «Драйв». Это значительно упрощает анализ, поскольку вам не нужно запоминать сопоставление самостоятельно. Таким образом, данные могут быть лучше поняты пользователями программы. Также другие окна могут использовать DBC-файл для таких вещей, как возможность построить график сигнала, не разбираясь в фактических деталях этого сигнала.
 
 
-How DBC interacts with the main screen?
+Как DBC взаимодействует с главным экраном?
 =======================================
 	
-First of all, one can load and save DBC files from the "DBC File Manager" found in the File menu. Also in the File menu it is possible to save the currently loaded frames but with DBC decoding. This is somewhat like the normal saving functionality with a two differences: there is only one output format and that format has all signals contained in each message listed and decoded.
+Прежде всего, можно загружать и сохранять DBC-файлы из «Менеджера DBC-файлов», найденного в меню Файл. Также в меню Файл можно сохранить текущие загруженные кадры, но с DBC-декодированием. Это несколько похоже на обычную функцию сохранения с двумя отличиями: есть только один выходной формат, и этот формат содержит все сигналы, содержащиеся в каждом сообщении, перечисленные и декодированные.

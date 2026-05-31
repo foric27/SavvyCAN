@@ -1,13 +1,13 @@
-CAN Bridge Window
+Окно CAN-моста
 =================
 
-![Bridge Window](images/CANBridge.png)
+![Окно моста](images/CANBridge.png)
 
-Using the Bridge Window
+Использование окна моста
 ==========================
 
-The purpose of this window is simple, to allow one to forward traffic from one bus to another. Any two buses you have connected could be bridged in this way, even if they originate on different hardware adapters. By default neither side will forward to the other. You must select different buses for Side 1 and Side 2 then enable forwarding from one to the other. You can enable bi-directional forwarding. However, this can be problematic. If you are not careful you can create an infinite loop where traffic from one side gets forwarded to the other side which then forwards to the first side, and so on. 
+Назначение этого окна простое — позволить перенаправлять трафик с одной шины на другую. Любые две подключенные шины могут быть соединены таким образом, даже если они находятся на разных аппаратных адаптерах. По умолчанию ни одна сторона не будет перенаправлять на другую. Вы должны выбрать разные шины для Стороны 1 и Стороны 2, а затем включить перенаправление от одной к другой. Вы можете включить двунаправленное перенаправление. Однако это может быть проблематично. Если вы будете неосторожны, вы можете создать бесконечный цикл, при котором трафик с одной стороны перенаправляется на другую, которая затем перенаправляет обратно на первую, и так далее.
 
-If you'd like to only forward some traffic then uncheck the boxes next to IDs you do not want to forward.
+Если вы хотите перенаправлять только часть трафика, снимите галочки с ID, которые не хотите перенаправлять.
 
-At the moment this window is in the preliminary stages and, as mentioned above, could be prone to allowing infinite loops in some circumstances.
+В данный момент это окно находится на начальной стадии разработки и, как упоминалось выше, может позволять бесконечные циклы в некоторых обстоятельствах.
