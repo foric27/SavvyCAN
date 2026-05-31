@@ -439,9 +439,9 @@ void CarBusConnection::parseReceivedData()
 {
     while (mRxBuffer.size() >= 4) {
         // Check for SYNC response first
-        if ((unsigned char)mRxBuffer.at(0) == 0xA5 &&
+        if ((unsigned char)mRxBuffer.at(0) == 0x5A &&
             (unsigned char)mRxBuffer.at(1) == 0x00 &&
-            (unsigned char)mRxBuffer.at(2) == 0xA5 &&
+            (unsigned char)mRxBuffer.at(2) == 0x5A &&
             (unsigned char)mRxBuffer.at(3) == 0x00) {
             sendDebug("SYNC response received");
             mRxBuffer.remove(0, 4);
