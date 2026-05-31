@@ -265,7 +265,7 @@ bool CarBusConnection::piSendFrame(const CANFrame& frame)
     if (!mChannelOpened) return false;
 
     quint32 id = frame.frameId();
-    quint32 msgFlags = 0;
+    quint32 msgFlags = FLAG_BLOCK_TX;
 
     if (frame.hasExtendedFrameFormat()) {
         msgFlags |= FLAG_EXTID;
@@ -282,7 +282,6 @@ bool CarBusConnection::piSendFrame(const CANFrame& frame)
     if (frame.payload().length() > 8) return false;
 
     quint32 timestamp = 0;
-    quint32 reserved = 0;
     quint32 dlc = frame.payload().length();
 
     QByteArray payload;
@@ -296,11 +295,6 @@ bool CarBusConnection::piSendFrame(const CANFrame& frame)
     payload.append((char)((timestamp >> 8) & 0xFF));
     payload.append((char)((timestamp >> 16) & 0xFF));
     payload.append((char)((timestamp >> 24) & 0xFF));
-    // RESERVED
-    payload.append((char)(reserved & 0xFF));
-    payload.append((char)((reserved >> 8) & 0xFF));
-    payload.append((char)((reserved >> 16) & 0xFF));
-    payload.append((char)((reserved >> 24) & 0xFF));
     // CAN_ID
     payload.append((char)(id & 0xFF));
     payload.append((char)((id >> 8) & 0xFF));
@@ -314,7 +308,12 @@ bool CarBusConnection::piSendFrame(const CANFrame& frame)
     // DATA
     payload.append(frame.payload());
 
-    quint16 headerFlags = (((frame.bus >= 0 ? frame.bus : 0) + 1) & 0x0F) * 0x20;
+    int txBus = frame.bus >= 0 ? frame.bus : 0;
+    quint16 headerFlags = CH1;
+    if (txBus == 1) headerFlags = CH2;
+    else if (txBus == 2) headerFlags = CH3;
+    else if (txBus == 3) headerFlags = CH4;
+
     sendCommand(CMD_MESSAGE, headerFlags, payload, true);
 
     return true;
