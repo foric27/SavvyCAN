@@ -198,60 +198,57 @@ void CarBusConnection::piSetBusSettings(int pBusIdx, CANBus bus)
 
     setBusConfig(pBusIdx, bus);
 
-    if (mChannelOpened) {
-        // Reopen channel with new settings
-        sendDebug("Reopening CAN channel with new settings");
+    sendDebug("Opening CAN channel with settings");
 
-        quint8 bitrateIdx;
-        if (!bitrateToIndex(bus.getSpeed(), false, bitrateIdx)) {
-            sendDebug("Unsupported bitrate: " + QString::number(bus.getSpeed()));
-            return;
-        }
-
-        quint8 modeVal = 0x00; // normal
-        if (bus.isListenOnly()) modeVal = 0x01;
-
-        quint8 frameMode = 0x00; // classic
-        if (bus.isCanFD()) {
-            frameMode = bus.isCanFD() ? 0x02 : 0x01; // BRS if data rate set
-        }
-
-        QByteArray payload;
-        // CC_CAN_MODE
-        quint32 ccMode = 0x11000000 | modeVal;
-        payload.append((char)(ccMode & 0xFF));
-        payload.append((char)((ccMode >> 8) & 0xFF));
-        payload.append((char)((ccMode >> 16) & 0xFF));
-        payload.append((char)((ccMode >> 24) & 0xFF));
-
-        // CC_CAN_FRAME
-        quint32 ccFrame = 0x12000000 | frameMode;
-        payload.append((char)(ccFrame & 0xFF));
-        payload.append((char)((ccFrame >> 8) & 0xFF));
-        payload.append((char)((ccFrame >> 16) & 0xFF));
-        payload.append((char)((ccFrame >> 24) & 0xFF));
-
-        // CC_BUS_SPEED_N
-        quint32 ccSpeedN = 0x01000000 | bitrateIdx;
-        payload.append((char)(ccSpeedN & 0xFF));
-        payload.append((char)((ccSpeedN >> 8) & 0xFF));
-        payload.append((char)((ccSpeedN >> 16) & 0xFF));
-        payload.append((char)((ccSpeedN >> 24) & 0xFF));
-
-        if (bus.isCanFD()) {
-            quint8 dataBitrateIdx;
-            if (bitrateToIndex(bus.getDataRate(), true, dataBitrateIdx)) {
-                quint32 ccSpeedD = 0x02000000 | dataBitrateIdx;
-                payload.append((char)(ccSpeedD & 0xFF));
-                payload.append((char)((ccSpeedD >> 8) & 0xFF));
-                payload.append((char)((ccSpeedD >> 16) & 0xFF));
-                payload.append((char)((ccSpeedD >> 24) & 0xFF));
-            }
-        }
-
-        quint16 headerFlags = ((pBusIdx + 1) & 0x0F) * 0x20;
-        sendCommand(CMD_CHANNEL_OPEN, headerFlags, payload, false);
+    quint8 bitrateIdx;
+    if (!bitrateToIndex(bus.getSpeed(), false, bitrateIdx)) {
+        sendDebug("Unsupported bitrate: " + QString::number(bus.getSpeed()));
+        return;
     }
+
+    quint8 modeVal = 0x00; // normal
+    if (bus.isListenOnly()) modeVal = 0x01;
+
+    quint8 frameMode = 0x00; // classic
+    if (bus.isCanFD()) {
+        frameMode = bus.isCanFD() ? 0x02 : 0x01; // BRS if data rate set
+    }
+
+    QByteArray payload;
+    // CC_CAN_MODE
+    quint32 ccMode = 0x11000000 | modeVal;
+    payload.append((char)(ccMode & 0xFF));
+    payload.append((char)((ccMode >> 8) & 0xFF));
+    payload.append((char)((ccMode >> 16) & 0xFF));
+    payload.append((char)((ccMode >> 24) & 0xFF));
+
+    // CC_CAN_FRAME
+    quint32 ccFrame = 0x12000000 | frameMode;
+    payload.append((char)(ccFrame & 0xFF));
+    payload.append((char)((ccFrame >> 8) & 0xFF));
+    payload.append((char)((ccFrame >> 16) & 0xFF));
+    payload.append((char)((ccFrame >> 24) & 0xFF));
+
+    // CC_BUS_SPEED_N
+    quint32 ccSpeedN = 0x01000000 | bitrateIdx;
+    payload.append((char)(ccSpeedN & 0xFF));
+    payload.append((char)((ccSpeedN >> 8) & 0xFF));
+    payload.append((char)((ccSpeedN >> 16) & 0xFF));
+    payload.append((char)((ccSpeedN >> 24) & 0xFF));
+
+    if (bus.isCanFD()) {
+        quint8 dataBitrateIdx;
+        if (bitrateToIndex(bus.getDataRate(), true, dataBitrateIdx)) {
+            quint32 ccSpeedD = 0x02000000 | dataBitrateIdx;
+            payload.append((char)(ccSpeedD & 0xFF));
+            payload.append((char)((ccSpeedD >> 8) & 0xFF));
+            payload.append((char)((ccSpeedD >> 16) & 0xFF));
+            payload.append((char)((ccSpeedD >> 24) & 0xFF));
+        }
+    }
+
+    quint16 headerFlags = ((pBusIdx + 1) & 0x0F) * 0x20;
+    sendCommand(CMD_CHANNEL_OPEN, headerFlags, payload, false);
 }
 
 bool CarBusConnection::piSendFrame(const CANFrame& frame)
