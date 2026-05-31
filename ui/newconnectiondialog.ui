@@ -22,16 +22,16 @@
      <property name="alignment">
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
      </property>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="4" column="0">
-       <widget class="QRadioButton" name="rbKayak">
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="5" column="0">
+        <widget class="QRadioButton" name="rbKayak">
         <property name="text">
          <string>socketcand (SocketCAN over Ethernet)</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="0">
-       <widget class="QRadioButton" name="rbSocketCAN">
+       <item row="4" column="0">
+        <widget class="QRadioButton" name="rbSocketCAN">
         <property name="enabled">
          <bool>false</bool>
         </property>
@@ -40,8 +40,8 @@
         </property>
        </widget>
       </item>
-      <item row="5" column="0">
-       <widget class="QRadioButton" name="rbMQTT">
+       <item row="6" column="0">
+        <widget class="QRadioButton" name="rbMQTT">
         <property name="text">
          <string>MQTT Connection</string>
         </property>
@@ -78,15 +78,15 @@
          </property>
         </widget>
        </item>
-      <item row="6" column="0">
-       <widget class="QRadioButton" name="rbCANserver">
+       <item row="7" column="0">
+        <widget class="QRadioButton" name="rbCANserver">
         <property name="text">
          <string>CANserver</string>
         </property>
        </widget>
       </item>
-      <item row="7" column="0">
-       <widget class="QRadioButton" name="rbCanlogserver">
+       <item row="8" column="0">
+        <widget class="QRadioButton" name="rbCanlogserver">
         <property name="text">
          <string>CANlogserver</string>
         </property>
