@@ -11,6 +11,15 @@
 #include "canconnection.h"
 #include "canconmanager.h"
 
+enum ConnState {
+    STATE_IDLE,
+    STATE_WAIT_SYNC,
+    STATE_WAIT_DEVICE_INFO,
+    STATE_WAIT_DEVICE_OPEN,
+    STATE_WAIT_CHANNEL_OPEN,
+    STATE_CONNECTED
+};
+
 class CarBusConnection : public CANConnection
 {
     Q_OBJECT
@@ -61,6 +70,8 @@ private:
     quint8 mSeqCounter;
     bool mDeviceOpened;
     bool mChannelOpened;
+    ConnState mConnState;
+    int mStateTickCount;
 
     QByteArray mRxBuffer;
     qint64 mTimeBasis;

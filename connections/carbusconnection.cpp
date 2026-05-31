@@ -48,15 +48,6 @@ static const quint32 DI_CHANNEL_MAP = 0x12000000;
 static const quint32 DI_CHANNEL_FEATURES = 0x13000000;
 static const quint32 CC_MULTIWORD = 0x80000000;
 
-enum ConnState {
-    STATE_IDLE,
-    STATE_WAIT_SYNC,
-    STATE_WAIT_DEVICE_INFO,
-    STATE_WAIT_DEVICE_OPEN,
-    STATE_WAIT_CHANNEL_OPEN,
-    STATE_CONNECTED
-};
-
 static QMap<int, int> nominalBitrateIndex = {
     {10000, 0}, {20000, 1}, {33300, 2}, {50000, 3},
     {62500, 4}, {83300, 5}, {95200, 6}, {100000, 7},
@@ -81,7 +72,9 @@ CarBusConnection::CarBusConnection(QString portName, int serialSpeed, int busSpe
     mChannelOpened(false),
     mHwId(0),
     mNumHwBuses(1),
-    mCanFdSupported(false)
+    mCanFdSupported(false),
+    mConnState(STATE_IDLE),
+    mStateTickCount(0)
 {
     sendDebug("CarBusConnection()");
     serial = nullptr;
@@ -352,6 +345,8 @@ void CarBusConnection::connectDevice()
     }
 
     sendDebug("Serial port opened, sending SYNC...");
+    mConnState = STATE_WAIT_SYNC;
+    mStateTickCount = 0;
 
     // Send SYNC sequence
     QByteArray sync;
@@ -361,47 +356,6 @@ void CarBusConnection::connectDevice()
     sync.append((char)0x00);
     sendToSerial(sync);
 
-    // Give device a moment and then request info
-    QTimer::singleShot(100, this, [this]() {
-        if (!mDeviceOpened) {
-            sendDebug("Requesting DEVICE_INFO...");
-            sendCommand(CMD_DEVICE_INFO, 0, QByteArray(), false);
-        }
-    });
-
-    QTimer::singleShot(200, this, [this]() {
-        if (!mDeviceOpened) {
-            sendDebug("Sending DEVICE_OPEN...");
-            quint32 mode = 0x01000000 | 0x01; // CAN only mode
-            QByteArray payload;
-            payload.append((char)(mode & 0xFF));
-            payload.append((char)((mode >> 8) & 0xFF));
-            payload.append((char)((mode >> 16) & 0xFF));
-            payload.append((char)((mode >> 24) & 0xFF));
-            sendCommand(CMD_DEVICE_OPEN, 0, payload, false);
-        }
-    });
-
-    QTimer::singleShot(300, this, [this]() {
-        if (!mChannelOpened) {
-            sendDebug("Sending CHANNEL_OPEN...");
-            // Default bus settings
-            CANBus bus;
-            if (getBusConfig(0, bus)) {
-                piSetBusSettings(0, bus);
-            } else {
-                // Use default 500k classic CAN
-                bus.setSpeed(500000);
-                bus.setActive(true);
-                bus.setListenOnly(false);
-                bus.setCanFD(false);
-                bus.setDataRate(2000000);
-                setBusConfig(0, bus);
-                piSetBusSettings(0, bus);
-            }
-        }
-    });
-
     // Setup periodic timer for keepalive/status
     connect(&mTimer, SIGNAL(timeout()), this, SLOT(handleTick()));
     mTimer.start(1000);
@@ -410,6 +364,7 @@ void CarBusConnection::connectDevice()
 void CarBusConnection::disconnectDevice()
 {
     mTimer.stop();
+    mConnState = STATE_IDLE;
 
     if (mDeviceOpened) {
         sendCommand(CMD_DEVICE_CLOSE, 0, QByteArray(), false);
@@ -448,10 +403,17 @@ void CarBusConnection::connectionTimeout()
 
 void CarBusConnection::handleTick()
 {
-    // Keepalive or status check if needed
-    if (!mDeviceOpened || !mChannelOpened) {
-        // Still initializing, check if we need to retry
-        // TODO: implement retry counter
+    // State machine timeout handling
+    if (mConnState != STATE_IDLE && mConnState != STATE_CONNECTED) {
+        mStateTickCount++;
+        if (mStateTickCount >= 5) {
+            sendDebug(QString("State timeout in state %1, retrying connection...").arg(mConnState));
+            mStateTickCount = 0;
+            disconnectDevice();
+            connectDevice();
+        }
+    } else {
+        mStateTickCount = 0;
     }
 }
 
@@ -477,12 +439,19 @@ void CarBusConnection::parseReceivedData()
 {
     while (mRxBuffer.size() >= 4) {
         // Check for SYNC response first
-        if ((unsigned char)mRxBuffer.at(0) == 0x5A &&
+        if ((unsigned char)mRxBuffer.at(0) == 0xA5 &&
             (unsigned char)mRxBuffer.at(1) == 0x00 &&
-            (unsigned char)mRxBuffer.at(2) == 0x5A &&
+            (unsigned char)mRxBuffer.at(2) == 0xA5 &&
             (unsigned char)mRxBuffer.at(3) == 0x00) {
             sendDebug("SYNC response received");
             mRxBuffer.remove(0, 4);
+            // After SYNC, request device info
+            if (mConnState == STATE_WAIT_SYNC) {
+                mConnState = STATE_WAIT_DEVICE_INFO;
+                mStateTickCount = 0;
+                sendDebug("Requesting DEVICE_INFO...");
+                sendCommand(CMD_DEVICE_INFO, 0, QByteArray(), false);
+            }
             continue;
         }
 
@@ -531,8 +500,28 @@ void CarBusConnection::processPacket(quint8 cmd, quint8 seq, quint16 flags, cons
         if (baseCmd == CMD_DEVICE_OPEN) {
             mDeviceOpened = true;
             sendDebug("DEVICE_OPEN ACK received");
+            // After DEVICE_OPEN ACK, send CHANNEL_OPEN
+            if (mConnState == STATE_WAIT_DEVICE_OPEN) {
+                mConnState = STATE_WAIT_CHANNEL_OPEN;
+                mStateTickCount = 0;
+                sendDebug("Sending CHANNEL_OPEN...");
+                CANBus bus;
+                if (getBusConfig(0, bus)) {
+                    piSetBusSettings(0, bus);
+                } else {
+                    bus.setSpeed(500000);
+                    bus.setActive(true);
+                    bus.setListenOnly(false);
+                    bus.setCanFD(false);
+                    bus.setDataRate(2000000);
+                    setBusConfig(0, bus);
+                    piSetBusSettings(0, bus);
+                }
+            }
         } else if (baseCmd == CMD_CHANNEL_OPEN) {
             mChannelOpened = true;
+            mConnState = STATE_CONNECTED;
+            mStateTickCount = 0;
             CANConStatus stats;
             stats.conStatus = CANCon::CONNECTED;
             stats.numHardwareBuses = mNumHwBuses;
@@ -541,6 +530,8 @@ void CarBusConnection::processPacket(quint8 cmd, quint8 seq, quint16 flags, cons
         } else if (baseCmd == CMD_DEVICE_CLOSE) {
             mDeviceOpened = false;
             mChannelOpened = false;
+            mConnState = STATE_IDLE;
+            mStateTickCount = 0;
         }
         return;
     }
@@ -626,6 +617,20 @@ void CarBusConnection::processDeviceInfo(const QByteArray &payload)
     // Update number of buses
     if (mNumHwBuses > 0) {
         mNumBuses = mNumHwBuses;
+    }
+
+    // After DEVICE_INFO, send DEVICE_OPEN
+    if (mConnState == STATE_WAIT_DEVICE_INFO) {
+        mConnState = STATE_WAIT_DEVICE_OPEN;
+        mStateTickCount = 0;
+        sendDebug("Sending DEVICE_OPEN...");
+        quint32 mode = 0x01000000 | 0x01; // CAN only mode
+        QByteArray payload;
+        payload.append((char)(mode & 0xFF));
+        payload.append((char)((mode >> 8) & 0xFF));
+        payload.append((char)((mode >> 16) & 0xFF));
+        payload.append((char)((mode >> 24) & 0xFF));
+        sendCommand(CMD_DEVICE_OPEN, 0, payload, false);
     }
 }
 
