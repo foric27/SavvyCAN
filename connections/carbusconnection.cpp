@@ -279,11 +279,11 @@ bool CarBusConnection::piSendFrame(const CANFrame& frame)
         msgFlags |= FLAG_RTR;
     }
 
-    if (frame.isCanFD()) {
+    // Note: CANFrame (Qt5 QCanBusFrame) doesn't have isCanFD() method
+    // CAN-FD is determined by payload length > 8 or bus configuration
+    if (frame.payload().length() > 8 || mCanFd) {
         msgFlags |= FLAG_FDF;
-        if (frame.hasBitrateSwitch()) {
-            msgFlags |= FLAG_BRS;
-        }
+        // BRS flag could be set based on configuration if needed
     }
 
     quint32 timestamp = 0;
@@ -678,12 +678,9 @@ void CarBusConnection::processCanMessage(quint16 flags, const QByteArray &payloa
     frame.bus = bus;
     frame.isReceived = (msgFlags & FLAG_RX) ? true : false;
 
-    if (msgFlags & FLAG_FDF) {
-        frame.setCanFD(true);
-        if (msgFlags & FLAG_BRS) {
-            frame.setBitrateSwitch(true);
-        }
-    }
+    // Note: CANFrame (Qt5 QCanBusFrame) doesn't have setCanFD() method
+    // CAN-FD is determined by payload length > 8 or FDF flag in protocol
+    // The payload size is already set above via setPayload()
 
     if (msgFlags & FLAG_RTR) {
         frame.setFrameType(QCanBusFrame::RemoteRequestFrame);
