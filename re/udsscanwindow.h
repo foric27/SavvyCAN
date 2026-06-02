@@ -97,6 +97,7 @@ private:
     int currIdx = 0;
     bool currentlyRunning;
     bool inhibitUpdates;
+    bool gotReplyForCurrent = false;
 
     void displayScanEntry(int idx);
     QString generateListDesc(int idx);

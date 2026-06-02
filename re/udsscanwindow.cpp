@@ -595,7 +595,7 @@ void UDSScanWindow::startScan()
     udsHandler->setProcessAllIDs(true);
     udsHandler->setFlowCtrl(true);
 
-    waitTimer->setInterval(ui->spinDelay->value());
+    waitTimer->setInterval(qMax(50, ui->spinDelay->value()));
 
     ui->treeResults->clear();
     nodeService = nullptr;
@@ -604,6 +604,7 @@ void UDSScanWindow::startScan()
 
     waitTimer->start();
     currIdx = -1;
+    gotReplyForCurrent = false;
     currentlyRunning = true;
     //ui->btnScan->setText("Abort Scan");
     ui->progressBar->setValue(0);
@@ -837,8 +838,8 @@ void UDSScanWindow::gotUDSReply(UDS_MESSAGE msg)
     }
     if (gotReply)
     {
-        //ui->listResults->addItem(result);
-        sendNextMsg();
+        gotReplyForCurrent = true;
+        waitTimer->start();
     }
 }
 
@@ -901,7 +902,7 @@ void UDSScanWindow::setupNodes(uint32_t replyID)
 
 void UDSScanWindow::timeOut()
 {
-    if (ui->ckShowNoReply->isChecked())
+    if (!gotReplyForCurrent && ui->ckShowNoReply->isChecked())
     {
         setupNodes(0xDEAD5EA1);
         nodeSubFunc->setForeground(0, QBrush(Qt::gray));
@@ -915,6 +916,7 @@ void UDSScanWindow::sendNextMsg()
     currIdx++;
     if (currIdx < sendingFrames.count())
     {
+        gotReplyForCurrent = false;
         udsHandler->sendUDSFrame(sendingFrames[currIdx]);
         waitTimer->start();
     }

@@ -440,6 +440,25 @@ void CarBusConnection::readSerialData()
 void CarBusConnection::parseReceivedData()
 {
     while (mRxBuffer.size() >= 4) {
+        auto isKnownCmd = [](quint8 cmd) -> bool {
+            if (cmd >= ACK_BASE && cmd < 0xFF) return true;
+            switch (cmd) {
+            case CMD_DEVICE_INFO:
+            case CMD_DEVICE_OPEN:
+            case CMD_DEVICE_CLOSE:
+            case CMD_CHANNEL_CONFIG:
+            case CMD_CHANNEL_OPEN:
+            case CMD_FILTER_SET:
+            case CMD_FILTER_CLEAR:
+            case CMD_MESSAGE:
+            case CMD_BUS_ERROR:
+            case CMD_ERROR:
+                return true;
+            default:
+                return false;
+            }
+        };
+
         // Ignore empty padding blocks often emitted by the device.
         if ((unsigned char)mRxBuffer.at(0) == 0x00 &&
             (unsigned char)mRxBuffer.at(1) == 0x00 &&
@@ -467,6 +486,12 @@ void CarBusConnection::parseReceivedData()
         }
 
         quint8 cmd = (unsigned char)mRxBuffer.at(0);
+
+        if (!isKnownCmd(cmd)) {
+            sendDebug(QString("Resync drop byte 0x%1").arg(cmd, 2, 16, QChar('0')));
+            mRxBuffer.remove(0, 1);
+            continue;
+        }
 
         // Check if this command needs extended header
         bool extendedHeader = (cmd == CMD_MESSAGE || cmd == CMD_BUS_ERROR);
@@ -677,6 +702,11 @@ void CarBusConnection::processCanMessage(quint16 flags, const QByteArray &payloa
                  ((unsigned char)payload.at(18) << 16) |
                  ((unsigned char)payload.at(19) << 24);
 
+    if (dlc > (unsigned int)(payload.size() - 20)) {
+        sendDebug("Invalid CAN message DLC/payload size mismatch");
+        return;
+    }
+
     QByteArray data = payload.mid(20, dlc);
 
     // Determine channel
@@ -711,6 +741,13 @@ void CarBusConnection::processCanMessage(quint16 flags, const QByteArray &payloa
         frame.setTimeStamp(QCanBusFrame::TimeStamp(0, timestamp));
     }
 
+    sendDebug(QString("CAN RX bus=%1 id=0x%2 len=%3 flags=0x%4 data=%5")
+              .arg(bus)
+              .arg(canId, 0, 16)
+              .arg(dlc)
+              .arg(msgFlags, 0, 16)
+              .arg(QString(data.toHex(' '))));
+
     if (!isCapSuspended()) {
         CANFrame* frame_p = getQueue().get();
         if (frame_p) {
@@ -723,7 +760,16 @@ void CarBusConnection::processCanMessage(quint16 flags, const QByteArray &payloa
 
 void CarBusConnection::processBusError(quint16 flags, const QByteArray &payload)
 {
-    sendDebug("BUS_ERROR: flags=0x" + QString::number(flags, 16) + " payload=" + payload.toHex(' '));
+    int bus = -1;
+    if (flags & CH1) bus = 0;
+    else if (flags & CH2) bus = 1;
+    else if (flags & CH3) bus = 2;
+    else if (flags & CH4) bus = 3;
+
+    sendDebug(QString("BUS_ERROR bus=%1 flags=0x%2 payload=%3")
+              .arg(bus)
+              .arg(flags, 0, 16)
+              .arg(QString(payload.toHex(' '))));
 }
 
 void CarBusConnection::debugInput(QByteArray bytes)
