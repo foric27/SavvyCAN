@@ -7,22 +7,6 @@
 #include "helpwindow.h"
 
 
-static QVector<QString> SCANTYPE_NAMES = {
-    QString("Tester Present"),
-    QString("Session Control"),
-    QString("Communication Control"),
-    QString("ECU Reset"),
-    QString("Clear DTCs"),
-    QString("Read DTCs"),
-    QString("Security Access"),
-    QString("Read By ID"),
-    QString("Read By Address"),
-    QString("Read Scaling Data By ID"),
-    QString("IO Control"),
-    QString("Routine Control"),
-    QString("Custom UDS"),
-};
-
 UDSScanWindow::UDSScanWindow(const QVector<CANFrame> *frames, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::UDSScanWindow)
@@ -40,13 +24,25 @@ UDSScanWindow::UDSScanWindow(const QVector<CANFrame> *frames, QWidget *parent) :
     udsHandler = new UDS_HANDLER;
     inhibitUpdates = false;
 
-    for (int i = 0; i < 13; i++) ui->cbScanType->addItem(SCANTYPE_NAMES[i]);
+    ui->cbScanType->addItem(tr("Tester Present"));
+    ui->cbScanType->addItem(tr("Session Control"));
+    ui->cbScanType->addItem(tr("Communication Control"));
+    ui->cbScanType->addItem(tr("ECU Reset"));
+    ui->cbScanType->addItem(tr("Clear DTCs"));
+    ui->cbScanType->addItem(tr("Read DTCs"));
+    ui->cbScanType->addItem(tr("Security Access"));
+    ui->cbScanType->addItem(tr("Read By ID"));
+    ui->cbScanType->addItem(tr("Read By Address"));
+    ui->cbScanType->addItem(tr("Read Scaling Data By ID"));
+    ui->cbScanType->addItem(tr("IO Control"));
+    ui->cbScanType->addItem(tr("Routine Control"));
+    ui->cbScanType->addItem(tr("Custom UDS"));
 
-    ui->cbSessType->addItem("No Change");
-    ui->cbSessType->addItem("Default");
-    ui->cbSessType->addItem("Programming");
-    ui->cbSessType->addItem("Extended Diag");
-    ui->cbSessType->addItem("Safety Sys Diag");
+    ui->cbSessType->addItem(tr("No Change"));
+    ui->cbSessType->addItem(tr("Default"));
+    ui->cbSessType->addItem(tr("Programming"));
+    ui->cbSessType->addItem(tr("Extended Diag"));
+    ui->cbSessType->addItem(tr("Safety Sys Diag"));
 
     connect(MainWindow::getReference(), SIGNAL(framesUpdated(int)), this, SLOT(updatedFrames(int)));
     connect(udsHandler, &UDS_HANDLER::newUDSMessage, this, &UDSScanWindow::gotUDSReply);

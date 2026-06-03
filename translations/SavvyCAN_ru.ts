@@ -1712,6 +1712,51 @@ and the value ranges by hypens
         <source>Frame Sender Definition (*.fsd)</source>
         <translation>Frame Sender Definition (*.fsd)</translation>
     </message>
+    <message>
+        <location filename="../framesenderwindow.cpp" line="59" />
+        <source>En</source>
+        <translation>Вкл</translation>
+    </message>
+    <message>
+        <location filename="../framesenderwindow.cpp" line="59" />
+        <source>Bus</source>
+        <translation>Шина</translation>
+    </message>
+    <message>
+        <location filename="../framesenderwindow.cpp" line="59" />
+        <source>MsgName</source>
+        <translation>ИмяСообщ</translation>
+    </message>
+    <message>
+        <location filename="../framesenderwindow.cpp" line="59" />
+        <source>Len</source>
+        <translation>Дл</translation>
+    </message>
+    <message>
+        <location filename="../framesenderwindow.cpp" line="59" />
+        <source>Ext</source>
+        <translation>Расш</translation>
+    </message>
+    <message>
+        <location filename="../framesenderwindow.cpp" line="59" />
+        <source>Rem</source>
+        <translation>Удал</translation>
+    </message>
+    <message>
+        <location filename="../framesenderwindow.cpp" line="60" />
+        <source>Trigger</source>
+        <translation>Триггер</translation>
+    </message>
+    <message>
+        <location filename="../framesenderwindow.cpp" line="60" />
+        <source>Modifications</source>
+        <translation>Изменения</translation>
+    </message>
+    <message>
+        <location filename="../framesenderwindow.cpp" line="60" />
+        <source>Count</source>
+        <translation>Счетчик</translation>
+    </message>
 </context>
 <context>
     <name>FuzzingWindow</name>
@@ -2189,6 +2234,11 @@ and the value ranges by hypens
         <location filename="../ui/mainsettingsdialog.ui" line="117" />
         <source>OpenGL Accelerated AntiAliased Graphing</source>
         <translation>Графика с ускорением OpenGL и сглаживанием</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainsettingsdialog.ui" line="124" />
+        <source>Color rows by CAN ID</source>
+        <translation>Цвет строк по CAN ID</translation>
     </message>
     <message>
         <location filename="../ui/mainsettingsdialog.ui" line="132" />
@@ -3548,6 +3598,96 @@ and the value ranges by hypens
         <source>Text File (*.txt)</source>
         <translation>Text File (*.txt)</translation>
     </message>
+    <message>
+        <location filename="../re/udsscanwindow.cpp" line="27" />
+        <source>Tester Present</source>
+        <translation>Tester Present</translation>
+    </message>
+    <message>
+        <location filename="../re/udsscanwindow.cpp" line="28" />
+        <source>Session Control</source>
+        <translation>Управление сессией</translation>
+    </message>
+    <message>
+        <location filename="../re/udsscanwindow.cpp" line="29" />
+        <source>Communication Control</source>
+        <translation>Управление связью</translation>
+    </message>
+    <message>
+        <location filename="../re/udsscanwindow.cpp" line="30" />
+        <source>ECU Reset</source>
+        <translation>Сброс ECU</translation>
+    </message>
+    <message>
+        <location filename="../re/udsscanwindow.cpp" line="31" />
+        <source>Clear DTCs</source>
+        <translation>Очистка DTC</translation>
+    </message>
+    <message>
+        <location filename="../re/udsscanwindow.cpp" line="32" />
+        <source>Read DTCs</source>
+        <translation>Чтение DTC</translation>
+    </message>
+    <message>
+        <location filename="../re/udsscanwindow.cpp" line="33" />
+        <source>Security Access</source>
+        <translation>Доступ безопасности</translation>
+    </message>
+    <message>
+        <location filename="../re/udsscanwindow.cpp" line="34" />
+        <source>Read By ID</source>
+        <translation>Чтение по ID</translation>
+    </message>
+    <message>
+        <location filename="../re/udsscanwindow.cpp" line="35" />
+        <source>Read By Address</source>
+        <translation>Чтение по адресу</translation>
+    </message>
+    <message>
+        <location filename="../re/udsscanwindow.cpp" line="36" />
+        <source>Read Scaling Data By ID</source>
+        <translation>Чтение данных масштабирования по ID</translation>
+    </message>
+    <message>
+        <location filename="../re/udsscanwindow.cpp" line="37" />
+        <source>IO Control</source>
+        <translation>Управление IO</translation>
+    </message>
+    <message>
+        <location filename="../re/udsscanwindow.cpp" line="38" />
+        <source>Routine Control</source>
+        <translation>Управление процедурами</translation>
+    </message>
+    <message>
+        <location filename="../re/udsscanwindow.cpp" line="39" />
+        <source>Custom UDS</source>
+        <translation>Пользовательский UDS</translation>
+    </message>
+    <message>
+        <location filename="../re/udsscanwindow.cpp" line="41" />
+        <source>No Change</source>
+        <translation>Без изменений</translation>
+    </message>
+    <message>
+        <location filename="../re/udsscanwindow.cpp" line="42" />
+        <source>Default</source>
+        <translation>По умолчанию</translation>
+    </message>
+    <message>
+        <location filename="../re/udsscanwindow.cpp" line="43" />
+        <source>Programming</source>
+        <translation>Программирование</translation>
+    </message>
+    <message>
+        <location filename="../re/udsscanwindow.cpp" line="44" />
+        <source>Extended Diag</source>
+        <translation>Расширенная диагностика</translation>
+    </message>
+    <message>
+        <location filename="../re/udsscanwindow.cpp" line="45" />
+        <source>Safety Sys Diag</source>
+        <translation>Диагностика систем безопасности</translation>
+    </message>
 </context>
 <context>
     <name>snifferWindow</name>
@@ -3616,6 +3756,124 @@ and the value ranges by hypens
         <location filename="../ui/snifferwindow.ui" line="289" />
         <source>None</source>
         <translation>Нет</translation>
+    </message>
+</context>
+<context>
+    <name>UDSFirmwareUploaderWindow</name>
+    <message>
+        <location filename="../ui/udsfirmwareuploaderwindow.ui" line="14" />
+        <source>UDS Firmware Uploader</source>
+        <translation>Загрузчик прошивки UDS</translation>
+    </message>
+    <message>
+        <location filename="../ui/udsfirmwareuploaderwindow.ui" line="22" />
+        <source>CAN Bus:</source>
+        <translation>Шина CAN:</translation>
+    </message>
+    <message>
+        <location filename="../ui/udsfirmwareuploaderwindow.ui" line="32" />
+        <source>Tesla Data Dir:</source>
+        <translation>Каталог данных Tesla:</translation>
+    </message>
+    <message>
+        <location filename="../ui/udsfirmwareuploaderwindow.ui" line="41" />
+        <source>Path to Tesla firmware root directory</source>
+        <translation>Путь к корневому каталогу прошивок Tesla</translation>
+    </message>
+    <message>
+        <location filename="../ui/udsfirmwareuploaderwindow.ui" line="50" />
+        <source>Browse...</source>
+        <translation>Обзор...</translation>
+    </message>
+    <message>
+        <location filename="../ui/udsfirmwareuploaderwindow.ui" line="57" />
+        <source>Reload</source>
+        <translation>Перезагрузить</translation>
+    </message>
+    <message>
+        <location filename="../ui/udsfirmwareuploaderwindow.ui" line="64" />
+        <source>Target ECU:</source>
+        <translation>Целевой ECU:</translation>
+    </message>
+    <message>
+        <location filename="../ui/udsfirmwareuploaderwindow.ui" line="74" />
+        <source>Target Response ID:</source>
+        <translation>Целевой ID ответа:</translation>
+    </message>
+    <message>
+        <location filename="../ui/udsfirmwareuploaderwindow.ui" line="88" />
+        <source>Target Request ID:</source>
+        <translation>Целевой ID запроса:</translation>
+    </message>
+    <message>
+        <location filename="../ui/udsfirmwareuploaderwindow.ui" line="102" />
+        <source>Device Build ID:</source>
+        <translation>ID сборки устройства:</translation>
+    </message>
+    <message>
+        <location filename="../ui/udsfirmwareuploaderwindow.ui" line="111" />
+        <source>Read Build ID</source>
+        <translation>Прочитать ID сборки</translation>
+    </message>
+    <message>
+        <location filename="../ui/udsfirmwareuploaderwindow.ui" line="118" />
+        <source>(not read)</source>
+        <translation>(не прочитан)</translation>
+    </message>
+    <message>
+        <location filename="../ui/udsfirmwareuploaderwindow.ui" line="125" />
+        <source>Lookup Version</source>
+        <translation>Найти версию</translation>
+    </message>
+    <message>
+        <location filename="../ui/udsfirmwareuploaderwindow.ui" line="134" />
+        <source>Session Type:</source>
+        <translation>Тип сессии:</translation>
+    </message>
+    <message>
+        <location filename="../ui/udsfirmwareuploaderwindow.ui" line="142" />
+        <source>Programming (0x02)</source>
+        <translation>Программирование (0x02)</translation>
+    </message>
+    <message>
+        <location filename="../ui/udsfirmwareuploaderwindow.ui" line="147" />
+        <source>Extended (0x03)</source>
+        <translation>Расширенная (0x03)</translation>
+    </message>
+    <message>
+        <location filename="../ui/udsfirmwareuploaderwindow.ui" line="155" />
+        <source>Security Level:</source>
+        <translation>Уровень безопасности:</translation>
+    </message>
+    <message>
+        <location filename="../ui/udsfirmwareuploaderwindow.ui" line="177" />
+        <source>Enable Security</source>
+        <translation>Включить безопасность</translation>
+    </message>
+    <message>
+        <location filename="../ui/udsfirmwareuploaderwindow.ui" line="189" />
+        <source>Flash Address:</source>
+        <translation>Адрес прошивки:</translation>
+    </message>
+    <message>
+        <location filename="../ui/udsfirmwareuploaderwindow.ui" line="205" />
+        <source>Load Firmware File...</source>
+        <translation>Загрузить файл прошивки...</translation>
+    </message>
+    <message>
+        <location filename="../ui/udsfirmwareuploaderwindow.ui" line="212" />
+        <source>No file loaded</source>
+        <translation>Файл не загружен</translation>
+    </message>
+    <message>
+        <location filename="../ui/udsfirmwareuploaderwindow.ui" line="235" />
+        <source>Start Upload</source>
+        <translation>Начать загрузку</translation>
+    </message>
+    <message>
+        <location filename="../ui/udsfirmwareuploaderwindow.ui" line="245" />
+        <source>Abort</source>
+        <translation>Прервать</translation>
     </message>
 </context>
 </TS>

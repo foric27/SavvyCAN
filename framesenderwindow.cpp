@@ -56,8 +56,8 @@ FrameSenderWindow::FrameSenderWindow(const QVector<CANFrame> *frames, QWidget *p
 void FrameSenderWindow::setupGrid()
 {
     QStringList headers;
-    headers << "En" << "Bus" << "ID" << "MsgName" << "Len" << "Ext" << "Rem" << "Data"
-            << "Trigger" << "Modifications" << "Count";
+    headers << tr("En") << tr("Bus") << tr("ID") << tr("MsgName") << tr("Len") << tr("Ext") << tr("Rem") << tr("Data")
+            << tr("Trigger") << tr("Modifications") << tr("Count");
     ui->tableSender->setColumnCount(11);
     ui->tableSender->setColumnWidth(ST_COLS::SENDTAB_COL_EN, 50);
     ui->tableSender->setColumnWidth(ST_COLS::SENDTAB_COL_BUS, 50);
