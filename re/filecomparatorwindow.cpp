@@ -18,7 +18,7 @@ FileComparatorWindow::FileComparatorWindow(QWidget *parent) :
     connect(ui->btnClear, SIGNAL(clicked(bool)), this, SLOT(clearReference()));
 
     ui->lblFirstFile->setText("");
-    ui->lblRefFrames->setText("Loaded frames: 0");
+    ui->lblRefFrames->setText(tr("Loaded frames: 0"));
 
     dbcHandler = DBCHandler::getReference();
 

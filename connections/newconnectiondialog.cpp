@@ -86,7 +86,7 @@ void NewConnectionDialog::handleDeviceTypeChanged()
 
 void NewConnectionDialog::selectLawicel()
 {
-    ui->lPort->setText("Serial Port:");
+    ui->lPort->setText(tr("Serial Port:"));
 
     ui->lblDeviceType->setHidden(true);
     ui->cbDeviceType->setHidden(true);
@@ -139,7 +139,7 @@ void NewConnectionDialog::selectLawicel()
 
 void NewConnectionDialog::selectSerial()
 {
-    ui->lPort->setText("Serial Port:");
+    ui->lPort->setText(tr("Serial Port:"));
 
     ui->lblDeviceType->setHidden(true);
     ui->cbDeviceType->setHidden(true);
@@ -160,7 +160,7 @@ void NewConnectionDialog::selectSerial()
 
 void NewConnectionDialog::selectSocketCan()
 {
-    ui->lPort->setText("Port:");
+    ui->lPort->setText(tr("Port:"));
     ui->lblDeviceType->setHidden(false);
     ui->cbDeviceType->setHidden(false);
     ui->cbCANSpeed->setHidden(true);
@@ -181,7 +181,7 @@ void NewConnectionDialog::selectSocketCan()
 
 void NewConnectionDialog::selectRemote()
 {
-    ui->lPort->setText("IP Address:");
+    ui->lPort->setText(tr("IP Address:"));
 
     ui->lblDeviceType->setHidden(true);
     ui->cbDeviceType->setHidden(true);
@@ -202,7 +202,7 @@ void NewConnectionDialog::selectRemote()
 
 void NewConnectionDialog::selectKayak()
 {
-    ui->lPort->setText("Available Bus(ses):");
+    ui->lPort->setText(tr("Available Bus(ses):"));
 
     ui->lblDeviceType->setHidden(true);
     ui->cbDeviceType->setHidden(true);
@@ -223,7 +223,7 @@ void NewConnectionDialog::selectKayak()
 
 void NewConnectionDialog::selectMQTT()
 {
-    ui->lPort->setText("Topic Name:");
+    ui->lPort->setText(tr("Topic Name:"));
 
     ui->lblDeviceType->setHidden(true);
     ui->cbDeviceType->setHidden(true);
@@ -240,7 +240,7 @@ void NewConnectionDialog::selectMQTT()
 
 void NewConnectionDialog::selectCANserver()
 {
-    ui->lPort->setText("CANserver IP Address:");
+    ui->lPort->setText(tr("CANserver IP Address:"));
 
     ui->lblDeviceType->setHidden(true);
     ui->cbDeviceType->setHidden(true);
@@ -257,7 +257,7 @@ void NewConnectionDialog::selectCANserver()
 
 void NewConnectionDialog::selectCANlogserver()
 {
-    ui->lPort->setText("CANlogserver IP Address:");
+    ui->lPort->setText(tr("CANlogserver IP Address:"));
 
     ui->lblDeviceType->setHidden(true);
     ui->cbDeviceType->setHidden(true);
@@ -274,7 +274,7 @@ void NewConnectionDialog::selectCANlogserver()
 
 void NewConnectionDialog::selectCarBusHacker()
 {
-    ui->lPort->setText("Serial Port:");
+    ui->lPort->setText(tr("Serial Port:"));
 
     ui->lblDeviceType->setHidden(true);
     ui->cbDeviceType->setHidden(true);

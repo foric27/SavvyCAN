@@ -178,11 +178,11 @@ void DBCMainEditor::handleSearch()
     {
         ui->treeDBC->setCurrentItem(searchItems[0]);
         searchItemPos = 0;
-        ui->lblSearchPos->setText("Search Results: " + QString::number(searchItemPos + 1) + " of " + QString::number(searchItems.count()));
+        ui->lblSearchPos->setText(tr("Search Results: ") + QString::number(searchItemPos + 1) + tr(" of ") + QString::number(searchItems.count()));
     }
     else
     {
-        ui->lblSearchPos->setText("Search Results: 0 of 0");
+        ui->lblSearchPos->setText(tr("Search Results: 0 of 0"));
     }
 }
 

@@ -220,7 +220,7 @@ void DiscreteStateWindow::updateStateLabel()
     switch(operatingState)
     {
     case DWStates::IDLE:
-        ui->lblStatus->setText("IDLE");
+        ui->lblStatus->setText(tr("IDLE"));
         pal = ui->lblStatus->palette();
         pal.setColor(QPalette::WindowText, Qt::red);
         ui->lblStatus->setPalette(pal);
@@ -232,7 +232,7 @@ void DiscreteStateWindow::updateStateLabel()
         ui->lblStatus->setPalette(pal);
         break;
     case DWStates::COUNTDOWN_WAITING:
-        ui->lblStatus->setText("Wait....");
+        ui->lblStatus->setText(tr("Wait...."));
         pal = ui->lblStatus->palette();
         pal.setColor(QPalette::WindowText, Qt::red);
         ui->lblStatus->setPalette(pal);
@@ -244,7 +244,7 @@ void DiscreteStateWindow::updateStateLabel()
         ui->lblStatus->setPalette(pal);
         break;
     case DWStates::DONE:
-        ui->lblStatus->setText("DONE");
+        ui->lblStatus->setText(tr("DONE"));
         pal = ui->lblStatus->palette();
         pal.setColor(QPalette::WindowText, Qt::green);
         ui->lblStatus->setPalette(pal);

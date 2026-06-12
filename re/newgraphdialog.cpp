@@ -137,7 +137,7 @@ void NewGraphDialog::checkSignalAgreement()
     }
     else
     {
-        ui->lblMsgStatus->setText("Msg ID doesn't exist in DBC");
+        ui->lblMsgStatus->setText(tr("Msg ID doesn't exist in DBC"));
         return;
     }
 
@@ -170,18 +170,18 @@ void NewGraphDialog::checkSignalAgreement()
     }
     else
     {
-        ui->lblMsgStatus->setText("Signal name doesn't exist in DBC");
+        ui->lblMsgStatus->setText(tr("Signal name doesn't exist in DBC"));
         return;
     }
 
     if (bAgree)
     {
-        ui->lblMsgStatus->setText("Graph params match this signal");
+        ui->lblMsgStatus->setText(tr("Graph params match this signal"));
         //assocSignal = sig;
     }
     else
     {
-        ui->lblMsgStatus->setText("Signal and Graph Params do not match");
+        ui->lblMsgStatus->setText(tr("Signal and Graph Params do not match"));
         //assocSignal = nullptr; //ya done broke it, null the associated signal since the user is changing things
     }
 }

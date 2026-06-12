@@ -255,7 +255,7 @@ bool FrameFileIO::loadFrameFile(QString &fileName, QVector<CANFrame>* frameCache
             if (dialog.selectedNameFilter() != filters[0])
             {
                 QMessageBox msgBox;
-                msgBox.setText("File load completed with errors.\r\nPerhaps you selected the wrong file type?");
+                msgBox.setText(tr("File load completed with errors.\r\nPerhaps you selected the wrong file type?"));
                 msgBox.exec();
             }
             return false;
@@ -519,7 +519,7 @@ bool FrameFileIO::autoDetectLoadFile(QString filename, QVector<CANFrame>* frames
     }
 
     QMessageBox msgBox;
-    msgBox.setText("Could not autodetect the file type.\rPlease try to manually select the file format.");
+    msgBox.setText(tr("Could not autodetect the file type.\rPlease try to manually select the file format."));
     msgBox.exec();
     qDebug() << "Nothing worked... sorry...";
     return false;

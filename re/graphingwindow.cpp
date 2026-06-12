@@ -57,7 +57,7 @@ GraphingWindow::GraphingWindow(const QVector<CANFrame> *frames, QWidget *parent)
     locationText = new QCPItemText(ui->graphingView);
     locationText->position->setType(QCPItemPosition::ptAxisRectRatio);
     locationText->position->setCoords(QPointF(0.16, 0.03));
-    locationText->setText("X: 0  Y: 0");
+    locationText->setText(tr("X: 0  Y: 0"));
     locationText->setFont(legendSelectedFont);
 
     itemTracer = new QCPItemTracer(ui->graphingView);

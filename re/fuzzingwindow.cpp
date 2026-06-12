@@ -345,13 +345,13 @@ void FuzzingWindow::toggleFuzzing()
 {
     if (currentlyFuzzing) //stop it then
     {
-        ui->btnStartStop->setText("Start Fuzzing");
+        ui->btnStartStop->setText(tr("Start Fuzzing"));
         currentlyFuzzing = false;
         fuzzTimer->stop();
     }
     else //start it then
     {
-        ui->btnStartStop->setText("Stop Fuzzing");
+        ui->btnStartStop->setText(tr("Stop Fuzzing"));
         currentlyFuzzing = true;
 
         startID = Utility::ParseStringToNum(ui->txtStartID->text());

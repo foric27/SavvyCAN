@@ -72,23 +72,23 @@ void BisectWindow::updateSectionsText()
 {
     if (ui->rbBusNum->isChecked())
     {
-        ui->rbLowerSection->setText("Only this bus");
-        ui->rbUpperSection->setText("Not this bus");
+        ui->rbLowerSection->setText(tr("Only this bus"));
+        ui->rbUpperSection->setText(tr("Not this bus"));
     }
     if (ui->rbFrameNumber->isChecked())
     {
-        ui->rbLowerSection->setText("Up to this frame number");
-        ui->rbUpperSection->setText("After this frame number");
+        ui->rbLowerSection->setText(tr("Up to this frame number"));
+        ui->rbUpperSection->setText(tr("After this frame number"));
     }
     if (ui->rbIDRange->isChecked())
     {
-        ui->rbLowerSection->setText("Inside the ID range");
-        ui->rbUpperSection->setText("Outside the ID range");
+        ui->rbLowerSection->setText(tr("Inside the ID range"));
+        ui->rbUpperSection->setText(tr("Outside the ID range"));
     }
     if (ui->rbPercentage->isChecked())
     {
-        ui->rbLowerSection->setText("Up to this percentage into the file");
-        ui->rbUpperSection->setText("After this percentage into the file");
+        ui->rbLowerSection->setText(tr("Up to this percentage into the file"));
+        ui->rbUpperSection->setText(tr("After this percentage into the file"));
     }
 
 }

@@ -1068,7 +1068,7 @@ void MainWindow::tickGUIUpdate()
                 }
                 else
                 {
-                    ui->lblContMsg->setText("LOGGING");
+                    ui->lblContMsg->setText(tr("LOGGING"));
                 }
             }
             if (continuousLogFlushCounter > 8)
@@ -1593,9 +1593,9 @@ void MainWindow::toggleCapture()
 {
     allowCapture = !allowCapture;
     if (allowCapture)
-        ui->btnCaptureToggle->setText("Suspend Capturing");
+        ui->btnCaptureToggle->setText(tr("Suspend Capturing"));
     else
-        ui->btnCaptureToggle->setText("Restart Capturing");
+        ui->btnCaptureToggle->setText(tr("Restart Capturing"));
 
     emit suspendCapturing(!allowCapture);
 }

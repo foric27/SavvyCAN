@@ -93,6 +93,38 @@
         <source>Error while attempting to save.</source>
         <translation>Ошибка при попытке сохранения.</translation>
     </message>
+    <message>
+        <source>Only this bus</source>
+        <translation>Только эта шина</translation>
+    </message>
+    <message>
+        <source>Not this bus</source>
+        <translation>Не эта шина</translation>
+    </message>
+    <message>
+        <source>Up to this frame number</source>
+        <translation>До этого номера кадра</translation>
+    </message>
+    <message>
+        <source>After this frame number</source>
+        <translation>После этого номера кадра</translation>
+    </message>
+    <message>
+        <source>Inside the ID range</source>
+        <translation>Внутри диапазона ID</translation>
+    </message>
+    <message>
+        <source>Outside the ID range</source>
+        <translation>Вне диапазона ID</translation>
+    </message>
+    <message>
+        <source>Up to this percentage into the file</source>
+        <translation>До этого процента в файле</translation>
+    </message>
+    <message>
+        <source>After this percentage into the file</source>
+        <translation>После этого процента в файле</translation>
+    </message>
 </context>
 <context>
     <name>CANBridgeWindow</name>
@@ -518,6 +550,14 @@
         <source>Duplicate node and messages</source>
         <translation>Дублировать узел и сообщения</translation>
     </message>
+    <message>
+        <source>Search Results: </source>
+        <translation>Результаты поиска: </translation>
+    </message>
+    <message>
+        <source> of </source>
+        <translation> из </translation>
+    </message>
 </context>
 <context>
     <name>DBCMessageEditor</name>
@@ -859,6 +899,18 @@ and the value ranges by hypens
         <source>Go for it</source>
         <translation>Вперед</translation>
     </message>
+    <message>
+        <source>IDLE</source>
+        <translation>ПРОСТОЙ</translation>
+    </message>
+    <message>
+        <source>Wait....</source>
+        <translation>Ожидание....</translation>
+    </message>
+    <message>
+        <source>DONE</source>
+        <translation>ГОТОВО</translation>
+    </message>
 </context>
 <context>
     <name>FileComparatorWindow</name>
@@ -922,6 +974,10 @@ and the value ranges by hypens
         <location filename="../re/filecomparatorwindow.cpp" line="535" />
         <source>Text File (*.txt)</source>
         <translation>Text File (*.txt)</translation>
+    </message>
+    <message>
+        <source>Loaded frames: 0</source>
+        <translation>Загруженных кадров: 0</translation>
     </message>
 </context>
 <context>
@@ -1330,6 +1386,18 @@ and the value ranges by hypens
         <location filename="../framefileio.cpp" line="1287" />
         <source> CXX GVRET-PC Reverse Engineering Tool Output V</source>
         <translation> CXX GVRET-PC Reverse Engineering Tool Output V</translation>
+    </message>
+    <message>
+        <source>File load completed with errors.
+Perhaps you selected the wrong file type?</source>
+        <translation>Загрузка файла завершена с ошибками.
+Возможно, вы выбрали неправильный тип файла?</translation>
+    </message>
+    <message>
+        <source>Could not autodetect the file type.
+Please try to manually select the file format.</source>
+        <translation>Не удалось автоматически определить тип файла.
+Пожалуйста, попробуйте вручную выбрать формат файла.</translation>
     </message>
 </context>
 <context>
@@ -1972,6 +2040,10 @@ and the value ranges by hypens
         <source># of sent frames:</source>
         <translation>Количество отправленных кадров:</translation>
     </message>
+    <message>
+        <source>Stop Fuzzing</source>
+        <translation>Остановить фаззинг</translation>
+    </message>
 </context>
 <context>
     <name>GraphingWindow</name>
@@ -2095,6 +2167,10 @@ and the value ranges by hypens
         <location filename="../re/graphingwindow.cpp" line="958" />
         <source>Graph definition (*.gdf)</source>
         <translation>Graph definition (*.gdf)</translation>
+    </message>
+    <message>
+        <source>X: 0  Y: 0</source>
+        <translation>X: 0  Y: 0</translation>
     </message>
 </context>
 <context>
@@ -2875,6 +2951,14 @@ and the value ranges by hypens
         <source>No file loaded</source>
         <translation>Файл не загружен</translation>
     </message>
+    <message>
+        <source>Restart Capturing</source>
+        <translation>Возобновить захват</translation>
+    </message>
+    <message>
+        <source>LOGGING</source>
+        <translation>ЛОГИРОВАНИЕ</translation>
+    </message>
 </context>
 <context>
     <name>MotorControllerConfigWindow</name>
@@ -3125,6 +3209,22 @@ and the value ranges by hypens
         <source>Add this graph</source>
         <translation>Добавить этот график</translation>
     </message>
+    <message>
+        <source>Msg ID doesn't exist in DBC</source>
+        <translation>ID сообщения не существует в DBC</translation>
+    </message>
+    <message>
+        <source>Signal name doesn't exist in DBC</source>
+        <translation>Имя сигнала не существует в DBC</translation>
+    </message>
+    <message>
+        <source>Graph params match this signal</source>
+        <translation>Параметры графика совпадают с этим сигналом</translation>
+    </message>
+    <message>
+        <source>Signal and Graph Params do not match</source>
+        <translation>Сигнал и параметры графика не совпадают</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -3327,6 +3427,22 @@ and the value ranges by hypens
         <location filename="../scriptingwindow.cpp" line="433" />
         <source>Log File (*.log)</source>
         <translation>Log File (*.log)</translation>
+    </message>
+    <message>
+        <source>Really remove script?</source>
+        <translation>Действительно удалить скрипт?</translation>
+    </message>
+    <message>
+        <source>Are you sure you'd like to revert?</source>
+        <translation>Вы уверены, что хотите вернуть?</translation>
+    </message>
+    <message>
+        <source>Really do it?</source>
+        <translation>Действительно?</translation>
+    </message>
+    <message>
+        <source>Are you sure you'd like to reload from disk?</source>
+        <translation>Вы уверены, что хотите перезагрузить с диска?</translation>
     </message>
 </context>
 <context>

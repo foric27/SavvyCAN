@@ -265,7 +265,7 @@ void ScriptingWindow::deleteCurrentScript()
     if (sel < 0) return;
 
     QMessageBox msgBox;
-    msgBox.setText("Really remove script?");
+    msgBox.setText(tr("Really remove script?"));
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msgBox.setDefaultButton(QMessageBox::No);
     int ret = msgBox.exec();
@@ -357,8 +357,8 @@ void ScriptingWindow::saveAsScript()
 void ScriptingWindow::revertScript()
 {
     QMessageBox msgBox;
-    msgBox.setText("Are you sure you'd like to revert?");
-    msgBox.setInformativeText("Really do it?");
+    msgBox.setText(tr("Are you sure you'd like to revert?"));
+    msgBox.setInformativeText(tr("Really do it?"));
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msgBox.setDefaultButton(QMessageBox::Cancel);
     int ret = msgBox.exec();
@@ -379,8 +379,8 @@ void ScriptingWindow::revertScript()
 void ScriptingWindow::reloadScript()
 {
     QMessageBox msgBox;
-    msgBox.setText("Are you sure you'd like to reload from disk?");
-    msgBox.setInformativeText("Really do it?");
+    msgBox.setText(tr("Are you sure you'd like to reload from disk?"));
+    msgBox.setInformativeText(tr("Really do it?"));
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msgBox.setDefaultButton(QMessageBox::Cancel);
     int ret = msgBox.exec();

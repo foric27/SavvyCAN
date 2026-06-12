@@ -186,7 +186,7 @@ void UDSFirmwareUploaderWindow::stopUpload(bool resetState)
     if (resetState)
     {
         currentState = STATE_IDLE;
-        ui->btnStartStop->setText("Start Upload");
+        ui->btnStartStop->setText(tr("Start Upload"));
     }
 }
 
