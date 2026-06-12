@@ -221,7 +221,7 @@
     <message>
         <location filename="../canframemodel.cpp" line="602" />
         <source>ID</source>
-        <translation />
+        <translation>ID</translation>
     </message>
     <message>
         <location filename="../canframemodel.cpp" line="604" />
@@ -398,7 +398,7 @@
     <message>
         <location filename="../re/dbccomparatorwindow.cpp" line="91" />
         <source>DBC Files (*.dbc *.DBC)</source>
-        <translation />
+        <translation>Файлы DBC (*.dbc *.DBC)</translation>
     </message>
     <message>
         <location filename="../re/dbccomparatorwindow.cpp" line="364" />
@@ -2985,7 +2985,7 @@ Please try to manually select the file format.</source>
     <message>
         <location filename="../mainwindow.cpp" line="1323" />
         <source>ID</source>
-        <translation />
+        <translation>ID</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1328" />
