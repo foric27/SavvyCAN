@@ -7,6 +7,7 @@
 #include "helpwindow.h"
 #include "ui_connectionwindow.h"
 #include "connections/canconfactory.h"
+#include "connections/carbusconnection.h"
 #include "connections/canconmanager.h"
 #include "canbus.h"
 #include <QSettings>

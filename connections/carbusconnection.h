@@ -56,6 +56,7 @@ public:
     QString getSerialNumber() const { return mSerialNumber; }
     QString getHardwareName() const { return mHardwareName; }
     bool isTerminatorSupported() const { return mTerminatorSupported; }
+    bool isCanFdSupported() const { return mCanFdSupported; }
 
 protected:
     virtual void piStarted();

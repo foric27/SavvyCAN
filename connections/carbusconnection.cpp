@@ -805,10 +805,13 @@ void CarBusConnection::processDeviceInfo(const QByteArray &payload)
             quint8 b1 = (header >> 8) & 0xFF;
             quint8 b2 = (header >> 16) & 0xFF;
             mNumHwBuses = 0;
+            mCanFdSupported = false;
             if (b0 == 0x01 || b0 == 0x02) mNumHwBuses++;
             if (b1 == 0x01 || b1 == 0x02) mNumHwBuses++;
             if (b2 == 0x01 || b2 == 0x02) mNumHwBuses++;
+            if (b0 == 0x02 || b1 == 0x02 || b2 == 0x02) mCanFdSupported = true;
             sendDebug("Number of CAN buses: " + QString::number(mNumHwBuses));
+            sendDebug("CAN-FD supported: " + QString(mCanFdSupported ? "yes" : "no"));
             sendDebug("Channel types: " + channelTypeMap.value(b0, "?") + ", " +
                       channelTypeMap.value(b1, "?") + ", " + channelTypeMap.value(b2, "?"));
         } else if (paramCode == DI_FEATURES) {
