@@ -51,9 +51,9 @@ FlowViewWindow::FlowViewWindow(const QVector<CANFrame> *frames, QWidget *parent)
     textLabel->setFont(QFont(font().family(), 16)); // make font a bit larger
     textLabel->setPen(QPen(Qt::black)); // show black border around text
 
-    ui->graphView->xAxis->setLabel("Time Axis");
-    if (useHexTicker) ui->graphView->yAxis->setLabel("Value Axis (HEX)");
-    else ui->graphView->yAxis->setLabel("Value Axis (dec)");
+    ui->graphView->xAxis->setLabel(tr("Time Axis"));
+    if (useHexTicker) ui->graphView->yAxis->setLabel(tr("Value Axis (HEX)"));
+    else ui->graphView->yAxis->setLabel(tr("Value Axis (dec)"));
 
     QFont legendFont = font();
     legendFont.setPointSize(10);

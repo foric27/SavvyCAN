@@ -192,7 +192,7 @@ void DBCMainEditor::handleSearchForward()
     if (searchItemPos < searchItems.count() - 1) searchItemPos++;
     else searchItemPos = 0;
     ui->treeDBC->setCurrentItem(searchItems[searchItemPos]);
-    ui->lblSearchPos->setText("Search Results: " + QString::number(searchItemPos + 1) + " of " + QString::number(searchItems.count()));
+    ui->lblSearchPos->setText(tr("Search Results: ") + QString::number(searchItemPos + 1) + tr(" of ") + QString::number(searchItems.count()));
 }
 
 void DBCMainEditor::handleSearchBackward()
@@ -201,7 +201,7 @@ void DBCMainEditor::handleSearchBackward()
     if (searchItemPos > 0) searchItemPos--;
     else searchItemPos = searchItems.count() - 1;
     ui->treeDBC->setCurrentItem(searchItems[searchItemPos]);
-    ui->lblSearchPos->setText("Search Results: " + QString::number(searchItemPos + 1) + " of " + QString::number(searchItems.count()));
+    ui->lblSearchPos->setText(tr("Search Results: ") + QString::number(searchItemPos + 1) + tr(" of ") + QString::number(searchItems.count()));
 }
 
 void DBCMainEditor::currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *prev)

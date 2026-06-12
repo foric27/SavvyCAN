@@ -80,9 +80,9 @@ DBCLoadSaveWindow::DBCLoadSaveWindow(const QVector<CANFrame> *frames, QWidget *p
 QComboBox * DBCLoadSaveWindow::addMatchingCriteriaCombobox(int row)
 {
     QComboBox *item = new QComboBox();
-    item->addItem("Exact");
-    item->addItem("J1939");
-    item->addItem("GMLAN");
+    item->addItem(tr("Exact"));
+    item->addItem(tr("J1939"));
+    item->addItem(tr("GMLAN"));
     ui->tableFiles->setCellWidget(row, 2, item);
     connect(item, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
         [this](int box_idx) { matchingCriteriaChanged(box_idx); } );

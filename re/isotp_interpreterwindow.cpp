@@ -35,7 +35,7 @@ ISOTP_InterpreterWindow::ISOTP_InterpreterWindow(const QVector<CANFrame> *frames
     connect(ui->cbUseExtendedAddressing, SIGNAL(toggled(bool)), this, SLOT(useExtendedAddressing(bool)));
 
     QStringList headers;
-    headers << "Timestamp" << "ID" << "Bus" << "Dir" << "Length" << "Data";
+    headers << tr("Timestamp") << tr("ID") << tr("Bus") << tr("Dir") << tr("Length") << tr("Data");
     ui->tableIsoFrames->setColumnCount(6);
     ui->tableIsoFrames->setColumnWidth(0, 100);
     ui->tableIsoFrames->setColumnWidth(1, 50);

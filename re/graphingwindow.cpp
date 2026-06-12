@@ -31,8 +31,8 @@ GraphingWindow::GraphingWindow(const QVector<CANFrame> *frames, QWidget *parent)
     //ui->graphingView->plotLayout()->insertRow(0);
     //ui->graphingView->plotLayout()->addElement(0, 0, new QCPPlotTitle(ui->graphingView, "Data Graphing"));
 
-    ui->graphingView->xAxis->setLabel("Time Axis");
-    ui->graphingView->yAxis->setLabel("Value Axis");
+    ui->graphingView->xAxis->setLabel(tr("Time Axis"));
+    ui->graphingView->yAxis->setLabel(tr("Value Axis"));
     ui->graphingView->xAxis->setNumberFormat("f");
     if (Utility::timeStyle == TS_SECONDS) ui->graphingView->xAxis->setNumberPrecision(6);
         else ui->graphingView->xAxis->setNumberPrecision(0);
@@ -264,7 +264,7 @@ void GraphingWindow::plottableClick(QCPAbstractPlottable* plottable, int dataIdx
     double x, y;
     QCPGraph *graph = reinterpret_cast<QCPGraph *>(plottable);
     graph->pixelsToCoords(event->localPos(), x, y);
-    locationText->setText("X: " + QString::number(x, 'f', 3) + " Y: " + QString::number(y, 'f', 3));
+    locationText->setText(tr("X: ") + QString::number(x, 'f', 3) + tr(" Y: ") + QString::number(y, 'f', 3));
 }
 
 void GraphingWindow::plottableDoubleClick(QCPAbstractPlottable* plottable, int dataIdx, QMouseEvent* event)
@@ -289,7 +289,7 @@ void GraphingWindow::plottableDoubleClick(QCPAbstractPlottable* plottable, int d
     itemTracer->setGraphKey(x);
     itemTracer->updatePosition();
     qDebug() << "val " << itemTracer->position->value();
-    locationText->setText("X: " + QString::number(x) + " Y: " + QString::number(itemTracer->position->value()));
+    locationText->setText(tr("X: ") + QString::number(x) + tr(" Y: ") + QString::number(itemTracer->position->value()));
 }
 
 void GraphingWindow::gotCenterTimeID(uint32_t ID, double timestamp)

@@ -32,8 +32,8 @@ TemporalGraphWindow::TemporalGraphWindow(const QVector<CANFrame> *frames, QWidge
     ui->graphingView->axisRect()->setupFullAxesBox();
 
 
-    ui->graphingView->xAxis->setLabel("Elapsed Time");
-    ui->graphingView->yAxis->setLabel("ID");
+    ui->graphingView->xAxis->setLabel(tr("Elapsed Time"));
+    ui->graphingView->yAxis->setLabel(tr("ID"));
     ui->graphingView->xAxis->setNumberFormat("f");
     ui->graphingView->xAxis->setNumberPrecision(6);
 

@@ -1219,6 +1219,18 @@ and the value ranges by hypens
         <source> of </source>
         <translation> из </translation>
     </message>
+    <message>
+        <source>Time Axis</source>
+        <translation>Ось времени</translation>
+    </message>
+    <message>
+        <source>Value Axis (HEX)</source>
+        <translation>Ось значений (HEX)</translation>
+    </message>
+    <message>
+        <source>Value Axis (dec)</source>
+        <translation>Ось значений (dec)</translation>
+    </message>
 </context>
 <context>
     <name>FrameFileIO</name>
@@ -1599,6 +1611,22 @@ Please try to manually select the file format.</source>
         <location filename="../re/frameinfowindow.cpp" line="867" />
         <source>Text File (*.txt)</source>
         <translation>Text File (*.txt)</translation>
+    </message>
+    <message>
+        <source>Bits</source>
+        <translation>Биты</translation>
+    </message>
+    <message>
+        <source>Instances</source>
+        <translation>Экземпляры</translation>
+    </message>
+    <message>
+        <source>Interval (ms)</source>
+        <translation>Интервал (мс)</translation>
+    </message>
+    <message>
+        <source>Occurrences</source>
+        <translation>Вхождения</translation>
     </message>
 </context>
 <context>
@@ -2172,6 +2200,22 @@ Please try to manually select the file format.</source>
         <source>X: 0  Y: 0</source>
         <translation>X: 0  Y: 0</translation>
     </message>
+    <message>
+        <source>Time Axis</source>
+        <translation>Ось времени</translation>
+    </message>
+    <message>
+        <source>Value Axis</source>
+        <translation>Ось значений</translation>
+    </message>
+    <message>
+        <source>X: </source>
+        <translation>X: </translation>
+    </message>
+    <message>
+        <source> Y: </source>
+        <translation> Y: </translation>
+    </message>
 </context>
 <context>
     <name>HelpWindow</name>
@@ -2247,6 +2291,18 @@ Please try to manually select the file format.</source>
         <location filename="../re/isotp_interpreterwindow.cpp" line="298" />
         <source>Raw Payload: </source>
         <translation>Сырые данные: </translation>
+    </message>
+    <message>
+        <source>Timestamp</source>
+        <translation>Временная метка</translation>
+    </message>
+    <message>
+        <source>Dir</source>
+        <translation>Направление</translation>
+    </message>
+    <message>
+        <source>Length</source>
+        <translation>Длина</translation>
     </message>
 </context>
 <context>
@@ -3511,6 +3567,10 @@ Please try to manually select the file format.</source>
         <source>Temporal Graph</source>
         <translation>Временной график</translation>
     </message>
+    <message>
+        <source>Elapsed Time</source>
+        <translation>Прошедшее время</translation>
+    </message>
 </context>
 <context>
     <name>TriggerDialog</name>
@@ -3990,6 +4050,147 @@ Please try to manually select the file format.</source>
         <location filename="../ui/udsfirmwareuploaderwindow.ui" line="245" />
         <source>Abort</source>
         <translation>Прервать</translation>
+    </message>
+</context>
+<context>
+    <name>SnifferModel</name>
+    <message>
+        <source>Delta</source>
+        <translation>Дельта</translation>
+    </message>
+    <message>
+        <source>Frequency</source>
+        <translation>Частота</translation>
+    </message>
+    <message>
+        <source>ID</source>
+        <translation>ID</translation>
+    </message>
+</context>
+<context>
+    <name>NewGraphDialog</name>
+    <message>
+        <source>None</source>
+        <translation>Нет</translation>
+    </message>
+    <message>
+        <source>Dot</source>
+        <translation>Точка</translation>
+    </message>
+    <message>
+        <source>Cross</source>
+        <translation>Крест</translation>
+    </message>
+    <message>
+        <source>Plus</source>
+        <translation>Плюс</translation>
+    </message>
+    <message>
+        <source>Circle</source>
+        <translation>Круг</translation>
+    </message>
+    <message>
+        <source>Disc</source>
+        <translation>Диск</translation>
+    </message>
+    <message>
+        <source>Square</source>
+        <translation>Квадрат</translation>
+    </message>
+    <message>
+        <source>Diamond</source>
+        <translation>Ромб</translation>
+    </message>
+    <message>
+        <source>Star</source>
+        <translation>Звезда</translation>
+    </message>
+    <message>
+        <source>Triangle</source>
+        <translation>Треугольник</translation>
+    </message>
+    <message>
+        <source>TriangleInverted</source>
+        <translation>Перевернутый треугольник</translation>
+    </message>
+    <message>
+        <source>Cross Inside Square</source>
+        <translation>Крест в квадрате</translation>
+    </message>
+    <message>
+        <source>Plus Inside Square</source>
+        <translation>Плюс в квадрате</translation>
+    </message>
+    <message>
+        <source>Cross Inside Circle</source>
+        <translation>Крест в круге</translation>
+    </message>
+    <message>
+        <source>Plus Inside Circle</source>
+        <translation>Плюс в круге</translation>
+    </message>
+    <message>
+        <source>Peace Sign</source>
+        <translation>Знак мира</translation>
+    </message>
+</context>
+<context>
+    <name>DBCSignalEditor</name>
+    <message>
+        <source>UNSIGNED INTEGER</source>
+        <translation>БЕЗЗНАКОВОЕ ЦЕЛОЕ</translation>
+    </message>
+    <message>
+        <source>SIGNED INTEGER</source>
+        <translation>ЗНАКОВОЕ ЦЕЛОЕ</translation>
+    </message>
+    <message>
+        <source>SINGLE PRECISION</source>
+        <translation>ОДИНАРНАЯ ТОЧНОСТЬ</translation>
+    </message>
+    <message>
+        <source>DOUBLE PRECISION</source>
+        <translation>ДВОЙНАЯ ТОЧНОСТЬ</translation>
+    </message>
+    <message>
+        <source>STRING</source>
+        <translation>СТРОКА</translation>
+    </message>
+</context>
+<context>
+    <name>DBCLoadSaveWindow</name>
+    <message>
+        <source>Exact</source>
+        <translation>Точное</translation>
+    </message>
+    <message>
+        <source>J1939</source>
+        <translation>J1939</translation>
+    </message>
+    <message>
+        <source>GMLAN</source>
+        <translation>GMLAN</translation>
+    </message>
+</context>
+<context>
+    <name>FileComparatorWindow</name>
+    <message>
+        <source>Loaded frames: </source>
+        <translation>Загруженных кадров: </translation>
+    </message>
+</context>
+<context>
+    <name>DiscreteStateWindow</name>
+    <message>
+        <source>Go to state </source>
+        <translation>Перейти к состоянию </translation>
+    </message>
+</context>
+<context>
+    <name>FuzzingWindow</name>
+    <message>
+        <source># of sent frames: </source>
+        <translation>Количество отправленных кадров: </translation>
     </message>
 </context>
 </TS>

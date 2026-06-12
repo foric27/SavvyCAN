@@ -106,7 +106,7 @@ void FileComparatorWindow::loadReferenceFile()
 
     if (FrameFileIO::loadFrameFile(resultingFileName, &referenceFrames))
     {
-        ui->lblRefFrames->setText("Loaded frames: " + QString::number(referenceFrames.length()));
+        ui->lblRefFrames->setText(tr("Loaded frames: ") + QString::number(referenceFrames.length()));
         if (interestedFrames.count() > 0 && referenceFrames.count() > 0) calculateDetails();
     }
 }

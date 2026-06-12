@@ -215,7 +215,7 @@ void FuzzingWindow::timerTriggered()
         numSentFrames++;
     }
     CANConManager::getInstance()->sendFrames(sendingBuffer);
-    ui->lblNumFrames->setText("# of sent frames: " + QString::number(numSentFrames));
+    ui->lblNumFrames->setText(tr("# of sent frames: ") + QString::number(numSentFrames));
 }
 
 void FuzzingWindow::clearAllFilters()

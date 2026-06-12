@@ -26,22 +26,22 @@ NewGraphDialog::NewGraphDialog(DBCHandler *handler, QWidget *parent) :
     p2.setColor(QPalette::Button, QColor(128,128,128,0)); //light gray, no opacity so it is disabled by default
     ui->fillSwatch->setPalette(p2);
 
-    ui->coPointStyle->addItem("None");
-    ui->coPointStyle->addItem("Dot");
-    ui->coPointStyle->addItem("Cross");
-    ui->coPointStyle->addItem("Plus");
-    ui->coPointStyle->addItem("Circle");
-    ui->coPointStyle->addItem("Disc");
-    ui->coPointStyle->addItem("Square");
-    ui->coPointStyle->addItem("Diamond");
-    ui->coPointStyle->addItem("Star");
-    ui->coPointStyle->addItem("Triangle");
-    ui->coPointStyle->addItem("TriangleInverted");
-    ui->coPointStyle->addItem("Cross Inside Square");
-    ui->coPointStyle->addItem("Plus Inside Square");
-    ui->coPointStyle->addItem("Cross Inside Circle");
-    ui->coPointStyle->addItem("Plus Inside Circle");
-    ui->coPointStyle->addItem("Peace Sign");
+    ui->coPointStyle->addItem(tr("None"));
+    ui->coPointStyle->addItem(tr("Dot"));
+    ui->coPointStyle->addItem(tr("Cross"));
+    ui->coPointStyle->addItem(tr("Plus"));
+    ui->coPointStyle->addItem(tr("Circle"));
+    ui->coPointStyle->addItem(tr("Disc"));
+    ui->coPointStyle->addItem(tr("Square"));
+    ui->coPointStyle->addItem(tr("Diamond"));
+    ui->coPointStyle->addItem(tr("Star"));
+    ui->coPointStyle->addItem(tr("Triangle"));
+    ui->coPointStyle->addItem(tr("TriangleInverted"));
+    ui->coPointStyle->addItem(tr("Cross Inside Square"));
+    ui->coPointStyle->addItem(tr("Plus Inside Square"));
+    ui->coPointStyle->addItem(tr("Cross Inside Circle"));
+    ui->coPointStyle->addItem(tr("Plus Inside Circle"));
+    ui->coPointStyle->addItem(tr("Peace Sign"));
 
     connect(ui->cbNodes, SIGNAL(currentIndexChanged(int)), this, SLOT(loadMessages(int)));
     connect(ui->cbMessages, SIGNAL(currentIndexChanged(int)), this, SLOT(loadSignals(int)));

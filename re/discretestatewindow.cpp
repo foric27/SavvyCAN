@@ -238,7 +238,7 @@ void DiscreteStateWindow::updateStateLabel()
         ui->lblStatus->setPalette(pal);
         break;
     case DWStates::GETTING_SIGNAL:
-        ui->lblStatus->setText("Go to state " + QString::number(currToggleState + 1));
+        ui->lblStatus->setText(tr("Go to state ") + QString::number(currToggleState + 1));
         pal = ui->lblStatus->palette();
         pal.setColor(QPalette::WindowText, Qt::green);
         ui->lblStatus->setPalette(pal);

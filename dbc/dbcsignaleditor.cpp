@@ -30,11 +30,11 @@ DBCSignalEditor::DBCSignalEditor(QWidget *parent) :
     ui->valuesTable->setHorizontalHeaderLabels(headers2);
     ui->valuesTable->horizontalHeader()->setStretchLastSection(true);
 
-    ui->comboType->addItem("UNSIGNED INTEGER");
-    ui->comboType->addItem("SIGNED INTEGER");
-    ui->comboType->addItem("SINGLE PRECISION");
-    ui->comboType->addItem("DOUBLE PRECISION");
-    ui->comboType->addItem("STRING");
+    ui->comboType->addItem(tr("UNSIGNED INTEGER"));
+    ui->comboType->addItem(tr("SIGNED INTEGER"));
+    ui->comboType->addItem(tr("SINGLE PRECISION"));
+    ui->comboType->addItem(tr("DOUBLE PRECISION"));
+    ui->comboType->addItem(tr("STRING"));
 
     ui->bitfield->setMode(GridMode::SIGNAL_VIEW);
 

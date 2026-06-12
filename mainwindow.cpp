@@ -236,8 +236,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionSingle_Multi_State_2->setVisible(false);
 
     QStringList headers;
-    headers << "En" << "Bus" << "ID" << "Ext" << "Rem" << "Data"
-            << "Interval" << "Count";
+    headers << tr("En") << tr("Bus") << tr("ID") << tr("Ext") << tr("Rem") << tr("Data")
+            << tr("Interval") << tr("Count");
     ui->tableSimpleSender->setColumnCount(8);
     ui->tableSimpleSender->setColumnWidth(SIMP_COL::SC_COL_EN, 70);
     ui->tableSimpleSender->setColumnWidth(SIMP_COL::SC_COL_BUS, 70);
