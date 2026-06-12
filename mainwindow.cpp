@@ -1180,7 +1180,7 @@ void MainWindow::handleDroppedFile(const QString &filename)
 {
     QProgressDialog progress(qApp->activeWindow());
     progress.setWindowModality(Qt::WindowModal);
-    progress.setLabelText("Loading file...");
+    progress.setLabelText(tr("Loading file..."));
     progress.setCancelButton(nullptr);
     progress.setRange(0,0);
     progress.setMinimumDuration(0);

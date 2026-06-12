@@ -18,7 +18,7 @@ SignalViewerWindow::SignalViewerWindow(const QVector<CANFrame> *frames, QWidget 
     modelFrames = frames;
 
     QStringList headers;
-    headers << "Node" << "Signal" << "Value";
+    headers << tr("Node") << tr("Signal") << tr("Value");
     ui->tableViewer->setHorizontalHeaderLabels(headers);
     ui->tableViewer->setColumnWidth(0, 100);
     ui->tableViewer->setColumnWidth(1, 150);

@@ -29,7 +29,7 @@ MotorControllerConfigWindow::MotorControllerConfigWindow(const QVector<CANFrame>
     doingRequest = false;
 
     QStringList headers;
-    headers << "Param" << "Value";
+    headers << tr("Param") << tr("Value");
     ui->tableParams->setColumnCount(2);
     ui->tableParams->setColumnWidth(0, 350);
     ui->tableParams->setColumnWidth(1, 150);

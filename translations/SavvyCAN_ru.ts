@@ -405,6 +405,10 @@
         <source>Text File (*.txt)</source>
         <translation>Text File (*.txt)</translation>
     </message>
+    <message>
+        <source>Calculating differences</source>
+        <translation>Вычисление различий</translation>
+    </message>
 </context>
 <context>
     <name>DBCHandler</name>
@@ -471,6 +475,22 @@
         <location filename="../dbc/dbcloadsavewindow.cpp" line="164" />
         <source>Secret CSV Signal Defs (*.csv)</source>
         <translation>Secret CSV Signal Defs (*.csv)</translation>
+    </message>
+    <message>
+        <source>Filename</source>
+        <translation>Имя файла</translation>
+    </message>
+    <message>
+        <source>Associated Bus</source>
+        <translation>Связанная шина</translation>
+    </message>
+    <message>
+        <source>Matching criteria</source>
+        <translation>Критерий совпадения</translation>
+    </message>
+    <message>
+        <source>Label filters</source>
+        <translation>Фильтры меток</translation>
     </message>
 </context>
 <context>
@@ -979,6 +999,10 @@ and the value ranges by hypens
         <source>Loaded frames: 0</source>
         <translation>Загруженных кадров: 0</translation>
     </message>
+    <message>
+        <source>Calculating differences</source>
+        <translation>Вычисление различий</translation>
+    </message>
 </context>
 <context>
     <name>FirmwareUploaderWindow</name>
@@ -1411,6 +1435,14 @@ Please try to manually select the file format.</source>
         <translation>Не удалось автоматически определить тип файла.
 Пожалуйста, попробуйте вручную выбрать формат файла.</translation>
     </message>
+    <message>
+        <source>Saving file...</source>
+        <translation>Сохранение файла...</translation>
+    </message>
+    <message>
+        <source>Loading file...</source>
+        <translation>Загрузка файла...</translation>
+    </message>
 </context>
 <context>
     <name>FrameInfoWindow</name>
@@ -1768,6 +1800,14 @@ Please try to manually select the file format.</source>
         <location filename="../frameplaybackwindow.cpp" line="437" />
         <source> of </source>
         <translation> из </translation>
+    </message>
+    <message>
+        <source>Source</source>
+        <translation>Источник</translation>
+    </message>
+    <message>
+        <source>Loops</source>
+        <translation>Циклы</translation>
     </message>
 </context>
 <context>
@@ -3015,6 +3055,10 @@ Please try to manually select the file format.</source>
         <source>LOGGING</source>
         <translation>ЛОГИРОВАНИЕ</translation>
     </message>
+    <message>
+        <source>Loading file...</source>
+        <translation>Загрузка файла...</translation>
+    </message>
 </context>
 <context>
     <name>MotorControllerConfigWindow</name>
@@ -3042,6 +3086,10 @@ Please try to manually select the file format.</source>
         <location filename="../motorcontrollerconfigwindow.cpp" line="120" />
         <source>RMS Definition File (*.txt *.TXT)</source>
         <translation>RMS Definition File (*.txt *.TXT)</translation>
+    </message>
+    <message>
+        <source>Param</source>
+        <translation>Параметр</translation>
     </message>
 </context>
 <context>
@@ -3390,6 +3438,10 @@ Please try to manually select the file format.</source>
         <source>Unsigned Value</source>
         <translation>Беззнаковое значение</translation>
     </message>
+    <message>
+        <source>Calculating</source>
+        <translation>Вычисление</translation>
+    </message>
 </context>
 <context>
     <name>ScriptingWindow</name>
@@ -3500,6 +3552,14 @@ Please try to manually select the file format.</source>
         <source>Are you sure you'd like to reload from disk?</source>
         <translation>Вы уверены, что хотите перезагрузить с диска?</translation>
     </message>
+    <message>
+        <source>Parameter</source>
+        <translation>Параметр</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation>Значение</translation>
+    </message>
 </context>
 <context>
     <name>SignalViewerWindow</name>
@@ -3558,6 +3618,10 @@ Please try to manually select the file format.</source>
         <location filename="../signalviewerwindow.cpp" line="327" />
         <source>SignalViewer definition (*.sdf)</source>
         <translation>SignalViewer definition (*.sdf)</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation>Значение</translation>
     </message>
 </context>
 <context>

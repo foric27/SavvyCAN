@@ -199,7 +199,7 @@ void RangeStateWindow::recalcButton()
 
     QProgressDialog progress(qApp->activeWindow());
     progress.setWindowModality(Qt::WindowModal);
-    progress.setLabelText("Calculating");
+    progress.setLabelText(tr("Calculating"));
     progress.setCancelButton(0);
     progress.setRange(0,0);
     progress.setMinimumDuration(0);

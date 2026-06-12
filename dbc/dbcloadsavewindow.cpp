@@ -21,7 +21,7 @@ DBCLoadSaveWindow::DBCLoadSaveWindow(const QVector<CANFrame> *frames, QWidget *p
     inhibitCellProcessing = true;
 
     QStringList header;
-    header << "Filename" << "Associated Bus" << "Matching criteria" << "Label filters";
+    header << tr("Filename") << tr("Associated Bus") << tr("Matching criteria") << tr("Label filters");
     ui->tableFiles->setColumnCount(4);
     ui->tableFiles->setHorizontalHeaderLabels(header);
     ui->tableFiles->setColumnWidth(0, 265);

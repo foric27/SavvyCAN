@@ -66,7 +66,7 @@ bool FrameFileIO::saveFrameFile(QString &fileName, const QVector<CANFrame>* fram
 
         QProgressDialog progress(qApp->activeWindow());
         progress.setWindowModality(Qt::WindowModal);
-        progress.setLabelText("Saving file...");
+        progress.setLabelText(tr("Saving file..."));
         progress.setCancelButton(nullptr);
         progress.setRange(0,0);
         progress.setMinimumDuration(0);
@@ -205,7 +205,7 @@ bool FrameFileIO::loadFrameFile(QString &fileName, QVector<CANFrame>* frameCache
 
         QProgressDialog progress(qApp->activeWindow());
         progress.setWindowModality(Qt::WindowModal);
-        progress.setLabelText("Loading file...");
+        progress.setLabelText(tr("Loading file..."));
         progress.setCancelButton(nullptr);
         progress.setRange(0,0);
         progress.setMinimumDuration(0);

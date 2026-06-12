@@ -89,7 +89,7 @@ FramePlaybackWindow::FramePlaybackWindow(const QVector<CANFrame> *frames, QWidge
     ui->listID->horizontalScrollBar()->setEnabled(false);    
 
     QStringList headers;
-    headers << "Source" << "Loops";
+    headers << tr("Source") << tr("Loops");
     ui->tblSequence->setColumnCount(2);
     ui->tblSequence->setColumnWidth(0, 260);
     ui->tblSequence->setColumnWidth(1, 80);

@@ -101,7 +101,7 @@ QString DBCComparatorWindow::loadDBC(DBCFile **file)
 
         QProgressDialog progress(qApp->activeWindow());
         progress.setWindowModality(Qt::WindowModal);
-        progress.setLabelText("Loading file...");
+        progress.setLabelText(tr("Loading file..."));
         progress.setCancelButton(nullptr);
         progress.setRange(0,0);
         progress.setMinimumDuration(0);
@@ -143,7 +143,7 @@ void DBCComparatorWindow::calculateDetails()
 {
     QProgressDialog progress(this);
     progress.setWindowModality(Qt::WindowModal);
-    progress.setLabelText("Calculating differences");
+    progress.setLabelText(tr("Calculating differences"));
     progress.setCancelButton(nullptr);
     progress.setRange(0,0);
     progress.setMinimumDuration(0);

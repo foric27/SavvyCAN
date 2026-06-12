@@ -158,8 +158,8 @@ void ScriptingWindow::changeCurrentScript()
     ui->tableVariables->clear();
     for (int i = 0; i < ui->tableVariables->rowCount(); i++) ui->tableVariables->removeRow(0);
     QStringList labels;
-    labels.append("Parameter");
-    labels.append("Value");
+    labels.append(tr("Parameter"));
+    labels.append(tr("Value"));
     ui->tableVariables->setHorizontalHeaderLabels(labels);
 
     int sel = ui->listLoadedScripts->currentRow();
