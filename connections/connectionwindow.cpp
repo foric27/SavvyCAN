@@ -8,6 +8,7 @@
 #include "ui_connectionwindow.h"
 #include "connections/canconfactory.h"
 #include "connections/carbusconnection.h"
+#include <QCheckBox>
 #include "connections/canconmanager.h"
 #include "canbus.h"
 #include <QSettings>
@@ -62,6 +63,11 @@ ConnectionWindow::ConnectionWindow(QWidget *parent) :
     connect(ui->btnSaveBus, &QPushButton::clicked, this, &ConnectionWindow::saveBusSettings);
     connect(ui->btnMoveUp, &QPushButton::clicked, this, &ConnectionWindow::moveConnUp);
     connect(ui->btnMoveDown, &QPushButton::clicked, this, &ConnectionWindow::moveConnDown);
+
+    // Terminator checkbox (added programmatically)
+    ckTerminator = new QCheckBox(tr("Enable 120\u03A9 Terminator"), this);
+    ckTerminator->setVisible(false);
+    ui->verticalLayoutBusDetails->addWidget(ckTerminator);
 
     ui->cbBusSpeed->addItem("33333");
     ui->cbBusSpeed->addItem("50000");

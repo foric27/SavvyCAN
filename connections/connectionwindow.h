@@ -13,6 +13,7 @@
 #include <QUdpSocket>
 #include "canconnectionmodel.h"
 #include "connections/canconnection.h"
+#include <QCheckBox>
 
 
 class CANConnectionModel;
@@ -64,6 +65,7 @@ private:
     QUdpSocket *rxBroadcastKayak;
     QVector<QString> remoteDeviceIPGVRET;
     QVector<QString> remoteDeviceKayak;
+    QCheckBox *ckTerminator;
 
     CANConnection* create(CANCon::type pTye, QString pPortName, QString pDriver, int pSerialSpeed, int pBusSpeed, bool pCanFd, int pDataRate);
     void populateBusDetails(int offset);

@@ -505,6 +505,7 @@ void CarBusConnection::disconnectDevice()
         serial = nullptr;
     }
 
+    setStatus(CANCon::NOT_CONNECTED);
     CANConStatus stats;
     stats.conStatus = CANCon::NOT_CONNECTED;
     stats.numHardwareBuses = mNumHwBuses;
@@ -683,6 +684,7 @@ void CarBusConnection::processPacket(quint8 cmd, quint8 seq, quint16 flags, cons
             mChannelOpened = true;
             mConnState = STATE_CONNECTED;
             mStateTickCount = 0;
+            setStatus(CANCon::CONNECTED);
             CANConStatus stats;
             stats.conStatus = CANCon::CONNECTED;
             stats.numHardwareBuses = mNumHwBuses;
