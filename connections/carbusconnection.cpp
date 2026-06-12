@@ -39,14 +39,18 @@ static const quint16 CH2 = 0x4000;
 static const quint16 CH3 = 0x6000;
 static const quint16 CH4 = 0x8000;
 
-// Device info params
-static const quint32 DI_HW_ID = 0x01000000;
-static const quint32 DI_FIRMWARE = 0x02000000;
-static const quint32 DI_SERIAL = 0x03000000;
-static const quint32 DI_FEATURES = 0x11000000;
-static const quint32 DI_CHANNEL_MAP = 0x12000000;
-static const quint32 DI_CHANNEL_FEATURES = 0x13000000;
-static const quint32 CC_MULTIWORD = 0x80000000;
+// HW ID names
+static QMap<int, QString> hwIdNames = {
+    {0xFF, "HW_CH30"}, {0x02, "HW_ODB_OLD"}, {0x01, "HW_CH32"},
+    {0x04, "HW_ODB"}, {0x03, "HW_CHP"}, {0x11, "HW_CH33"},
+    {0x13, "HW_CHPM03"}, {0x14, "HW_ODB_FD"}, {0x06, "HW_FDL2_M02"},
+    {0x16, "HW_FDL2_M05"}
+};
+
+// Channel types
+static QMap<int, QString> channelTypeMap = {
+    {0x00, "NONE"}, {0x01, "CAN"}, {0x02, "CANFD"}, {0x10, "LIN"}
+};
 
 static QMap<int, int> nominalBitrateIndex = {
     {10000, 0}, {20000, 1}, {33300, 2}, {50000, 3},
@@ -59,6 +63,9 @@ static QMap<int, int> dataBitrateIndex = {
     {500000, 0}, {1000000, 1}, {2000000, 2},
     {4000000, 3}, {5000000, 4}
 };
+
+// CAN-FD DLC encoding
+static const int canFdDlcTable[] = {0,1,2,3,4,5,6,7,8,12,16,20,24,32,48,64};
 
 CarBusConnection::CarBusConnection(QString portName, int serialSpeed, int busSpeed, bool canFd, int dataRate) :
     CANConnection(portName, "carbus", CANCon::CARBUS_HACKER, serialSpeed, busSpeed, canFd, dataRate, 1, 4000, true),
@@ -74,6 +81,7 @@ CarBusConnection::CarBusConnection(QString portName, int serialSpeed, int busSpe
     mHwId(0),
     mNumHwBuses(1),
     mCanFdSupported(false),
+    mTerminatorSupported(false),
     mConnState(STATE_IDLE),
     mStateTickCount(0)
 {
@@ -143,6 +151,21 @@ bool CarBusConnection::bitrateToIndex(int bitrate, bool dataRate, quint8 &index)
     return false;
 }
 
+quint32 CarBusConnection::dlcToCanFdDlc(int len)
+{
+    if (len <= 8) return len;
+    for (int i = 9; i < 16; i++) {
+        if (len <= canFdDlcTable[i]) return i;
+    }
+    return 15; // 64 bytes
+}
+
+int CarBusConnection::canFdDlcToLength(quint32 dlc)
+{
+    if (dlc < 16) return canFdDlcTable[dlc];
+    return 64;
+}
+
 bool CarBusConnection::sendCommand(quint8 cmd, quint16 flags, const QByteArray &payload, bool extendedHeader)
 {
     quint8 seq = nextSeq();
@@ -168,6 +191,98 @@ bool CarBusConnection::sendCommand(quint8 cmd, quint16 flags, const QByteArray &
     sendToSerial(frame);
     return true;
 }
+
+// ============ Filter Management ============
+
+bool CarBusConnection::setCanFilter(int channel, int index, quint32 canId, quint32 mask, bool extended)
+{
+    if (serial == nullptr || !serial->isOpen()) return false;
+    if (!mChannelOpened) return false;
+
+    quint32 filterType = extended ? 0x01 : 0x00;
+
+    QByteArray payload;
+    // index
+    payload.append((char)(index & 0xFF));
+    payload.append((char)((index >> 8) & 0xFF));
+    payload.append((char)((index >> 16) & 0xFF));
+    payload.append((char)((index >> 24) & 0xFF));
+    // filter_type
+    payload.append((char)(filterType & 0xFF));
+    payload.append((char)((filterType >> 8) & 0xFF));
+    payload.append((char)((filterType >> 16) & 0xFF));
+    payload.append((char)((filterType >> 24) & 0xFF));
+    // can_id
+    payload.append((char)(canId & 0xFF));
+    payload.append((char)((canId >> 8) & 0xFF));
+    payload.append((char)((canId >> 16) & 0xFF));
+    payload.append((char)((canId >> 24) & 0xFF));
+    // mask
+    payload.append((char)(mask & 0xFF));
+    payload.append((char)((mask >> 8) & 0xFF));
+    payload.append((char)((mask >> 16) & 0xFF));
+    payload.append((char)((mask >> 24) & 0xFF));
+
+    quint16 headerFlags = (channel & 0x0F) * 0x20;
+    sendCommand(CMD_FILTER_SET, headerFlags, payload, false);
+
+    sendDebug(QString("Filter SET: ch=%1 idx=%2 id=0x%3 mask=0x%4 ext=%5")
+              .arg(channel).arg(index).arg(canId, 0, 16).arg(mask, 0, 16).arg(extended));
+    return true;
+}
+
+bool CarBusConnection::clearCanFilter(int channel, int index)
+{
+    if (serial == nullptr || !serial->isOpen()) return false;
+    if (!mChannelOpened) return false;
+
+    QByteArray payload;
+    payload.append((char)(index & 0xFF));
+    payload.append((char)((index >> 8) & 0xFF));
+    payload.append((char)((index >> 16) & 0xFF));
+    payload.append((char)((index >> 24) & 0xFF));
+
+    quint16 headerFlags = (channel & 0x0F) * 0x20;
+    sendCommand(CMD_FILTER_CLEAR, headerFlags, payload, false);
+
+    sendDebug(QString("Filter CLEAR: ch=%1 idx=%2").arg(channel).arg(index));
+    return true;
+}
+
+bool CarBusConnection::clearAllFilters(int channel)
+{
+    bool ok = true;
+    for (int idx = 0; idx < 64; idx++) {
+        if (!clearCanFilter(channel, idx)) {
+            ok = false;
+            break;
+        }
+    }
+    sendDebug(QString("Cleared all filters on channel %1").arg(channel));
+    return ok;
+}
+
+// ============ Terminator Control ============
+
+bool CarBusConnection::setTerminator(int channel, bool enabled)
+{
+    if (serial == nullptr || !serial->isOpen()) return false;
+    if (!mChannelOpened) return false;
+
+    quint8 state = enabled ? 0x01 : 0x00;
+    QByteArray payload;
+    payload.append((char)state);
+
+    quint16 headerFlags = (channel & 0x0F) * 0x20;
+    headerFlags |= FLAG_CONFIG_TERMINATOR;
+
+    sendCommand(CMD_CHANNEL_CONFIG, headerFlags, payload, false);
+
+    sendDebug(QString("Terminator: ch=%1 enabled=%2").arg(channel).arg(enabled));
+    return true;
+}
+
+// ============ Connection Management ============
 
 void CarBusConnection::piStarted()
 {
@@ -218,7 +333,7 @@ void CarBusConnection::piSetBusSettings(int pBusIdx, CANBus bus)
 
     quint8 frameMode = 0x00; // classic
     if (bus.isCanFD()) {
-        frameMode = bus.isCanFD() ? 0x02 : 0x01; // BRS if data rate set
+        frameMode = 0x02; // CAN-FD with BRS
     }
 
     QByteArray payload;
@@ -259,6 +374,8 @@ void CarBusConnection::piSetBusSettings(int pBusIdx, CANBus bus)
     mChannelConfigured = true;
 }
 
+// ============ CAN Frame TX ============
+
 bool CarBusConnection::piSendFrame(const CANFrame& frame)
 {
     if (serial == nullptr || !serial->isOpen()) return false;
@@ -278,11 +395,15 @@ bool CarBusConnection::piSendFrame(const CANFrame& frame)
         msgFlags |= FLAG_RTR;
     }
 
-    // Start with classic CAN only until TX message framing is validated.
-    if (frame.payload().length() > 8) return false;
+    // CAN-FD support
+    bool isCanFd = (frame.payload().length() > 8);
+    if (isCanFd) {
+        msgFlags |= FLAG_FDF;
+        msgFlags |= FLAG_BRS; // Enable BRS for CAN-FD
+    }
 
     quint32 timestamp = 0;
-    quint32 dlc = frame.payload().length();
+    quint32 dlc = dlcToCanFdDlc(frame.payload().length());
 
     QByteArray payload;
     // MSG_FLAGS
@@ -318,6 +439,8 @@ bool CarBusConnection::piSendFrame(const CANFrame& frame)
 
     return true;
 }
+
+// ============ Device Connection ============
 
 void CarBusConnection::connectDevice()
 {
@@ -418,6 +541,8 @@ void CarBusConnection::handleTick()
         mStateTickCount = 0;
     }
 }
+
+// ============ Serial Data Parsing ============
 
 void CarBusConnection::readSerialData()
 {
@@ -568,6 +693,12 @@ void CarBusConnection::processPacket(quint8 cmd, quint8 seq, quint16 flags, cons
             mChannelOpened = false;
             mConnState = STATE_IDLE;
             mStateTickCount = 0;
+        } else if (baseCmd == CMD_FILTER_SET) {
+            sendDebug("FILTER_SET ACK received");
+        } else if (baseCmd == CMD_FILTER_CLEAR) {
+            sendDebug("FILTER_CLEAR ACK received");
+        } else if (baseCmd == CMD_CHANNEL_CONFIG) {
+            sendDebug("CHANNEL_CONFIG ACK received");
         }
         return;
     }
@@ -599,6 +730,8 @@ void CarBusConnection::processPacket(quint8 cmd, quint8 seq, quint16 flags, cons
     }
 }
 
+// ============ Device Info Parsing ============
+
 void CarBusConnection::processDeviceInfo(const QByteArray &payload)
 {
     sendDebug("DEVICE_INFO received, size=" + QString::number(payload.size()));
@@ -618,6 +751,10 @@ void CarBusConnection::processDeviceInfo(const QByteArray &payload)
         words.append(word);
     }
 
+    // Temporary storage for multiword data
+    QVector<quint32> firmwareData;
+    QVector<quint32> serialData;
+
     int i = 0;
     while (i < numWords) {
         quint32 header = words[i++];
@@ -633,7 +770,35 @@ void CarBusConnection::processDeviceInfo(const QByteArray &payload)
 
         if (paramCode == DI_HW_ID) {
             mHwId = header & 0xFF;
-            sendDebug("HW ID: 0x" + QString::number(mHwId, 16));
+            mHardwareName = hwIdNames.value(mHwId, "0x" + QString::number(mHwId, 16));
+            sendDebug("HW ID: 0x" + QString::number(mHwId, 16) + " (" + mHardwareName + ")");
+        } else if (paramCode == DI_FIRMWARE) {
+            firmwareData = data;
+            // Parse firmware version string
+            QByteArray firmwareBytes;
+            for (quint32 word : firmwareData) {
+                firmwareBytes.append((char)(word & 0xFF));
+                firmwareBytes.append((char)((word >> 8) & 0xFF));
+                firmwareBytes.append((char)((word >> 16) & 0xFF));
+                firmwareBytes.append((char)((word >> 24) & 0xFF));
+            }
+            // Trim at null terminator
+            int nullIdx = firmwareBytes.indexOf('\0');
+            if (nullIdx >= 0) firmwareBytes.truncate(nullIdx);
+            mFirmwareVersion = QString::fromLatin1(firmwareBytes);
+            sendDebug("Firmware: " + mFirmwareVersion);
+        } else if (paramCode == DI_SERIAL) {
+            serialData = data;
+            // Parse serial number
+            QByteArray serialBytes;
+            for (quint32 word : serialData) {
+                serialBytes.append((char)(word & 0xFF));
+                serialBytes.append((char)((word >> 8) & 0xFF));
+                serialBytes.append((char)((word >> 16) & 0xFF));
+                serialBytes.append((char)((word >> 24) & 0xFF));
+            }
+            mSerialNumber = serialBytes.toHex().toUpper();
+            sendDebug("Serial: " + mSerialNumber);
         } else if (paramCode == DI_CHANNEL_MAP) {
             // Parse channel types
             quint8 b0 = header & 0xFF;
@@ -644,9 +809,22 @@ void CarBusConnection::processDeviceInfo(const QByteArray &payload)
             if (b1 == 0x01 || b1 == 0x02) mNumHwBuses++;
             if (b2 == 0x01 || b2 == 0x02) mNumHwBuses++;
             sendDebug("Number of CAN buses: " + QString::number(mNumHwBuses));
+            sendDebug("Channel types: " + channelTypeMap.value(b0, "?") + ", " +
+                      channelTypeMap.value(b1, "?") + ", " + channelTypeMap.value(b2, "?"));
         } else if (paramCode == DI_FEATURES) {
             quint32 features = header & 0x00FFFFFF;
             sendDebug("Features: 0x" + QString::number(features, 16));
+            if (features & 0x01) sendDebug("  - Gateway supported");
+            if (features & 0x02) sendDebug("  - ISO-TP supported");
+            if (features & 0x04) sendDebug("  - TX Buffer supported");
+            if (features & 0x08) sendDebug("  - TX Task supported");
+        } else if (paramCode == DI_CHANNEL_FEATURES) {
+            quint8 ch = (header >> 16) & 0xFF;
+            quint32 chFeatures = header & 0x0000FFFF;
+            if (chFeatures & DI_CHANNEL_FEATURE_TERMINATOR) {
+                mTerminatorSupported = true;
+                sendDebug("Channel " + QString::number(ch) + " has terminator support");
+            }
         }
     }
 
@@ -661,14 +839,16 @@ void CarBusConnection::processDeviceInfo(const QByteArray &payload)
         mStateTickCount = 0;
         sendDebug("Sending DEVICE_OPEN...");
         quint32 mode = 0x01000000 | 0x01; // CAN only mode
-        QByteArray payload;
-        payload.append((char)(mode & 0xFF));
-        payload.append((char)((mode >> 8) & 0xFF));
-        payload.append((char)((mode >> 16) & 0xFF));
-        payload.append((char)((mode >> 24) & 0xFF));
-        sendCommand(CMD_DEVICE_OPEN, 0, payload, false);
+        QByteArray openPayload;
+        openPayload.append((char)(mode & 0xFF));
+        openPayload.append((char)((mode >> 8) & 0xFF));
+        openPayload.append((char)((mode >> 16) & 0xFF));
+        openPayload.append((char)((mode >> 24) & 0xFF));
+        sendCommand(CMD_DEVICE_OPEN, 0, openPayload, false);
     }
 }
+
+// ============ CAN Frame RX ============
 
 void CarBusConnection::processCanMessage(quint16 flags, const QByteArray &payload)
 {
@@ -707,7 +887,13 @@ void CarBusConnection::processCanMessage(quint16 flags, const QByteArray &payloa
         return;
     }
 
-    QByteArray data = payload.mid(20, dlc);
+    // Convert DLC to actual length for CAN-FD
+    int dataLen = canFdDlcToLength(dlc);
+    if (dataLen > (payload.size() - 20)) {
+        dataLen = payload.size() - 20;
+    }
+
+    QByteArray data = payload.mid(20, dataLen);
 
     // Determine channel
     int bus = 0;
@@ -724,9 +910,8 @@ void CarBusConnection::processCanMessage(quint16 flags, const QByteArray &payloa
     frame.bus = bus;
     frame.isReceived = (msgFlags & FLAG_RX) ? true : false;
 
-    // Note: CANFrame (Qt5 QCanBusFrame) doesn't have setCanFD() method
-    // CAN-FD is determined by payload length > 8 or FDF flag in protocol
-    // The payload size is already set above via setPayload()
+    // CAN-FD detection
+    bool isCanFd = (msgFlags & FLAG_FDF) || (dataLen > 8);
 
     if (msgFlags & FLAG_RTR) {
         frame.setFrameType(QCanBusFrame::RemoteRequestFrame);
@@ -741,11 +926,12 @@ void CarBusConnection::processCanMessage(quint16 flags, const QByteArray &payloa
         frame.setTimeStamp(QCanBusFrame::TimeStamp(0, timestamp));
     }
 
-    sendDebug(QString("CAN RX bus=%1 id=0x%2 len=%3 flags=0x%4 data=%5")
+    sendDebug(QString("CAN RX bus=%1 id=0x%2 len=%3 flags=0x%4 fd=%5 data=%6")
               .arg(bus)
               .arg(canId, 0, 16)
-              .arg(dlc)
+              .arg(dataLen)
               .arg(msgFlags, 0, 16)
+              .arg(isCanFd ? "yes" : "no")
               .arg(QString(data.toHex(' '))));
 
     if (!isCapSuspended()) {

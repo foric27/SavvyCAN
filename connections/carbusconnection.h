@@ -20,6 +20,21 @@ enum ConnState {
     STATE_CONNECTED
 };
 
+// Device info param codes
+static const quint32 DI_HW_ID = 0x01000000;
+static const quint32 DI_FIRMWARE = 0x02000000;
+static const quint32 DI_SERIAL = 0x03000000;
+static const quint32 DI_FEATURES = 0x11000000;
+static const quint32 DI_CHANNEL_MAP = 0x12000000;
+static const quint32 DI_CHANNEL_FEATURES = 0x13000000;
+static const quint32 CC_MULTIWORD = 0x80000000;
+
+// Channel features
+static const quint32 DI_CHANNEL_FEATURE_TERMINATOR = 0x00000002;
+
+// Terminator config
+static const quint8 FLAG_CONFIG_TERMINATOR = 0x05;
+
 class CarBusConnection : public CANConnection
 {
     Q_OBJECT
@@ -27,6 +42,20 @@ class CarBusConnection : public CANConnection
 public:
     CarBusConnection(QString portName, int serialSpeed, int busSpeed, bool canFd, int dataRate);
     virtual ~CarBusConnection();
+
+    // Filter management
+    bool setCanFilter(int channel, int index, quint32 canId, quint32 mask, bool extended);
+    bool clearCanFilter(int channel, int index);
+    bool clearAllFilters(int channel);
+
+    // Terminator control
+    bool setTerminator(int channel, bool enabled);
+
+    // Device info
+    QString getFirmwareVersion() const { return mFirmwareVersion; }
+    QString getSerialNumber() const { return mSerialNumber; }
+    QString getHardwareName() const { return mHardwareName; }
+    bool isTerminatorSupported() const { return mTerminatorSupported; }
 
 protected:
     virtual void piStarted();
@@ -59,6 +88,8 @@ private:
     void processDeviceInfo(const QByteArray &payload);
     quint8 nextSeq();
     bool bitrateToIndex(int bitrate, bool dataRate, quint8 &index);
+    quint32 dlcToCanFdDlc(int len);
+    int canFdDlcToLength(quint32 dlc);
 
     QSerialPort *serial;
     QTimer mTimer;
@@ -82,6 +113,10 @@ private:
     int mHwId;
     int mNumHwBuses;
     bool mCanFdSupported;
+    QString mFirmwareVersion;
+    QString mSerialNumber;
+    QString mHardwareName;
+    bool mTerminatorSupported;
 };
 
 #endif // CARBUSCONNECTION_H
