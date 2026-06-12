@@ -50,3 +50,10 @@ SavvyCAN.pro.qtds
 .xcode
 SavvyCAN.xcodeproj
 .vscode
+
+# Mimocode agent files
+.mimocode/
+
+# Temporary files
+*.log
+aqtinstall.log

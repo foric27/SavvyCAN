@@ -22,3 +22,8 @@ $schema: not-applicable
 - `SavvyCAN.pro` currently includes `CONFIG += NO_UNIT_TESTS`; test coverage is not part of the default app build, so app-build success does not validate `test/test.pro`.
 - The test qmake file is stale in places (`../canbus.cpp`, `../canbus.h`, `../connections/socketcan.cpp`) compared with current tree layout, so do not assume tests build without adjustment.
 - Shell helper scripts under `scripts/` are simple manual helpers for translations; `scripts/README.md` expects executable bits (`chmod +x`) before running them on Unix-like systems.
+- Connection types are defined in `connections/canconconst.h` (`CANCon::type` enum: GVRET_SERIAL, KVASER, SERIALBUS, REMOTE, KAYAK, MQTT, LAWICEL, CANSERVER, CANLOGSERVER, CARBUS_HACKER). Adding a new adapter requires updating the enum, the factory (`canconfactory.cpp`), and the dialog (`newconnectiondialog.cpp`).
+- DBC class hierarchy is in `dbc/dbc_classes.h`: `DBC_NODE` → `DBC_MESSAGE` → `DBC_SIGNAL` (with multiplexing support). `DBCHandler` owns the parser and tree; `DBCSignalHandler` (nested in `DBC_MESSAGE`) manages signals per message.
+- Core data structures live in `can_structs.h` (`CANFrame`, `CANBus`). The main window owns the `CANFrameModel` and `DBCHandler` singletons accessed via `MainWindow::getReference()`.
+- UI forms are in `ui/*.ui`; each has a matching `*Window` class in the parent directory. Qt Designer edits go in `ui/`, not inline C++.
+- QCustomPlot and qmqtt are vendored directly into the repo tree; do not add system-level copies.
