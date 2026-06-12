@@ -15,10 +15,10 @@ jobs:
             sudo apt-get install libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xinerama0 libxcb-randr0 libxkbcommon-x11-0 libfuse2
 
       - name: Prepare Qt Libraries
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
 
       - name: Clone
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Compile
         run: |
@@ -44,10 +44,10 @@ jobs:
 
     steps:      
       - name: Prepare Qt Libraries
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
 
       - name: Clone
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
       - name: Generate translations
         shell: pwsh
@@ -104,20 +104,21 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: actions/download-artifact@v4.1.7
+      - uses: actions/download-artifact@v4
 
       - name: Display structure of downloaded files
         run: zip -r SavvyCAN-Windows_x64_CIBuild.zip SavvyCAN-Windows_x64
-      - uses: "marvinpinto/action-automatic-releases@latest"
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "continuous"
+          tag_name: "continuous"
+          name: "Development Build"
           prerelease: true
-          title: "Development Build"
           files: |
             SavvyCAN-Linux_x64.AppImage/SavvyCAN-*x86_64.AppImage
             SavvyCAN-Windows_x64_CIBuild.zip
-
-
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

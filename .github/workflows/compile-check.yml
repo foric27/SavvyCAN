@@ -1,0 +1,34 @@
+name: "Compile Check"
+
+on:
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  compile:
+    name: Verify compilation
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Prepare Environment
+        run: |
+            sudo apt-get update
+            sudo apt-get install -y \
+              build-essential \
+              qtbase5-dev \
+              qtserialbus5-dev \
+              qtserialport5-dev \
+              qtdeclarative5-dev \
+              qttools5-dev \
+              libqt5opengl5-dev
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Compile
+        run: |
+          qmake CONFIG+=release SavvyCAN.pro
+          make -j$(nproc)
+
+      - name: Generate translations
+        run: lrelease translations/*.ts
