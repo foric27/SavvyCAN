@@ -16,6 +16,8 @@ jobs:
 
       - name: Prepare Qt Libraries
         uses: jurplel/install-qt-action@v4
+        with:
+          version: '5.15.2'
 
       - name: Clone
         uses: actions/checkout@v4
@@ -45,6 +47,8 @@ jobs:
     steps:      
       - name: Prepare Qt Libraries
         uses: jurplel/install-qt-action@v4
+        with:
+          version: '5.15.2'
 
       - name: Clone
         uses: actions/checkout@v4
