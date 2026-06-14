@@ -78,22 +78,22 @@ jobs:
           copy help/images/*.* package/help/images/
           mkdir package/examples
           copy examples/*.* package/examples/          
-          copy "${Env:Qt5_Dir}/bin/Qt5Core.dll" package/
-          copy "${Env:Qt5_Dir}/bin/Qt5Gui.dll" package/
-          copy "${Env:Qt5_Dir}/bin/Qt5Network.dll" package/
-          copy "${Env:Qt5_Dir}/bin/Qt5PrintSupport.dll" package/
-          copy "${Env:Qt5_Dir}/bin/Qt5Qml.dll" package/
-          copy "${Env:Qt5_Dir}/bin/Qt5SerialBus.dll" package/
-          copy "${Env:Qt5_Dir}/bin/Qt5SerialPort.dll" package/
-          copy "${Env:Qt5_Dir}/bin/Qt5Widgets.dll" package/
+          copy "${Env:QT_ROOT_DIR}/bin/Qt5Core.dll" package/
+          copy "${Env:QT_ROOT_DIR}/bin/Qt5Gui.dll" package/
+          copy "${Env:QT_ROOT_DIR}/bin/Qt5Network.dll" package/
+          copy "${Env:QT_ROOT_DIR}/bin/Qt5PrintSupport.dll" package/
+          copy "${Env:QT_ROOT_DIR}/bin/Qt5Qml.dll" package/
+          copy "${Env:QT_ROOT_DIR}/bin/Qt5SerialBus.dll" package/
+          copy "${Env:QT_ROOT_DIR}/bin/Qt5SerialPort.dll" package/
+          copy "${Env:QT_ROOT_DIR}/bin/Qt5Widgets.dll" package/
           mkdir package/imageformats
-          copy "${Env:Qt5_Dir}/plugins/imageformats/*.*" package/imageformats/
+          copy "${Env:QT_ROOT_DIR}/plugins/imageformats/*.*" package/imageformats/
           mkdir package/platforms
-          copy "${Env:Qt5_Dir}/plugins/platforms/*.*" package/platforms/
+          copy "${Env:QT_ROOT_DIR}/plugins/platforms/*.*" package/platforms/
           mkdir package/styles
-          copy "${Env:Qt5_Dir}/plugins/styles/*.*" package/styles/
+          copy "${Env:QT_ROOT_DIR}/plugins/styles/*.*" package/styles/
           mkdir package/canbus
-          copy "${Env:Qt5_Dir}/plugins/canbus/*.*" package/canbus/
+          copy "${Env:QT_ROOT_DIR}/plugins/canbus/*.*" package/canbus/
 
       - uses: actions/upload-artifact@v4
         with:
