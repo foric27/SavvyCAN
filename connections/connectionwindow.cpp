@@ -67,7 +67,7 @@ ConnectionWindow::ConnectionWindow(QWidget *parent) :
     // Terminator checkbox (added programmatically)
     ckTerminator = new QCheckBox(tr("Enable 120\u03A9 Terminator"), this);
     ckTerminator->setVisible(false);
-    ui->verticalLayoutBusDetails->addWidget(ckTerminator);
+    ui->qhBox20->addWidget(ckTerminator);
 
     ui->cbBusSpeed->addItem("33333");
     ui->cbBusSpeed->addItem("50000");

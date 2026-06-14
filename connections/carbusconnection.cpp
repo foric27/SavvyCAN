@@ -82,7 +82,7 @@ CarBusConnection::CarBusConnection(QString portName, int serialSpeed, int busSpe
     mNumHwBuses(1),
     mCanFdSupported(false),
     mTerminatorSupported(false),
-    mConnState(STATE_IDLE),
+    mConnState(CARBUS_STATE_IDLE),
     mStateTickCount(0)
 {
     sendDebug("CarBusConnection()");
@@ -469,7 +469,7 @@ void CarBusConnection::connectDevice()
     }
 
     sendDebug("Serial port opened, sending SYNC...");
-    mConnState = STATE_WAIT_SYNC;
+    mConnState = CARBUS_STATE_WAIT_SYNC;
     mStateTickCount = 0;
 
     // Send SYNC sequence
@@ -488,7 +488,7 @@ void CarBusConnection::connectDevice()
 void CarBusConnection::disconnectDevice()
 {
     mTimer.stop();
-    mConnState = STATE_IDLE;
+    mConnState = CARBUS_STATE_IDLE;
     mChannelConfigured = false;
 
     if (mDeviceOpened) {
@@ -530,7 +530,7 @@ void CarBusConnection::connectionTimeout()
 void CarBusConnection::handleTick()
 {
     // State machine timeout handling
-    if (mConnState != STATE_IDLE && mConnState != STATE_CONNECTED) {
+    if (mConnState != CARBUS_STATE_IDLE && mConnState != CARBUS_STATE_CONNECTED) {
         mStateTickCount++;
         if (mStateTickCount >= 5) {
             sendDebug(QString("State timeout in state %1, retrying connection...").arg(mConnState));
@@ -602,8 +602,8 @@ void CarBusConnection::parseReceivedData()
             sendDebug("SYNC response received");
             mRxBuffer.remove(0, 4);
             // After SYNC, request device info
-            if (mConnState == STATE_WAIT_SYNC) {
-                mConnState = STATE_WAIT_DEVICE_INFO;
+            if (mConnState == CARBUS_STATE_WAIT_SYNC) {
+                mConnState = CARBUS_STATE_WAIT_DEVICE_INFO;
                 mStateTickCount = 0;
                 sendDebug("Requesting DEVICE_INFO...");
                 sendCommand(CMD_DEVICE_INFO, 0, QByteArray(), false);
@@ -663,8 +663,8 @@ void CarBusConnection::processPacket(quint8 cmd, quint8 seq, quint16 flags, cons
             mDeviceOpened = true;
             sendDebug("DEVICE_OPEN ACK received");
             // After DEVICE_OPEN ACK, send CHANNEL_OPEN
-            if (mConnState == STATE_WAIT_DEVICE_OPEN) {
-                mConnState = STATE_WAIT_CHANNEL_OPEN;
+            if (mConnState == CARBUS_STATE_WAIT_DEVICE_OPEN) {
+                mConnState = CARBUS_STATE_WAIT_CHANNEL_OPEN;
                 mStateTickCount = 0;
                 sendDebug("Sending CHANNEL_OPEN...");
                 CANBus bus;
@@ -682,7 +682,7 @@ void CarBusConnection::processPacket(quint8 cmd, quint8 seq, quint16 flags, cons
             }
         } else if (baseCmd == CMD_CHANNEL_OPEN) {
             mChannelOpened = true;
-            mConnState = STATE_CONNECTED;
+            mConnState = CARBUS_STATE_CONNECTED;
             mStateTickCount = 0;
             setStatus(CANCon::CONNECTED);
             CANConStatus stats;
@@ -693,7 +693,7 @@ void CarBusConnection::processPacket(quint8 cmd, quint8 seq, quint16 flags, cons
         } else if (baseCmd == CMD_DEVICE_CLOSE) {
             mDeviceOpened = false;
             mChannelOpened = false;
-            mConnState = STATE_IDLE;
+            mConnState = CARBUS_STATE_IDLE;
             mStateTickCount = 0;
         } else if (baseCmd == CMD_FILTER_SET) {
             sendDebug("FILTER_SET ACK received");
@@ -839,8 +839,8 @@ void CarBusConnection::processDeviceInfo(const QByteArray &payload)
     }
 
     // After DEVICE_INFO, send DEVICE_OPEN
-    if (mConnState == STATE_WAIT_DEVICE_INFO) {
-        mConnState = STATE_WAIT_DEVICE_OPEN;
+    if (mConnState == CARBUS_STATE_WAIT_DEVICE_INFO) {
+        mConnState = CARBUS_STATE_WAIT_DEVICE_OPEN;
         mStateTickCount = 0;
         sendDebug("Sending DEVICE_OPEN...");
         quint32 mode = 0x01000000 | 0x01; // CAN only mode
