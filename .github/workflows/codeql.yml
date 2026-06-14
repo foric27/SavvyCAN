@@ -23,20 +23,16 @@ jobs:
         language: [ 'cpp' ]
 
     steps:
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        version: '5.15.2'
+
+    - name: Install compiler
+      run: sudo apt-get update && sudo apt-get install -y build-essential
+
     - name: Checkout repository
       uses: actions/checkout@v4
-
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y \
-          build-essential \
-          qtbase5-dev \
-          qtserialbus5-dev \
-          qtserialport5-dev \
-          qtdeclarative5-dev \
-          qttools5-dev \
-          libqt5opengl5-dev
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
